@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Carousel } from 'antd';
 import styled from 'styled-components';
-import { Navigate, useNavigate } from 'react-router-dom';
-import LoginPage from './LoginPage';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 const FirstPage = () => {
   let navigate = useNavigate();
+  const { user } = useAppSelector((state) => state);
+
+  useEffect(() => {
+    if (user.data) {
+      navigate('/dashboard');
+    }
+  }, []);
   return (
     <Container>
       <Carousel autoplay>
@@ -28,7 +35,7 @@ const FirstPage = () => {
         className="self-center mt-10"
         onClick={() => navigate('/login')}
       >
-        Начать
+        Start
       </Button>
     </Container>
   );
