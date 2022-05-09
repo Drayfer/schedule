@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../../assets/images/logo.png';
 import * as Yup from 'yup';
+import { PopupError } from '../helpers/PopupError';
 
 type Props = {};
 
@@ -40,8 +41,8 @@ const PasswordPage = (props: Props) => {
         password: values.password
       });
       setIsComplete(true);
-    } catch (e) {
-      console.dir(e);
+    } catch (err) {
+      PopupError(err);
     } finally {
       setLoading(false);
     }

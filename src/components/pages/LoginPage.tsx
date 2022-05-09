@@ -6,16 +6,15 @@ import Logo from '../../assets/images/logo.png';
 import * as Yup from 'yup';
 import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import {
-  AxiosErrorMessage,
-  fetchUsers,
-  registration
-} from '../../store/reducers/UserActions';
+import { fetchUsers } from '../../store/reducers/UserActions';
 import { reset } from '../../store/reducers/UserSlice';
 import emailjs from '@emailjs/browser';
 import axios from 'axios';
 import { IUser } from '../../models/IUser';
 import { useNavigate } from 'react-router-dom';
+import { PopupError } from '../helpers/PopupError';
+import { AxiosErr } from '../../types/types';
+
 const FormSchema = Yup.object().shape({
   email: Yup.string().email('Enter valid email').required('Required field'),
   password: Yup.string().min(3, 'Too short password').required('Required field')
@@ -37,6 +36,11 @@ const LoginPage = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    dispatch(reset());
+    // eslint-disable-next-line
+  }, []);
+
   const sendForgotPassword = async (
     token: string,
     name: string,
@@ -46,7 +50,7 @@ const LoginPage = () => {
       link: `${window.location.origin}/password/${token}`,
       reply_to: email,
       to_name: name,
-      from_name: 'Shedule App'
+      from_name: 'Schedule App'
     };
     await emailjs.send(
       'service_iwc765c',
@@ -67,17 +71,18 @@ const LoginPage = () => {
       ${window.location.origin}/activate/${token}`,
       reply_to: email,
       to_name: name,
-      from_name: 'Shedule App',
+      from_name: 'Schedule App',
       password: password
     };
     emailjs
       .send('service_iwc765c', 'template_7l1ybxv', message, 'TxI221uSyQgO0EGEB')
       .then(
         () => {
+          console.log(333);
           setIsSuccessRegistration(true);
-          // dispatch(reset());
         },
         (error) => {
+          console.log(error);
           throw new Error(error.text);
         }
       );
@@ -105,10 +110,9 @@ const LoginPage = () => {
         );
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
-          setErrorFormMessage(
-            (err.response?.data as AxiosErrorMessage).message
-          );
+          setErrorFormMessage((err.response?.data as AxiosErr).message);
         }
+        PopupError(err);
       } finally {
         setLoading(false);
       }
@@ -129,8 +133,9 @@ const LoginPage = () => {
           setShowMessage(true);
           formRef.current?.resetForm();
         }
-      } catch (e) {
+      } catch (err) {
         setErrorFormMessage('This email was not found');
+        PopupError(err);
       } finally {
         setLoading(false);
       }
@@ -140,8 +145,7 @@ const LoginPage = () => {
     const response = await dispatch(
       fetchUsers({ email: values.email, password: values.password })
     );
-    if (response.hasOwnProperty('error'))
-      setErrorFormMessage('Не удалось найти пользователя');
+    if (response.hasOwnProperty('error')) setErrorFormMessage('User not found');
     setLoading(false);
   };
 
@@ -150,9 +154,13 @@ const LoginPage = () => {
       setErrorFormMessage(user.error);
       return;
     }
-    if (user.error === '' && user.data) {
+    if (user.data && !user.data?.activate) {
+      setErrorFormMessage('User not activated by email');
+    }
+    if (user.error === '' && user.data && user.data.activate) {
       navigate('/dashboard');
     }
+    // eslint-disable-next-line
   }, [user]);
 
   if (isSuccessRegistration) {
@@ -164,8 +172,8 @@ const LoginPage = () => {
               Registration completed successfully!
             </p>
             <p className="text-center mb-8">
-              {formRef.current?.values.name}, check your email and follow the
-              instructions to activate your account.
+              {formRef.current?.values.name || user.data?.name}, check your
+              email and follow the instructions to activate your account.
             </p>
             <Button
               type="primary"
@@ -174,6 +182,7 @@ const LoginPage = () => {
               onClick={() => {
                 setIsRegistration(false);
                 setIsSuccessRegistration(false);
+                dispatch(reset());
               }}
             >
               Ok
@@ -252,10 +261,11 @@ const LoginPage = () => {
                       className="text-gray-500/70 font-normal text-xs hover:text-blue-400 cursor-pointer"
                       onClick={() => {
                         setIsForgotPassword(true);
+                        setErrorFormMessage('');
                         window.history.replaceState(
                           null,
-                          'Reset password - Shedule App',
-                          '/reset'
+                          'Reset password - Schedule App',
+                          '/'
                         );
                       }}
                     >
@@ -289,6 +299,22 @@ const LoginPage = () => {
         {errorFormMessage && (
           <p className="text-red-600 text-sm mt-2">{errorFormMessage}</p>
         )}
+        {errorFormMessage === 'User not activated by email' && (
+          <Button
+            type="link"
+            onClick={() => {
+              sendEmailRefistration(
+                user.data?.token || '',
+                user.data?.email || '',
+                user.data?.name || '',
+                formRef.current?.values.password || ''
+              );
+              setErrorFormMessage('');
+            }}
+          >
+            Resent activation link
+          </Button>
+        )}
         {showMessage && isForgotPassword && (
           <p className="text-green-600 text-sm mt-2 w-3/4 text-center">
             Check your email and follow the instructions to reset your password.
@@ -300,11 +326,7 @@ const LoginPage = () => {
             onClick={() => {
               setIsRegistration(false);
               setIsForgotPassword(false);
-              window.history.replaceState(
-                null,
-                'Log in - Shedule App',
-                '/login'
-              );
+              window.history.replaceState(null, 'Log in - Schedule App', '/');
             }}
           >
             Go back
@@ -322,8 +344,8 @@ const LoginPage = () => {
                 setIsForgotPassword(false);
                 window.history.replaceState(
                   null,
-                  'Sign up - Shedule App',
-                  '/registration'
+                  'Sign up - Schedule App',
+                  '/'
                 );
               }}
             >

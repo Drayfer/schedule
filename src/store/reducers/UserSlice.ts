@@ -1,6 +1,6 @@
 import { IUser } from '../../models/IUser';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchUsers, registration } from './UserActions';
+import { fetchUsers } from './UserActions';
 
 interface UserState {
   data: IUser | null;
@@ -34,20 +34,20 @@ export const userSlice = createSlice({
     },
     [fetchUsers.rejected.type]: (state, action: PayloadAction<string>) => {
       return { ...initialState, error: action.payload };
-    },
-
-    [registration.rejected.type]: (_, action: PayloadAction<string>) => {
-      return { ...initialState, error: action.payload };
-    },
-    [registration.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
-      state.isLoading = false;
-      state.error = '';
-      state.data = action.payload;
-    },
-    [registration.pending.type]: (state) => {
-      state.isLoading = true;
-      state.error = '';
     }
+
+    // [registration.rejected.type]: (_, action: PayloadAction<string>) => {
+    //   return { ...initialState, error: action.payload };
+    // },
+    // [registration.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
+    //   state.isLoading = false;
+    //   state.error = '';
+    //   state.data = action.payload;
+    // },
+    // [registration.pending.type]: (state) => {
+    //   state.isLoading = true;
+    //   state.error = '';
+    // }
   }
 });
 
