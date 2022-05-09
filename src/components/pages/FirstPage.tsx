@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Carousel } from 'antd';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppSelector } from '../../hooks/redux';
 
 const FirstPage = () => {
   let navigate = useNavigate();
@@ -12,6 +12,7 @@ const FirstPage = () => {
     if (user.data) {
       navigate('/dashboard');
     }
+    // eslint-disable-next-line
   }, []);
   return (
     <Container>
@@ -56,5 +57,4 @@ const Container = styled.div`
   background: #364d79;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 `;

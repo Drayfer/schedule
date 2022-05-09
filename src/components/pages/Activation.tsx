@@ -2,11 +2,7 @@ import { Button, Spin } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-// export interface AxiosErrorMessage {
-//   message: string;
-//   statusCode: string;
-// }
+import { PopupError } from '../helpers/PopupError';
 
 const Activation = () => {
   const { id } = useParams();
@@ -21,18 +17,18 @@ const Activation = () => {
       );
       setLoading(false);
       return data;
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      PopupError(err);
     }
   };
-  console.log('dsdsdsd', isActivated);
+
   useEffect(() => {
     if (id) {
       checkToken(id).then((result) => result?.activate && setIsActivated(true));
     }
+    // eslint-disable-next-line
   }, []);
 
-  // return <p>{isActivated ? 'Активировано' : 'Что-то пошло не так'}</p>;
   return (
     <div className="w-screen h-screen flex justify-center items-center flex-col">
       {loading ? (
