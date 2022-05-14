@@ -30,7 +30,10 @@ import {
   getLessons,
   updateLesson
 } from '../../store/reducers/LessonActions';
-import { fetchStudents } from '../../store/reducers/StudentActions';
+import {
+  fetchStudents,
+  updateStudent
+} from '../../store/reducers/StudentActions';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import AddLesson, { LittleRound } from './AddLesson';
 
@@ -197,13 +200,27 @@ const Schedule = () => {
                           <Switch
                             size="small"
                             checked={item.complete}
-                            onChange={() => {
-                              dispatch(
-                                updateLesson({
-                                  id: item.id,
-                                  complete: !item.complete
-                                })
-                              );
+                            onChange={async () => {
+                              try {
+                                await isErrorDispatch(
+                                  dispatch(
+                                    updateLesson({
+                                      id: item.id,
+                                      complete: !item.complete
+                                    })
+                                  )
+                                );
+                                await isErrorDispatch(
+                                  dispatch(
+                                    updateStudent({
+                                      studentId: item.studentId,
+                                      balance: item.complete ? 1 : -1
+                                    })
+                                  )
+                                );
+                              } catch (err) {
+                                PopupError(err);
+                              }
                             }}
                           />
                           <Popconfirm

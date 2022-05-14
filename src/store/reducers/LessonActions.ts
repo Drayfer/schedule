@@ -90,3 +90,18 @@ export const updateLesson = createAsyncThunk(
     }
   }
 );
+
+export const deleteSomeLesson = createAsyncThunk(
+  'lesson/deleteSome/:studentId',
+  async (payload: { studentId: number }, thunkAPI) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/lesson/deleteSome/${payload.studentId}`,
+        getTokenHeader()
+      );
+      return payload.studentId;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
