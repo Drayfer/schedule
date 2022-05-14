@@ -1,3 +1,4 @@
+import lessonsSlice from './reducers/LessonSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import UserReducer from './reducers/UserSlice';
 import { persistReducer } from 'redux-persist';
@@ -14,7 +15,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: UserReducer,
   options: OptionsSlice,
-  student: StudentSlice
+  student: StudentSlice,
+  lessons: lessonsSlice
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
