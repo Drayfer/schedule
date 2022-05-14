@@ -259,7 +259,7 @@ const Students = (props: Props) => {
 
 export default Students;
 
-const Round = styled.div<{ color: string }>`
+export const Round = styled.div<{ color: string }>`
   width: 20px;
   height: 20px;
   background-color: ${(props) => props.color};

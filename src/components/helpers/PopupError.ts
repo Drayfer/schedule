@@ -13,6 +13,11 @@ export const PopupError = (err: any) => {
       message: 'Error',
       description: err
     });
+  } else if (err instanceof Error && typeof err.message === 'string') {
+    return notification[`error`]({
+      message: 'Error',
+      description: err.message
+    });
   } else if (typeof err === 'object' && err instanceof Error) {
     if (
       JSON.parse(err.message).message &&
