@@ -1,6 +1,7 @@
 import {
   createLesson,
   deleteLesson,
+  deleteSomeLesson,
   getLessons,
   updateLesson
 } from './LessonActions';
@@ -59,6 +60,15 @@ export const lessonSlice = createSlice({
           item.id === action.payload.id ? (item = action.payload) : item
         )
         .sort((a, b) => moment(a.date).unix() - moment(b.date).unix());
+    },
+
+    [deleteSomeLesson.fulfilled.type]: (
+      state,
+      action: PayloadAction<{ studentId: number }>
+    ) => {
+      state.data = state.data.filter(
+        (lesson) => lesson.id !== action.payload.studentId
+      );
     }
   }
 });

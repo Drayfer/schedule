@@ -29,6 +29,7 @@ import moment from 'moment';
 import AddStudentForm from './AddStudentForm';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import InfoButton from './InfoButton';
+import { deleteSomeLesson } from '../../store/reducers/LessonActions';
 
 type Props = {};
 
@@ -85,7 +86,7 @@ const Students = (props: Props) => {
                       dispatch(
                         updateStudent({
                           studentId: record.id,
-                          balance: record.balance - 1
+                          balance: -1
                         })
                       )
                     }
@@ -108,7 +109,7 @@ const Students = (props: Props) => {
                       dispatch(
                         updateStudent({
                           studentId: record.id,
-                          balance: record.balance + 1
+                          balance: 1
                         })
                       )
                     }
@@ -150,14 +151,23 @@ const Students = (props: Props) => {
         return (
           <>
             <Popconfirm
-              title="Are you sure to delete this student?"
+              title="Are you sure to delete this student? All scheduled lessons in the timetable will be deleted."
               icon={<CloseCircleFilled style={{ color: 'red' }} />}
               onConfirm={async () => {
                 try {
                   await isErrorDispatch(
                     dispatch(deleteStudent({ id: record.id }))
                   );
-                  message.success('Student deleted successfully.');
+                  await isErrorDispatch(
+                    dispatch(
+                      deleteSomeLesson({
+                        studentId: record.id
+                      })
+                    )
+                  );
+                  message.success(
+                    'Student deleted successfully. All scheduled lessons deleted successfully.'
+                  );
                 } catch (err) {
                   PopupError(err);
                 }
@@ -177,7 +187,7 @@ const Students = (props: Props) => {
             </Popconfirm>
 
             <Popconfirm
-              title="Are you sure to send this student to rest?"
+              title="Are you sure to send this student to rest? All scheduled lessons in the timetable will be deleted."
               onConfirm={async () => {
                 try {
                   await isErrorDispatch(
@@ -188,7 +198,20 @@ const Students = (props: Props) => {
                       })
                     )
                   );
-                  message.info(`Student is ${isActive ? 'hidden' : 'active'}.`);
+                  if (isActive) {
+                    await isErrorDispatch(
+                      dispatch(
+                        deleteSomeLesson({
+                          studentId: record.id
+                        })
+                      )
+                    );
+                  }
+                  message.info(
+                    `Student is ${
+                      isActive ? 'hidden' : 'active'
+                    }. All scheduled lessons deleted successfully.`
+                  );
                 } catch (err) {
                   PopupError(err);
                 }

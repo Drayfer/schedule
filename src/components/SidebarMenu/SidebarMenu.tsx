@@ -34,16 +34,16 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem('Schedule', 'schedule', <PieChartOutlined />),
-  getItem('Students', 'students', <DesktopOutlined />),
-  getItem('Statistics', 'statistics', <DesktopOutlined />),
+  getItem('Students', 'students', <DesktopOutlined />)
+  // getItem('Statistics', 'statistics', <DesktopOutlined />),
 
-  getItem('Settings', 'sub1', <MailOutlined />, [
-    getItem('Option 5', '5'),
-    getItem('Option 6', '6')
-  ]),
-  getItem('Students', '4', <DesktopOutlined />),
+  // getItem('Settings', 'sub1', <MailOutlined />, [
+  //   getItem('Option 5', '5'),
+  //   getItem('Option 6', '6')
+  // ]),
+  // getItem('Students', '4', <DesktopOutlined />),
 
-  getItem('Students', '100', <DesktopOutlined />)
+  // getItem('Students', '100', <DesktopOutlined />)
 ];
 
 const SidebarMenu = () => {
