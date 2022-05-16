@@ -18,7 +18,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    reset: () => initialState,
+    resetUser: () => initialState,
     saveUser: (state, action: PayloadAction<IUser>) => {
       state.data = action.payload;
     }
@@ -51,6 +51,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { reset, saveUser } = userSlice.actions;
+export const { resetUser, saveUser } = userSlice.actions;
 
 export default userSlice.reducer;

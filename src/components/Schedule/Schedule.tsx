@@ -1,18 +1,15 @@
 import {
+  CheckCircleOutlined,
   CloseCircleFilled,
-  CloseCircleTwoTone,
   CloseOutlined,
-  EditOutlined,
   EllipsisOutlined,
   SettingOutlined
 } from '@ant-design/icons';
 import {
-  Avatar,
   Button,
   Card,
   Col,
   DatePicker,
-  Empty,
   List,
   message,
   Popconfirm,
@@ -21,7 +18,7 @@ import {
   TimePicker
 } from 'antd';
 import moment from 'moment';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { ILesson } from '../../models/ILesson';
@@ -39,11 +36,14 @@ import AddLesson, { LittleRound } from './AddLesson';
 
 const Schedule = () => {
   const dispatch = useAppDispatch();
-  const { userId, lessons, students } = useAppSelector((state) => ({
-    userId: state.user.data?.id,
-    lessons: state.lessons.data || [],
-    students: state.student.data
-  }));
+  const { userId, lessons, students, lessonssLoading } = useAppSelector(
+    (state) => ({
+      userId: state.user.data?.id,
+      lessons: state.lessons.data || [],
+      students: state.student.data,
+      lessonssLoading: state.lessons.isLoading
+    })
+  );
 
   const [currentDate, setCurrentDate] = useState<moment.Moment | null>(null);
 
@@ -52,6 +52,16 @@ const Schedule = () => {
   const weekEnd = currentDate?.clone().endOf('isoWeek');
 
   const [changeTime, setChangeTime] = useState<number | null>(null);
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      if (weekEnd && moment() > weekEnd) {
+        setCurrentDate(moment());
+      }
+    }, 10000);
+    return () => clearInterval(interval);
+  });
+
   useEffect(() => {
     setCurrentDate(moment());
   }, []);
@@ -77,31 +87,12 @@ const Schedule = () => {
         PopupError(err);
       }
     }
+    // eslint-disable-next-line
   }, [currentDate, userId]);
-
-  // console.log(1111, days);
-  // useEffect(() => {
-  //   if (userId) {
-  //     try {
-  //       isErrorDispatch(
-  //         dispatch(
-  //           getLessons({ userId, dateStart: weekStart, dateEnd: weekEnd })
-  //         )
-  //       );
-  //     } catch (err) {
-  //       PopupError(err);
-  //     }
-  //   }
-  // }, [currentDate, userId]);
 
   const dateHandler = (date: moment.Moment | null) => {
     if (date) setCurrentDate(date);
   };
-
-  // console.log(
-  //   11111,
-  //   lessons.map((item) => moment(item.date).day()).includes(1) ? 'sdsdsds' : 'n'
-  // );
 
   return (
     <>
@@ -150,6 +141,7 @@ const Schedule = () => {
             >
               <StyledList
                 size="small"
+                loading={lessonssLoading}
                 dataSource={
                   lessons
                     .map((item) => moment(item.date).day())
@@ -160,7 +152,11 @@ const Schedule = () => {
                 renderItem={(item: ILesson) => (
                   <>
                     {day.date() === moment(item.date).date() && (
-                      <ListItem className="flex justify-between">
+                      <ListItem
+                        className={`flex justify-between ${
+                          item.complete && 'bg-slate-300/50 rounded-md'
+                        }`}
+                      >
                         <div className="flex items-center">
                           <div className="w-2 h-2 bg-slate-300 rounded mr-2" />
                           {item.id === changeTime ? (
@@ -178,12 +174,19 @@ const Schedule = () => {
                             />
                           ) : (
                             <div
-                              className="text-lg font-semibold w-16 text-blue-400 cursor-pointer"
-                              onClick={() => setChangeTime(item.id)}
+                              className={`text-lg font-semibold w-16 cursor-pointer ${
+                                !item.complete
+                                  ? 'text-slate-600/90'
+                                  : 'text-slate-400'
+                              }`}
+                              onClick={() => {
+                                setChangeTime(item.id);
+                                setTimeout(() => setChangeTime(null), 10000);
+                              }}
                             >
-                              <TimeFont>
+                              <span className="font-roboto">
                                 {moment(item.date).format('HH:mm')}
-                              </TimeFont>
+                              </span>
                             </div>
                           )}
 
@@ -198,6 +201,7 @@ const Schedule = () => {
                         </div>
                         <div className="flex">
                           <Switch
+                            className={`${item.complete && 'opacity-30'}`}
                             size="small"
                             checked={item.complete}
                             onChange={async () => {
@@ -223,31 +227,37 @@ const Schedule = () => {
                               }
                             }}
                           />
-                          <Popconfirm
-                            title="Are you sure to delete this lesson?"
-                            icon={
-                              <CloseCircleFilled style={{ color: 'red' }} />
-                            }
-                            onConfirm={async () => {
-                              try {
-                                await isErrorDispatch(
-                                  dispatch(deleteLesson({ id: item.id }))
-                                );
-                                message.success('Lesson deleted successfully.');
-                              } catch (err) {
-                                PopupError(err);
+                          {item.complete ? (
+                            <CheckCircleOutlined className="ml-2 opacity-50" />
+                          ) : (
+                            <Popconfirm
+                              title="Are you sure to delete this lesson?"
+                              icon={
+                                <CloseCircleFilled style={{ color: 'red' }} />
                               }
-                            }}
-                            okText="Yes"
-                            cancelText="No"
-                          >
-                            <CloseOutlined
-                              twoToneColor="#c11071"
-                              style={{ color: 'red' }}
-                              className="ml-2 text-sm"
-                              onClick={async () => {}}
-                            />
-                          </Popconfirm>
+                              onConfirm={async () => {
+                                try {
+                                  await isErrorDispatch(
+                                    dispatch(deleteLesson({ id: item.id }))
+                                  );
+                                  message.success(
+                                    'Lesson deleted successfully.'
+                                  );
+                                } catch (err) {
+                                  PopupError(err);
+                                }
+                              }}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <CloseOutlined
+                                twoToneColor="#c11071"
+                                style={{ color: 'red' }}
+                                className="ml-2 text-sm"
+                                onClick={async () => {}}
+                              />
+                            </Popconfirm>
+                          )}
                         </div>
                       </ListItem>
                     )}
@@ -264,7 +274,7 @@ const Schedule = () => {
 
 export default Schedule;
 
-const StyledList = styled(List)<{ renderItem?: any }>`
+const StyledList = styled(List)<{ renderItem?: any; complete?: boolean }>`
   .ant-empty-normal {
     margin: 0px !important;
   }
@@ -291,6 +301,6 @@ const LessonCard = styled(Card)<{ active?: boolean }>`
   }
 `;
 
-const TimeFont = styled.span`
-  font-family: monospace;
-`;
+// const TimeFont = styled.span`
+//   font-family: monospace;
+// `;
