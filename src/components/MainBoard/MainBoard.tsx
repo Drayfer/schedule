@@ -14,9 +14,8 @@ const MainBoard = () => {
     case 'students':
       return <Students />;
     default:
-      return <>Loading...</>;
+      return <>Not Found...</>;
   }
 };
 
 export default MainBoard;
-// return <Students />;

@@ -1,7 +1,7 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, message, Modal, Select, TimePicker } from 'antd';
 import moment from 'moment';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { createLesson } from '../../store/reducers/LessonActions';
@@ -22,9 +22,6 @@ const AddLesson = (props: AddLessonProps) => {
     lessons: state.lessons.data
   }));
 
-  // const [dayLessons, setDayLessons] = useState(
-  //   lessons.filter((item) => moment(item.date).date() === day.date())
-  // );
   const dayLessons = lessons.filter(
     (item) => moment(item.date).date() === day.date()
   );
@@ -39,6 +36,7 @@ const AddLesson = (props: AddLessonProps) => {
         dayLessons.pop()?.date || moment(day).set('hours', moment().hours())
       ).add(1, 'hour')
     );
+    // eslint-disable-next-line
   }, [isModalVisible]);
 
   const handleAdd = async () => {

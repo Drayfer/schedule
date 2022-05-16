@@ -1,10 +1,8 @@
 import { ILesson } from './../../models/ILesson';
 import { getTokenHeader } from './../../components/helpers/getTokenHeader';
-import { IStudent } from './../../models/IStudent';
 import { AxiosErr } from './../../types/types';
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IAddStudentForm } from '../../components/Students/AddStudentForm';
 
 interface GetLessons {
   userId: number;
@@ -82,7 +80,8 @@ export const updateLesson = createAsyncThunk(
     try {
       const { data } = await axios.patch(
         `${process.env.REACT_APP_API_URL}/lesson/update/${payload.id}`,
-        payload
+        payload,
+        getTokenHeader()
       );
       return data;
     } catch (err: any) {

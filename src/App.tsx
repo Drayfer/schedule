@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import Activation from './components/pages/Activation';
 import PasswordPage from './components/pages/PasswordPage';
+import { Notifications } from 'react-push-notification';
 
 let persistor = persistStore(store);
 
@@ -17,6 +18,7 @@ function App() {
   return (
     <>
       <Provider store={store}>
+        <Notifications />
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter>
             <Routes>

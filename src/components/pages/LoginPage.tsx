@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUsers } from '../../store/reducers/UserActions';
-import { reset } from '../../store/reducers/UserSlice';
+import { resetUser } from '../../store/reducers/UserSlice';
 import emailjs from '@emailjs/browser';
 import axios from 'axios';
 import { IUser } from '../../models/IUser';
@@ -37,7 +37,7 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(reset());
+    dispatch(resetUser());
     // eslint-disable-next-line
   }, []);
 
@@ -182,7 +182,7 @@ const LoginPage = () => {
               onClick={() => {
                 setIsRegistration(false);
                 setIsSuccessRegistration(false);
-                dispatch(reset());
+                dispatch(resetUser());
               }}
             >
               Ok

@@ -2,17 +2,23 @@ import { Avatar, Button, Col, Popover } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import Logo from '../../assets/images/logo.png';
-import { UpOutlined, DownOutlined } from '@ant-design/icons';
+import {
+  UpOutlined,
+  DownOutlined,
+  TeamOutlined,
+  ScheduleOutlined
+} from '@ant-design/icons';
 
 import { Menu, MenuProps } from 'antd';
-import {
-  PieChartOutlined,
-  DesktopOutlined,
-  MailOutlined
-} from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { reset } from '../../store/reducers/UserSlice';
-import { setActiveBoard, setFullMenu } from '../../store/reducers/OptionsSlice';
+import { resetUser } from '../../store/reducers/UserSlice';
+import {
+  resetOpions,
+  setActiveBoard,
+  setFullMenu
+} from '../../store/reducers/OptionsSlice';
+import { resetStudent } from '../../store/reducers/StudentSlice';
+import { resetLesson } from '../../store/reducers/LessonSlice';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -33,9 +39,9 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem('Schedule', 'schedule', <PieChartOutlined />),
-  getItem('Students', 'students', <DesktopOutlined />)
-  // getItem('Statistics', 'statistics', <DesktopOutlined />),
+  getItem('Schedule', 'schedule', <ScheduleOutlined />),
+  getItem('Students', 'students', <TeamOutlined />)
+  // getItem('Statistics', 'statistics', <PieChartOutlined />),
 
   // getItem('Settings', 'sub1', <MailOutlined />, [
   //   getItem('Option 5', '5'),
@@ -68,7 +74,12 @@ const SidebarMenu = () => {
         </div>
         <div
           className="font-medium text-base text-slate-500 cursor-pointer pt-1.5 pl-5 pr-5"
-          onClick={() => dispatch(reset())}
+          onClick={() => {
+            dispatch(resetUser());
+            dispatch(resetStudent());
+            dispatch(resetOpions());
+            dispatch(resetLesson());
+          }}
         >
           Log Out
         </div>

@@ -67,23 +67,6 @@ export const deleteStudent = createAsyncThunk(
   }
 );
 
-// export const updateStudent = createAsyncThunk(
-//   'student/update/:id',
-//   async (payload: { id: number; body: { [key: string]: any } }, thunkAPI) => {
-//     try {
-//       const { id, body } = payload;
-//       const { data } = await axios.patch(
-//         `${process.env.REACT_APP_API_URL}/student/update/${id}`,
-//         body,
-//         getTokenHeader()
-//       );
-//       return data;
-//     } catch (err: any) {
-//       return thunkAPI.rejectWithValue(err.response.data);
-//     }
-//   }
-// );
-
 export const updateStudent = createAsyncThunk(
   'student/update/:id',
   async (payload: UpdateStudent, thunkAPI) => {
