@@ -5,4 +5,5 @@ export interface IUser {
   id: number;
   activate: boolean;
   expToken: Date;
+  lessonsHistory: number;
 }

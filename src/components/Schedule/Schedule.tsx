@@ -118,7 +118,7 @@ const Schedule = () => {
       </div>
       <Row justify="center" gutter={[20, 5]}>
         {days.map((day) => (
-          <Col>
+          <Col key={day.toString()}>
             <LessonCard
               active={
                 moment().format('DD.MM.YYYY') === day.format('DD.MM.YYYY')

@@ -62,7 +62,6 @@ const PushNotification = () => {
     let interval: NodeJS.Timer;
     if (!todayLessons || !todayLessons.length) return;
     interval = setInterval(() => {
-      console.log(play);
       todayLessons.forEach((lesson) => {
         if (
           moment().format('DD.MM.YYYY HH:mm') >=
