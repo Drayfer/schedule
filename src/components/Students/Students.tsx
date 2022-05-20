@@ -252,7 +252,7 @@ const Students = (props: Props) => {
       <div className="flex justify-between m-4">
         <AddStudentForm />
         <Tooltip
-          title={isActive ? 'show hidden students' : 'show active students'}
+          title={isActive ? 'Show hidden students' : 'Show active students'}
         >
           <Button
             type="default"
