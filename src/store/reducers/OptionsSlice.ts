@@ -7,12 +7,14 @@ interface UserState {
   activeBoard: string;
   fullMenu: boolean;
   todayLessons: ILesson[];
+  searchedStudentId: number | null;
 }
 
 const initialState: UserState = {
   activeBoard: 'schedule',
   fullMenu: true,
-  todayLessons: []
+  todayLessons: [],
+  searchedStudentId: null
 };
 
 interface GetTodayLessons {
@@ -50,6 +52,9 @@ export const optionsSlice = createSlice({
     },
     setFullMenu: (state) => {
       state.fullMenu = !state.fullMenu;
+    },
+    setSearchedStudent: (state, action: PayloadAction<number | null>) => {
+      state.searchedStudentId = action.payload;
     }
   },
   extraReducers: {
@@ -62,7 +67,7 @@ export const optionsSlice = createSlice({
   }
 });
 
-export const { setActiveBoard, setFullMenu, resetOpions } =
+export const { setActiveBoard, setFullMenu, resetOpions, setSearchedStudent } =
   optionsSlice.actions;
 
 export default optionsSlice.reducer;

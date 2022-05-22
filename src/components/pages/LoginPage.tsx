@@ -78,11 +78,9 @@ const LoginPage = () => {
       .send('service_iwc765c', 'template_7l1ybxv', message, 'TxI221uSyQgO0EGEB')
       .then(
         () => {
-          console.log(333);
           setIsSuccessRegistration(true);
         },
         (error) => {
-          console.log(error);
           throw new Error(error.text);
         }
       );

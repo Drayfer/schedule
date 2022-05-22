@@ -23,13 +23,13 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
   const formRef = useRef<FormikProps<IStudent>>(null);
 
   const handleSubmit = async (values: IStudent) => {
-    console.log({ studentId: student.id, ...values });
     try {
       await isErrorDispatch(
         dispatch(
           updateStudent({
             studentId: student.id,
-            ...values
+            ...values,
+            balance: values.balance - student.balance
           })
         )
       );
@@ -55,7 +55,8 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
           <Input name="surname" placeholder="Student surname" bordered />
         </FormItem>
         <FormItem name="balance">
-          <InputNumber name="balance" style={{ width: '100%' }} />
+          <label className="w-1/5">Balance: </label>
+          <InputNumber name="balance" style={{ width: '80%' }} />
         </FormItem>
 
         <FormItem name="phone">

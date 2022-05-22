@@ -104,3 +104,54 @@ export const deleteSomeLesson = createAsyncThunk(
     }
   }
 );
+
+export const copyLessonsWeek = createAsyncThunk(
+  'lesson/copyLessonsWeek',
+  async (payload: { userId: number; dateStart: Date }, thunkAPI) => {
+    try {
+      const response = await axios.post<ILesson[]>(
+        `${process.env.REACT_APP_API_URL}/lesson/copyLessonsWeek`,
+        payload,
+        getTokenHeader()
+      );
+      return response.data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const deleteLessonsWeek = createAsyncThunk(
+  'lesson/deleteLessonsWeek',
+  async (payload: { userId: number; dateStart: Date }, thunkAPI) => {
+    try {
+      const response = await axios.post<ILesson[]>(
+        `${process.env.REACT_APP_API_URL}/lesson/deleteLessonsWeek`,
+        payload,
+        getTokenHeader()
+      );
+      return response.data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const deleteLessonsDay = createAsyncThunk(
+  'lesson/deleteLessonsDay',
+  async (
+    payload: { userId: number; dateStart: Date; date: Date },
+    thunkAPI
+  ) => {
+    try {
+      const response = await axios.post<ILesson[]>(
+        `${process.env.REACT_APP_API_URL}/lesson/deleteLessonsDay`,
+        payload,
+        getTokenHeader()
+      );
+      return response.data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);

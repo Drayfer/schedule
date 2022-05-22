@@ -10,6 +10,7 @@ import { PopupError } from '../helpers/PopupError';
 
 export interface IAddStudentForm {
   name: string;
+  surname?: string;
   balance: number;
   showBalance: boolean;
 }
@@ -20,6 +21,7 @@ const ValidationSchema = Yup.object().shape({
 
 const initialState = {
   name: '',
+  surname: '',
   balance: 0,
   showBalance: true
 };
@@ -50,14 +52,14 @@ const AddStudentForm = () => {
     <>
       <Button
         type="primary"
-        // className="m-4"
         icon={<PlusCircleOutlined />}
         onClick={() => setIsAddStudent(true)}
+        className="mr-2"
       >
         Add new
       </Button>
       <Drawer
-        title="Create a new account"
+        title="Add a new student"
         width={390}
         onClose={() => setIsAddStudent(false)}
         visible={isAddStudent}
@@ -84,6 +86,16 @@ const AddStudentForm = () => {
                   NAME
                 </label>
                 <Input name="name" placeholder="Student name" bordered />
+              </FormItem>
+
+              <FormItem name="surname">
+                <label
+                  htmlFor="surname"
+                  className="text-gray-500/70 font-bold text-xs"
+                >
+                  SURNAME
+                </label>
+                <Input name="surname" placeholder="Student surname" bordered />
               </FormItem>
 
               <FormItem name="balance">
