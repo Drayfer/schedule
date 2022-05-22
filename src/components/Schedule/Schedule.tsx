@@ -63,9 +63,9 @@ const Schedule = () => {
   const toFindDuplicates = (arr: string[]) =>
     arr.filter((item, index) => arr.indexOf(item) !== index);
 
-  const duplicates = toFindDuplicates(
-    lessons.map((lesson) => lesson.date.toString())
-  );
+  const duplicates =
+    lessons.length &&
+    toFindDuplicates(lessons.map((lesson) => lesson.date.toString()));
 
   useEffect(() => {
     let interval = setInterval(() => {
@@ -89,7 +89,8 @@ const Schedule = () => {
       setDays(week);
     }
 
-    if (userId && weekStart && weekEnd) {
+    if (currentDate && userId && weekStart && weekEnd) {
+      console.log(1111, currentDate, userId, weekStart, weekEnd);
       dispatch(fetchStudents(userId));
       try {
         isErrorDispatch(
@@ -112,7 +113,7 @@ const Schedule = () => {
     <>
       <div className="flex justify-center relative">
         {weekStart && weekStart < moment().startOf('isoWeek') ? null : (
-          <CornerButtons weekStart={weekStart} userId={userId} />
+          <CornerButtons currentDate={currentDate} />
         )}
 
         <Button
@@ -235,6 +236,7 @@ const Schedule = () => {
                           />
                           <div
                             className={`leading-7 ${
+                              duplicates &&
                               duplicates.includes(item.date.toString()) &&
                               'bg-red-400/50 rounded'
                             }`}

@@ -2,7 +2,7 @@ import { ClearOutlined, CopyOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 import moment from 'moment';
 import React from 'react';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   copyLessonsWeek,
   deleteLessonsWeek
@@ -10,12 +10,16 @@ import {
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 
 interface CornerButtonsProps {
-  weekStart: moment.Moment | undefined;
-  userId: number | undefined;
+  currentDate: moment.Moment | null;
 }
 
 const CornerButtons = (props: CornerButtonsProps) => {
-  const { weekStart, userId } = props;
+  const { currentDate } = props;
+  const { userId } = useAppSelector((state) => ({
+    userId: state.user.data?.id
+  }));
+
+  const weekStart = currentDate?.clone().startOf('isoWeek') || moment();
 
   const dispatch = useAppDispatch();
 
