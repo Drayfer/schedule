@@ -22,7 +22,7 @@ const AddLesson = (props: AddLessonProps) => {
     lessons: state.lessons.data
   }));
 
-  const dayLessons = lessons.filter(
+  const dayLessons = lessons?.filter(
     (item) => moment(item.date).date() === day.date()
   );
   const dispatch = useAppDispatch();
@@ -31,11 +31,13 @@ const AddLesson = (props: AddLessonProps) => {
   const [activeStudent, setActiveStudent] = useState<number | null>(null);
 
   useEffect(() => {
-    setTime(
-      moment(
-        dayLessons.pop()?.date || moment(day).set('hours', moment().hours())
-      ).add(1, 'hour')
-    );
+    if (dayLessons) {
+      setTime(
+        moment(
+          dayLessons.pop()?.date || moment(day).set('hours', moment().hours())
+        ).add(1, 'hour')
+      );
+    }
     // eslint-disable-next-line
   }, [isModalVisible]);
 
@@ -86,26 +88,24 @@ const AddLesson = (props: AddLessonProps) => {
             optionFilterProp="children"
             onChange={(id) => setActiveStudent(id)}
             value={activeStudent}
-            //   onChange={onChange}
-            //   onSearch={onSearch}
-            //   filterOption={(inputValue, option) => R.startsWith(inputValue.toLowerCase(), option?.value.toLowerCase())}
           >
-            {students
-              .filter((student) => !student.break)
-              .map((student) => {
-                return (
-                  <Option key={student.id} value={student.id}>
-                    {
-                      <div className="flex items-center">
-                        <LittleRound color={student.color} />
-                        <div>
-                          {student.name} {student.surname}
+            {students &&
+              students
+                .filter((student) => !student.break)
+                .map((student) => {
+                  return (
+                    <Option key={student.id} value={student.id}>
+                      {
+                        <div className="flex items-center">
+                          <LittleRound color={student.color} />
+                          <div>
+                            {student.name} {student.surname}
+                          </div>
                         </div>
-                      </div>
-                    }
-                  </Option>
-                );
-              })}
+                      }
+                    </Option>
+                  );
+                })}
           </Select>
           <Button type="primary" onClick={handleAdd}>
             Add
