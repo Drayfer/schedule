@@ -1,6 +1,9 @@
 import {
+  copyLessonsWeek,
   createLesson,
   deleteLesson,
+  deleteLessonsDay,
+  deleteLessonsWeek,
   deleteSomeLesson,
   getLessons,
   updateLesson
@@ -69,6 +72,57 @@ export const lessonSlice = createSlice({
       state.data = state.data.filter(
         (lesson) => lesson.id !== action.payload.studentId
       );
+    },
+
+    [copyLessonsWeek.fulfilled.type]: (
+      state,
+      action: PayloadAction<ILesson[]>
+    ) => {
+      state.isLoading = false;
+      state.error = '';
+      state.data = action.payload;
+    },
+    [copyLessonsWeek.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [copyLessonsWeek.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+    },
+
+    [deleteLessonsWeek.fulfilled.type]: (
+      state,
+      action: PayloadAction<ILesson[]>
+    ) => {
+      state.isLoading = false;
+      state.error = '';
+      state.data = action.payload;
+    },
+    [deleteLessonsWeek.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteLessonsWeek.rejected.type]: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.isLoading = false;
+    },
+
+    [deleteLessonsDay.fulfilled.type]: (
+      state,
+      action: PayloadAction<ILesson[]>
+    ) => {
+      state.isLoading = false;
+      state.error = '';
+      state.data = action.payload;
+    },
+    [deleteLessonsDay.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteLessonsDay.rejected.type]: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.isLoading = false;
     }
   }
 });

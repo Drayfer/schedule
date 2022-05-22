@@ -2,8 +2,8 @@ import {
   CheckCircleOutlined,
   CloseCircleFilled,
   CloseOutlined,
-  EllipsisOutlined,
-  SettingOutlined
+  DeleteOutlined,
+  EllipsisOutlined
 } from '@ant-design/icons';
 import {
   Button,
@@ -15,7 +15,8 @@ import {
   Popconfirm,
   Row,
   Switch,
-  TimePicker
+  TimePicker,
+  Tooltip
 } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
@@ -24,15 +25,21 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { ILesson } from '../../models/ILesson';
 import {
   deleteLesson,
+  deleteLessonsDay,
   getLessons,
   updateLesson
 } from '../../store/reducers/LessonActions';
+import {
+  setActiveBoard,
+  setSearchedStudent
+} from '../../store/reducers/OptionsSlice';
 import {
   fetchStudents,
   updateStudent
 } from '../../store/reducers/StudentActions';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import AddLesson, { LittleRound } from './AddLesson';
+import CornerButtons from './CornerButtons';
 
 const Schedule = () => {
   const dispatch = useAppDispatch();
@@ -52,6 +59,13 @@ const Schedule = () => {
   const weekEnd = currentDate?.clone().endOf('isoWeek');
 
   const [changeTime, setChangeTime] = useState<number | null>(null);
+
+  const toFindDuplicates = (arr: string[]) =>
+    arr.filter((item, index) => arr.indexOf(item) !== index);
+
+  const duplicates = toFindDuplicates(
+    lessons.map((lesson) => lesson.date.toString())
+  );
 
   useEffect(() => {
     let interval = setInterval(() => {
@@ -96,7 +110,11 @@ const Schedule = () => {
 
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex justify-center relative">
+        {weekStart && weekStart < moment().startOf('isoWeek') ? null : (
+          <CornerButtons weekStart={weekStart} userId={userId} />
+        )}
+
         <Button
           onClick={() =>
             setCurrentDate(moment(currentDate).subtract(1, 'week'))
@@ -134,8 +152,26 @@ const Schedule = () => {
               }}
               type="inner"
               actions={[
-                <SettingOutlined key="setting" />,
-                <AddLesson day={day} />,
+                <DeleteOutlined
+                  key="delete"
+                  onClick={async () => {
+                    try {
+                      userId &&
+                        (await isErrorDispatch(
+                          dispatch(
+                            deleteLessonsDay({
+                              userId,
+                              dateStart: moment(weekStart).toDate(),
+                              date: moment(day).toDate()
+                            })
+                          )
+                        ));
+                    } catch (err) {
+                      PopupError(err);
+                    }
+                  }}
+                />,
+                <AddLesson day={day} key="add" />,
                 <EllipsisOutlined key="ellipsis" />
               ]}
             >
@@ -197,7 +233,44 @@ const Schedule = () => {
                               )?.color || '#bdbdbd'
                             }
                           />
-                          <div className="leading-7">{item.fullName}</div>
+                          <div
+                            className={`leading-7 ${
+                              duplicates.includes(item.date.toString()) &&
+                              'bg-red-400/50 rounded'
+                            }`}
+                          >
+                            <Tooltip
+                              title={`balance: ${
+                                students.find(
+                                  (st) =>
+                                    st.id === item.studentId && st.showBalance
+                                )?.balance || 'hidden'
+                              }`}
+                            >
+                              <span
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  dispatch(setActiveBoard('students'));
+                                  dispatch(setSearchedStudent(item.studentId));
+                                }}
+                              >
+                                {item.fullName}
+                              </span>
+                            </Tooltip>
+                            {students.some(
+                              (student) =>
+                                student.id === item.studentId &&
+                                !student.break &&
+                                student.showBalance &&
+                                student.balance < 0
+                            ) && (
+                              <Tooltip title="negative balance of lessons">
+                                <sup className="bg-[#7c7474] text-white rounded-full px-1 text-[10px]">
+                                  -
+                                </sup>
+                              </Tooltip>
+                            )}
+                          </div>
                         </div>
                         <div className="flex">
                           <Switch

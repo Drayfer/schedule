@@ -3,6 +3,16 @@ import axios from 'axios';
 import { AxiosErr } from '../../types/types';
 
 export const PopupError = (err: any) => {
+  if (
+    err instanceof Error &&
+    typeof err.message === 'string' &&
+    JSON.parse(err.message).message
+  ) {
+    return notification[`error`]({
+      message: 'Error',
+      description: JSON.parse(err.message).message
+    });
+  }
   if (axios.isAxiosError(err) && err.response) {
     return notification[`error`]({
       message: 'Error',
