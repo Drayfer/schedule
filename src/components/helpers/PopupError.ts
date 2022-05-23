@@ -6,6 +6,7 @@ export const PopupError = (err: any) => {
   if (
     err instanceof Error &&
     typeof err.message === 'string' &&
+    err.message.includes('{') &&
     JSON.parse(err.message).message
   ) {
     return notification[`error`]({

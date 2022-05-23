@@ -90,7 +90,6 @@ const Schedule = () => {
     }
 
     if (currentDate && userId && weekStart && weekEnd) {
-      console.log(1111, currentDate, userId, weekStart, weekEnd);
       dispatch(fetchStudents(userId));
       try {
         isErrorDispatch(
@@ -136,7 +135,7 @@ const Schedule = () => {
         )}
       </div>
       <Row justify="center" gutter={[20, 5]}>
-        {days.map((day) => (
+        {days.map((day, index) => (
           <Col key={day.toString()}>
             <LessonCard
               active={
@@ -163,7 +162,9 @@ const Schedule = () => {
                             deleteLessonsDay({
                               userId,
                               dateStart: moment(weekStart).toDate(),
-                              date: moment(day).toDate()
+                              date: moment(weekStart)
+                                .add(index, 'days')
+                                .toDate()
                             })
                           )
                         ));

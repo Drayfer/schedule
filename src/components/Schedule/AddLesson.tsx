@@ -16,11 +16,14 @@ interface AddLessonProps {
 
 const AddLesson = (props: AddLessonProps) => {
   const { day } = props;
-  const { students, userId, lessons } = useAppSelector((state) => ({
-    students: state.student.data,
-    userId: state.user.data?.id,
-    lessons: state.lessons.data
-  }));
+  const { students, userId, lessons, lessonssLoading } = useAppSelector(
+    (state) => ({
+      students: state.student.data,
+      userId: state.user.data?.id,
+      lessons: state.lessons.data,
+      lessonssLoading: state.lessons.isLoading
+    })
+  );
 
   const dayLessons = lessons?.filter(
     (item) => moment(item.date).date() === day.date()
@@ -32,11 +35,14 @@ const AddLesson = (props: AddLessonProps) => {
 
   useEffect(() => {
     if (dayLessons) {
-      setTime(
-        moment(
-          dayLessons.pop()?.date || moment(day).set('hours', moment().hours())
-        ).add(1, 'hour')
-      );
+      const lastLessonDate =
+        dayLessons.length && moment(dayLessons[dayLessons.length - 1].date);
+      const date = moment(
+        lastLessonDate
+          ? lastLessonDate
+          : moment(day).set('hours', moment().hours())
+      ).add(1, 'hours');
+      setTime(date.hour() === 0 ? date.subtract(1, 'hour') : date);
     }
     // eslint-disable-next-line
   }, [isModalVisible]);
@@ -44,7 +50,7 @@ const AddLesson = (props: AddLessonProps) => {
   const handleAdd = async () => {
     try {
       if (!activeStudent || !userId) return;
-      if (!!dayLessons.find((lesson) => moment(lesson.date).isSame(time))) {
+      if (dayLessons.some((lesson) => moment(lesson.date).isSame(time))) {
         throw new Error(`Time ${time.format('HH:mm [in] ddd')} is busy`);
       }
       const response = await dispatch(
@@ -107,7 +113,7 @@ const AddLesson = (props: AddLessonProps) => {
                   );
                 })}
           </Select>
-          <Button type="primary" onClick={handleAdd}>
+          <Button type="primary" onClick={handleAdd} loading={lessonssLoading}>
             Add
           </Button>
         </div>

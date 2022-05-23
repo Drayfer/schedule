@@ -46,6 +46,13 @@ export const lessonSlice = createSlice({
       state.data = [...state.data, action.payload].sort(
         (a, b) => moment(a.date).unix() - moment(b.date).unix()
       );
+      state.isLoading = false;
+    },
+    [createLesson.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [createLesson.rejected.type]: (state) => {
+      state.isLoading = false;
     },
     [deleteLesson.fulfilled.type]: (
       state,
