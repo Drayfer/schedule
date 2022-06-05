@@ -40,13 +40,19 @@ import {
 type Props = {};
 
 const Students = (props: Props) => {
-  const { userId, students, loadingStudents, searchedStudentId } =
-    useAppSelector((state) => ({
-      userId: state.user.data?.id || 0,
-      students: state.student.data,
-      loadingStudents: state.student.isLoading,
-      searchedStudentId: state.options.searchedStudentId
-    }));
+  const {
+    userId,
+    students,
+    loadingStudents,
+    searchedStudentId,
+    allDisciplines
+  } = useAppSelector((state) => ({
+    userId: state.user.data?.id || 0,
+    students: state.student.data,
+    loadingStudents: state.student.isLoading,
+    searchedStudentId: state.options.searchedStudentId,
+    allDisciplines: state.discipline.data
+  }));
 
   const [filteredStudents, setFilteredStudents] = useState<IStudent[]>([]);
   const [isActive, setIsActive] = useState(true);
@@ -272,7 +278,7 @@ const Students = (props: Props) => {
               </Tooltip>
             </Popconfirm>
 
-            <InfoButton student={record} />
+            <InfoButton student={record} allDisciplines={allDisciplines} />
           </>
         );
       }

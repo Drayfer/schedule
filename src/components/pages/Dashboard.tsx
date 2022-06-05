@@ -12,6 +12,7 @@ import PushNotification from '../Schedule/PushNotification';
 import { resetStudent } from '../../store/reducers/StudentSlice';
 import { resetOpions } from '../../store/reducers/OptionsSlice';
 import { resetLesson } from '../../store/reducers/LessonSlice';
+import { resetDiscipline } from '../../store/reducers/DisciplineSlice';
 
 const Dashboard = () => {
   const { user } = useAppSelector((state) => state);
@@ -33,6 +34,7 @@ const Dashboard = () => {
         dispatch(resetStudent());
         dispatch(resetOpions());
         dispatch(resetLesson());
+        dispatch(resetDiscipline());
       }, moment(exp).diff(moment().unix()) * 1000);
     }
     // eslint-disable-next-line

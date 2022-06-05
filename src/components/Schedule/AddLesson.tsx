@@ -1,5 +1,14 @@
 import { EditOutlined } from '@ant-design/icons';
-import { Button, message, Modal, Select, TimePicker } from 'antd';
+import {
+  Button,
+  message,
+  Modal,
+  Radio,
+  RadioChangeEvent,
+  Select,
+  Space,
+  TimePicker
+} from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -16,14 +25,14 @@ interface AddLessonProps {
 
 const AddLesson = (props: AddLessonProps) => {
   const { day } = props;
-  const { students, userId, lessons, lessonssLoading } = useAppSelector(
-    (state) => ({
+  const { students, userId, lessons, lessonssLoading, disciplines } =
+    useAppSelector((state) => ({
       students: state.student.data,
       userId: state.user.data?.id,
       lessons: state.lessons.data,
-      lessonssLoading: state.lessons.isLoading
-    })
-  );
+      lessonssLoading: state.lessons.isLoading,
+      disciplines: state.discipline.data
+    }));
 
   const dayLessons = lessons?.filter(
     (item) => moment(item.date).date() === day.date()
@@ -32,6 +41,7 @@ const AddLesson = (props: AddLessonProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [time, setTime] = useState<moment.Moment>(moment());
   const [activeStudent, setActiveStudent] = useState<number | null>(null);
+  const [activeDiscipline, setActiveDiscipline] = useState<number | null>(null);
 
   useEffect(() => {
     if (dayLessons) {
@@ -69,6 +79,11 @@ const AddLesson = (props: AddLessonProps) => {
     } catch (err) {
       PopupError(err);
     }
+  };
+
+  const onChangeDiscipline = (e: RadioChangeEvent) => {
+    // console.log('radio checked', e.target.value);
+    setActiveDiscipline(e.target.value);
   };
 
   return (
@@ -116,6 +131,23 @@ const AddLesson = (props: AddLessonProps) => {
           <Button type="primary" onClick={handleAdd} loading={lessonssLoading}>
             Add
           </Button>
+        </div>
+        <div className="flex justify-start mt-2">
+          <Radio.Group
+            onChange={onChangeDiscipline}
+            value={activeDiscipline || -1}
+          >
+            <Space direction="vertical">
+              <Radio value={-1} defaultChecked>
+                General
+              </Radio>
+              {disciplines.map((item) => (
+                <Radio key={item.id} value={item.id}>
+                  {item.title}
+                </Radio>
+              ))}
+            </Space>
+          </Radio.Group>
         </div>
       </Modal>
     </>

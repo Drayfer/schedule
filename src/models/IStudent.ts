@@ -1,3 +1,4 @@
+import { IDiscipline } from './IDiscipline';
 export interface IStudent {
   id: number;
   name: string;
@@ -11,4 +12,7 @@ export interface IStudent {
   color: string;
   createdDate: Date;
   phone: string;
+  parent: string;
+  age: number;
+  disciplines: IDiscipline[];
 }
