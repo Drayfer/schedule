@@ -6,7 +6,10 @@ import {
   UpOutlined,
   DownOutlined,
   TeamOutlined,
-  ScheduleOutlined
+  ScheduleOutlined,
+  PieChartOutlined,
+  SettingOutlined,
+  BarChartOutlined
 } from '@ant-design/icons';
 
 import { Menu, MenuProps } from 'antd';
@@ -19,6 +22,8 @@ import {
 } from '../../store/reducers/OptionsSlice';
 import { resetStudent } from '../../store/reducers/StudentSlice';
 import { resetLesson } from '../../store/reducers/LessonSlice';
+import { resetDiscipline } from '../../store/reducers/DisciplineSlice';
+import UpdateProfile from './UpdateProfile';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -40,8 +45,10 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem('Schedule', 'schedule', <ScheduleOutlined />),
-  getItem('Students', 'students', <TeamOutlined />)
-  // getItem('Statistics', 'statistics', <PieChartOutlined />),
+  getItem('Students', 'students', <TeamOutlined />),
+  getItem('Disciplines', 'disciplines', <PieChartOutlined />),
+  getItem('Statistics', 'statistics', <BarChartOutlined />),
+  getItem('Settings', 'settings', <SettingOutlined />)
 
   // getItem('Settings', 'sub1', <MailOutlined />, [
   //   getItem('Option 5', '5'),
@@ -70,7 +77,7 @@ const SidebarMenu = () => {
     return (
       <div>
         <div className="font-medium text-base text-slate-500 cursor-pointer border-b pb-1.5 pl-5 pr-5">
-          Profile
+          <UpdateProfile user={user.data} />
         </div>
         <div
           className="font-medium text-base text-slate-500 cursor-pointer pt-1.5 pl-5 pr-5"
@@ -79,6 +86,7 @@ const SidebarMenu = () => {
             dispatch(resetStudent());
             dispatch(resetOpions());
             dispatch(resetLesson());
+            dispatch(resetDiscipline());
           }}
         >
           Log Out

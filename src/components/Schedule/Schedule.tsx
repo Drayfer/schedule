@@ -18,7 +18,7 @@ import {
   TimePicker,
   Tooltip
 } from 'antd';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -108,6 +108,35 @@ const Schedule = () => {
     if (date) setCurrentDate(date);
   };
 
+  const actionButtons = (day: moment.Moment, index: number) => [
+    <Popconfirm
+      title="Are you sure to delete all lessons at this day?"
+      icon={<CloseCircleFilled style={{ color: 'red' }} />}
+      onConfirm={async () => {
+        try {
+          userId &&
+            (await isErrorDispatch(
+              dispatch(
+                deleteLessonsDay({
+                  userId,
+                  dateStart: moment(weekStart).toDate(),
+                  date: moment(weekStart).add(index, 'days').toDate()
+                })
+              )
+            ));
+        } catch (err) {
+          PopupError(err);
+        }
+      }}
+      okText="Yes"
+      cancelText="No"
+    >
+      <DeleteOutlined key="delete" />
+    </Popconfirm>,
+    <AddLesson day={day} key="add" />,
+    <EllipsisOutlined key="ellipsis" />
+  ];
+
   return (
     <>
       <div className="flex justify-center relative">
@@ -151,31 +180,7 @@ const Schedule = () => {
                 height: 'calc(100% - 16px)'
               }}
               type="inner"
-              actions={[
-                <DeleteOutlined
-                  key="delete"
-                  onClick={async () => {
-                    try {
-                      userId &&
-                        (await isErrorDispatch(
-                          dispatch(
-                            deleteLessonsDay({
-                              userId,
-                              dateStart: moment(weekStart).toDate(),
-                              date: moment(weekStart)
-                                .add(index, 'days')
-                                .toDate()
-                            })
-                          )
-                        ));
-                    } catch (err) {
-                      PopupError(err);
-                    }
-                  }}
-                />,
-                <AddLesson day={day} key="add" />,
-                <EllipsisOutlined key="ellipsis" />
-              ]}
+              actions={actionButtons(day, index)}
             >
               <StyledList
                 size="small"
@@ -330,7 +335,6 @@ const Schedule = () => {
                                 twoToneColor="#c11071"
                                 style={{ color: 'red' }}
                                 className="ml-2 text-sm"
-                                onClick={async () => {}}
                               />
                             </Popconfirm>
                           )}

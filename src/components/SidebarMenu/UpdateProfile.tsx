@@ -1,20 +1,14 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, Drawer, Row, Space, Tooltip } from 'antd';
+import { Button, Space, Avatar, Drawer } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { IDiscipline } from '../../models/IDiscipline';
-import { IStudent } from '../../models/IStudent';
-import { LittleRound } from '../Schedule/AddLesson';
-import UpdateStudentForm from './UpdateStudentForm';
+import { IUser } from '../../models/IUser';
 
-interface InfoButtonProps {
-  student: IStudent;
-  allDisciplines: IDiscipline[];
+interface IUpdateProfile {
+  user: IUser | null;
 }
 
-const InfoButton = (props: InfoButtonProps) => {
-  const { student, allDisciplines } = props;
-
+const UpdateProfile = (props: IUpdateProfile) => {
+  const { user } = props;
   const [isInfoStudent, setIsInfoStudent] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -25,21 +19,13 @@ const InfoButton = (props: InfoButtonProps) => {
 
   return (
     <>
-      <Tooltip title="student info">
-        <InfoCircleOutlined
-          style={{
-            fontSize: '20px',
-            color: '#2884ca'
-          }}
-          onClick={() => setIsInfoStudent(true)}
-        />
-      </Tooltip>
+      <div onClick={() => setIsInfoStudent(true)}>Profile</div>
       <StyledDrawer
         fullMobileWidth={/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
           navigator.userAgent
         )}
         className=""
-        title="Student Info"
+        title="Profile Info"
         // width={390}
         onClose={closeModal}
         visible={isInfoStudent}
@@ -51,16 +37,13 @@ const InfoButton = (props: InfoButtonProps) => {
         }
       >
         {isEdit ? (
-          <UpdateStudentForm
-            student={student}
-            setIsEdit={setIsEdit}
-            allDisciplines={allDisciplines}
-          />
+          //   <UpdateStudentForm student={student} setIsEdit={setIsEdit} />dsdsds
+          <p>wewew</p>
         ) : (
           <>
             <Avatar
               style={{
-                backgroundColor: `${student.color}`,
+                backgroundColor: '#e08b45',
                 verticalAlign: 'middle',
                 margin: '10px',
                 width: '50px',
@@ -72,29 +55,15 @@ const InfoButton = (props: InfoButtonProps) => {
               }}
               size="large"
             >
-              {student.name.slice(0, 1)}
+              {/* {student.name.slice(0, 1)} */}
+              {user?.name.slice(0, 1)}
             </Avatar>
-            <span className="font-bold text-lg">
-              {student.name} {student.surname}
-            </span>
-            <Row className="my-3">
+            <span className="font-bold text-lg">{user?.name}</span>
+            {/*  <Row className="my-3">
               <NameCol>Balance:</NameCol>
               <ValueCol>{student.balance}</ValueCol>
               <NameCol>Active:</NameCol>
               <ValueCol>{student.break ? 'No' : 'Yes'}</ValueCol>
-              <NameCol>Disciplines:</NameCol>
-              <ValueCol>
-                <div className="flex items-center">
-                  <LittleRound color="#CBD5E1" />
-                  General
-                </div>
-                {student.disciplines?.map((item) => (
-                  <div className="flex items-center">
-                    <LittleRound color={item.color} />
-                    {item.title}
-                  </div>
-                ))}
-              </ValueCol>
               <NameCol>Age:</NameCol>
               <ValueCol>{student.age}</ValueCol>
               <NameCol>Parent:</NameCol>
@@ -107,7 +76,7 @@ const InfoButton = (props: InfoButtonProps) => {
               <ValueCol>{student.skype}</ValueCol>
               <NameCol>Note:</NameCol>
               <Col span={24}>{student.note}</Col>
-            </Row>
+            </Row> */}
             <Button onClick={() => setIsEdit(!isEdit)}>Edit</Button>
           </>
         )}
@@ -116,17 +85,17 @@ const InfoButton = (props: InfoButtonProps) => {
   );
 };
 
-export default InfoButton;
+export default UpdateProfile;
 
-const NameCol = styled(Col)`
-  width: 30%;
-  font-weight: 600;
-  margin-bottom: 5px;
-`;
+// const NameCol = styled(Col)`
+//   width: 30%;
+//   font-weight: 600;
+//   margin-bottom: 5px;
+// `;
 
-const ValueCol = styled(Col)`
-  width: 70%;
-`;
+// const ValueCol = styled(Col)`
+//   width: 70%;
+// `;
 
 const StyledDrawer = styled(Drawer)<{ fullMobileWidth?: boolean }>`
   .ant-drawer-content-wrapper {
