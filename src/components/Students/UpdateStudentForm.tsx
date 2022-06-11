@@ -15,7 +15,8 @@ import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import { useAppDispatch } from '../../hooks/redux';
 import { updateStudent } from '../../store/reducers/StudentActions';
 import { IDiscipline } from '../../models/IDiscipline';
-import { LittleRound } from '../Schedule/AddLesson';
+import { updateDiscipline } from '../../store/reducers/DisciplineActions';
+import { updateStudentDisciplines } from '../../store/reducers/StudentSlice';
 
 const { Option } = Select;
 
@@ -30,7 +31,7 @@ const ValidationSchema = Yup.object().shape({
 });
 
 interface UpdateForm extends IStudent {
-  selectDisciplines: (string | number)[];
+  selectDisciplines?: string[];
 }
 
 const UpdateStudentForm = (props: UpdateStudentFormProps) => {
@@ -39,11 +40,16 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
   const formRef = useRef<FormikProps<UpdateForm>>(null);
 
   const handleSubmit = async (values: UpdateForm) => {
-    // const updateDisciplines = values.selectDisciplines.map((item) =>
-    //   typeof item === 'string'
-    //     ? allDisciplines.find((dis) => dis.title === item)?.id || 0
-    //     : item
-    // );
+    const updateDisciplines = values.selectDisciplines?.map((item) => {
+      return isNaN(Number(item))
+        ? allDisciplines.find((dis) => dis.title === item)?.id || 0
+        : Number(item);
+    });
+    console.log(222, updateDisciplines);
+    delete values.selectDisciplines;
+    // if (values.disciplines) {
+    //   delete values.disciplines;
+    // }
 
     try {
       await isErrorDispatch(
@@ -51,7 +57,7 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
           updateStudent({
             studentId: student.id,
             ...values,
-            // updateDisciplines,
+            updateDisciplines,
             balance:
               values.balance === student.balance
                 ? 0
@@ -61,6 +67,54 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
       );
       setIsEdit(false);
       message.info(`Student profile updated`);
+    } catch (err) {
+      PopupError(err);
+    }
+  };
+
+  const handleSelect = async (value: string, type: 'select' | 'deselect') => {
+    const disciplineId = isNaN(Number(value))
+      ? allDisciplines.find((dis) => dis.title === value)?.id || 0
+      : Number(value);
+    try {
+      await isErrorDispatch(
+        dispatch(
+          updateDiscipline({
+            id: disciplineId,
+            studentId:
+              type === 'select'
+                ? [
+                    ...(allDisciplines
+                      .find((item) => item.id === disciplineId)
+                      ?.students.map((item) => item.id) || []),
+                    student.id
+                  ]
+                : allDisciplines
+                    .find((item) => item.id === disciplineId)
+                    ?.students.filter((item) => item.id !== student.id)
+                    .map((item) => item.id) || []
+          })
+        )
+      );
+      const newD = allDisciplines.find((item) => item.id === disciplineId);
+      if (newD) {
+        dispatch(
+          updateStudentDisciplines({
+            disciplines:
+              type === 'select'
+                ? [...student.disciplines, newD]
+                : [
+                    ...student.disciplines.filter((item) => item.id !== newD.id)
+                  ],
+            id: student.id
+          })
+        );
+      }
+      message.success(
+        type === 'select'
+          ? 'Discipline added successfully.'
+          : 'Discipline remove successfully.'
+      );
     } catch (err) {
       PopupError(err);
     }
@@ -94,12 +148,8 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
             placeholder="Select disciplines"
             style={{ width: '100%' }}
             name="selectDisciplines"
-            defaultValue={student.disciplines.map((item) => item.title)}
-            // defaultValue={allDisciplines
-            //   .filter((item) =>
-            //     student.disciplines.find((dis) => dis.id === item.id)
-            //   )
-            //   .map((item) => item.title)}
+            onSelect={(value: string) => handleSelect(value, 'select')}
+            onDeselect={(value: string) => handleSelect(value, 'deselect')}
           >
             {allDisciplines
               .filter(

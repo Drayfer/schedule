@@ -1,11 +1,9 @@
 import { IDiscipline } from './../../models/IDiscipline';
 import { IAddDisciplineForm } from './../../components/Disciplines/AddDisciplineForm';
 import { getTokenHeader } from './../../components/helpers/getTokenHeader';
-import { IStudent } from './../../models/IStudent';
 import { AxiosErr } from './../../types/types';
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IAddStudentForm } from '../../components/Students/AddStudentForm';
 
 interface CreateDiscipline extends IAddDisciplineForm {
   userId: number;
@@ -21,8 +19,8 @@ export const fetchDisciplines = createAsyncThunk(
   async (payload: number, thunkAPI) => {
     try {
       const response = await axios.get<IDiscipline[]>(
-        `${process.env.REACT_APP_API_URL}/discipline/all/${payload}`
-        // getTokenHeader()
+        `${process.env.REACT_APP_API_URL}/discipline/all/${payload}`,
+        getTokenHeader()
       );
       return response.data;
     } catch (err: any) {
@@ -41,8 +39,8 @@ export const createDiscipline = createAsyncThunk(
     try {
       const response = await axios.post<IDiscipline>(
         `${process.env.REACT_APP_API_URL}/discipline/create`,
-        payload
-        // getTokenHeader()
+        payload,
+        getTokenHeader()
       );
       return response.data;
     } catch (err: any) {
@@ -60,8 +58,8 @@ export const deleteDiscipline = createAsyncThunk(
   async (payload: { id: number }, thunkAPI) => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_API_URL}/discipline/${payload.id}`
-        // getTokenHeader()
+        `${process.env.REACT_APP_API_URL}/discipline/${payload.id}`,
+        getTokenHeader()
       );
       return { id: payload.id };
     } catch (err: any) {
@@ -77,8 +75,8 @@ export const updateDiscipline = createAsyncThunk(
       const { id, ...body } = payload;
       const { data } = await axios.patch<IDiscipline>(
         `${process.env.REACT_APP_API_URL}/discipline/update/${id}`,
-        body
-        // getTokenHeader()
+        body,
+        getTokenHeader()
       );
       return data;
     } catch (err: any) {

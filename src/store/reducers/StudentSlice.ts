@@ -1,3 +1,4 @@
+import { IDiscipline } from './../../models/IDiscipline';
 import {
   fetchStudents,
   createStudent,
@@ -23,7 +24,18 @@ export const studentSlice = createSlice({
   name: 'student',
   initialState,
   reducers: {
-    resetStudent: () => initialState
+    resetStudent: () => initialState,
+    updateStudentDisciplines: (
+      state,
+      action: PayloadAction<{ disciplines: IDiscipline[]; id: number }>
+    ) => {
+      const student = state.data.find(
+        (student) => student.id === action.payload.id
+      );
+      if (student && student.disciplines) {
+        student.disciplines = [...action.payload.disciplines];
+      }
+    }
   },
   extraReducers: {
     [fetchStudents.fulfilled.type]: (
@@ -76,6 +88,6 @@ export const studentSlice = createSlice({
   }
 });
 
-export const { resetStudent } = studentSlice.actions;
+export const { resetStudent, updateStudentDisciplines } = studentSlice.actions;
 
 export default studentSlice.reducer;
