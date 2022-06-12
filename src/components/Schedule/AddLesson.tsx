@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, SwapRightOutlined } from '@ant-design/icons';
 import {
   Button,
   message,
@@ -25,14 +25,14 @@ interface AddLessonProps {
 
 const AddLesson = (props: AddLessonProps) => {
   const { day } = props;
-  const { students, userId, lessons, lessonssLoading, disciplines } =
-    useAppSelector((state) => ({
+  const { students, userId, lessons, lessonssLoading } = useAppSelector(
+    (state) => ({
       students: state.student.data,
       userId: state.user.data?.id,
       lessons: state.lessons.data,
-      lessonssLoading: state.lessons.isLoading,
-      disciplines: state.discipline.data
-    }));
+      lessonssLoading: state.lessons.isLoading
+    })
+  );
 
   const dayLessons = lessons?.filter(
     (item) => moment(item.date).date() === day.date()
@@ -67,7 +67,8 @@ const AddLesson = (props: AddLessonProps) => {
         createLesson({
           date: time,
           studentId: activeStudent,
-          userId
+          userId,
+          disciplineId: activeDiscipline
         })
       );
 
@@ -75,6 +76,7 @@ const AddLesson = (props: AddLessonProps) => {
         throw new Error(JSON.stringify(response.payload));
       setActiveStudent(null);
       setIsModalVisible(false);
+      setActiveDiscipline(null);
       message.success('New lesson added successful!');
     } catch (err) {
       PopupError(err);
@@ -82,7 +84,6 @@ const AddLesson = (props: AddLessonProps) => {
   };
 
   const onChangeDiscipline = (e: RadioChangeEvent) => {
-    // console.log('radio checked', e.target.value);
     setActiveDiscipline(e.target.value);
   };
 
@@ -107,8 +108,12 @@ const AddLesson = (props: AddLessonProps) => {
             showSearch
             placeholder="Select a student"
             optionFilterProp="children"
-            onChange={(id) => setActiveStudent(id)}
+            onChange={(id) => {
+              setActiveStudent(id);
+              setActiveDiscipline(null);
+            }}
             value={activeStudent}
+            style={{ width: 200 }}
           >
             {students &&
               students
@@ -132,20 +137,40 @@ const AddLesson = (props: AddLessonProps) => {
             Add
           </Button>
         </div>
-        <div className="flex justify-start mt-2">
-          <Radio.Group
-            onChange={onChangeDiscipline}
-            value={activeDiscipline || -1}
-          >
-            <Space direction="vertical">
-              <Radio value={-1} defaultChecked>
+
+        <div className="flex justify-center mt-3">
+          <Space direction="vertical">
+            <div
+              className={`text-gray-500/70 font-bold text-sm mr-3 mb-[3px] ${
+                !activeDiscipline ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              DISCIPLINE <SwapRightOutlined className="ml-2" />
+            </div>
+            {students
+              .find((student) => student.id === activeStudent)
+              ?.disciplines.map((item) => (
+                <div
+                  className={`text-gray-500/70 font-bold text-sm mr-3 mb-[3px] ${
+                    item.id === activeDiscipline ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  DISCIPLINE <SwapRightOutlined className="ml-2" />
+                </div>
+              ))}
+          </Space>
+          <Radio.Group onChange={onChangeDiscipline} value={activeDiscipline}>
+            <Space direction="vertical" className="text-sm">
+              <Radio value={null} defaultChecked>
                 General
               </Radio>
-              {disciplines.map((item) => (
-                <Radio key={item.id} value={item.id}>
-                  {item.title}
-                </Radio>
-              ))}
+              {students
+                .find((student) => student.id === activeStudent)
+                ?.disciplines.map((item) => (
+                  <Radio key={item.id} value={item.id}>
+                    {item.title}
+                  </Radio>
+                ))}
             </Space>
           </Radio.Group>
         </div>

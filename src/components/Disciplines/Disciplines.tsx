@@ -1,18 +1,12 @@
-import {
-  CloseCircleFilled,
-  DeleteOutlined,
-  PlusCircleOutlined
-} from '@ant-design/icons';
+import { CloseCircleFilled, DeleteOutlined } from '@ant-design/icons';
 import { message, Popconfirm, Table, Tooltip } from 'antd';
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { IDiscipline } from '../../models/IDiscipline';
 import { IStudent } from '../../models/IStudent';
 import {
   deleteDiscipline,
-  fetchDisciplines,
-  updateDiscipline
+  fetchDisciplines
 } from '../../store/reducers/DisciplineActions';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import { LittleRound } from '../Schedule/AddLesson';
@@ -27,8 +21,6 @@ const Disciplines = () => {
       disciplines: state.discipline.data,
       allStudents: state.student.data,
       loadingDisciplines: state.discipline.isLoading
-      // loadingStudents: state.student.isLoading,
-      // searchedStudentId: state.options.searchedStudentId
     }));
   const dispatch = useAppDispatch();
 
@@ -46,9 +38,6 @@ const Disciplines = () => {
     {
       title: 'Title',
       dataIndex: 'title'
-      //   render: (name: string, record: IStudent) => `${name} ${record.surname}`,
-      //   sorter: (a: IStudent, b: IStudent) =>
-      //     b.name.toString().localeCompare(a.name.toString())
     },
     {
       title: 'Count',
@@ -62,8 +51,6 @@ const Disciplines = () => {
           return students.length;
         }
       }
-      //   sorter: (a: IStudent, b: IStudent) =>
-      //     b.name.toString().localeCompare(a.name.toString())
     },
     {
       title: 'Students',
@@ -75,18 +62,9 @@ const Disciplines = () => {
               <LittleRound color={student.color} />
               <div>{`${student.name} ${student.surname}`}</div>
             </div>
-            // <span
-            //   className="p-1 m-1 rounded-sm border-[3px]"
-            //   style={{ borderColor: `${student.color}` }}
-            // >
-            //   {`${student.name} ${student.surname}`}
-            // </span>
           ))}
         </div>
       )
-
-      //   sorter: (a: IStudent, b: IStudent) =>
-      //     b.name.toString().localeCompare(a.name.toString())
     },
 
     {
@@ -125,16 +103,6 @@ const Disciplines = () => {
                 <InfoDiscipline discipline={record} allStudents={allStudents} />
               </>
             )}
-
-            {/* <Tooltip title="add student to discipline">
-              <PlusCircleOutlined
-                style={{
-                  fontSize: '20px',
-                  color: '#2ae400',
-                  marginRight: '.3rem'
-                }}
-              />
-            </Tooltip> */}
           </>
         );
       }
@@ -158,7 +126,10 @@ const Disciplines = () => {
       <Table
         className="ml-4 mr-4"
         columns={columns}
-        dataSource={[general, ...disciplines]}
+        dataSource={[
+          general,
+          ...disciplines.filter((item) => !item?.deletedAt)
+        ]}
         loading={loadingDisciplines}
         size={'small'}
         pagination={{ position: ['bottomCenter'] }}

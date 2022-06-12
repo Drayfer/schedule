@@ -14,7 +14,7 @@ interface CreateLesson {
   userId: number;
   studentId: number;
   date: moment.Moment;
-  category?: string;
+  disciplineId: number | null;
 }
 
 interface UpdateLesson extends Partial<ILesson> {}

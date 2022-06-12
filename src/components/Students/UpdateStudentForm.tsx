@@ -45,11 +45,7 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
         ? allDisciplines.find((dis) => dis.title === item)?.id || 0
         : Number(item);
     });
-    console.log(222, updateDisciplines);
     delete values.selectDisciplines;
-    // if (values.disciplines) {
-    //   delete values.disciplines;
-    // }
 
     try {
       await isErrorDispatch(
@@ -153,7 +149,9 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
           >
             {allDisciplines
               .filter(
-                (item) => !student.disciplines.find((dis) => dis.id === item.id)
+                (item) =>
+                  !student.disciplines.find((dis) => dis.id === item.id) &&
+                  !item?.deletedAt
               )
               .map((discipline) => (
                 <Option key={discipline.id}>

@@ -4,4 +4,5 @@ export interface IDiscipline {
   title: string;
   color: string;
   students: IStudent[];
+  deletedAt?: Date;
 }
