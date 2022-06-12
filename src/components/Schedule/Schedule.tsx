@@ -18,11 +18,12 @@ import {
   TimePicker,
   Tooltip
 } from 'antd';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { ILesson } from '../../models/ILesson';
+import { fetchDisciplines } from '../../store/reducers/DisciplineActions';
 import {
   deleteLesson,
   deleteLessonsDay,
@@ -43,14 +44,14 @@ import CornerButtons from './CornerButtons';
 
 const Schedule = () => {
   const dispatch = useAppDispatch();
-  const { userId, lessons, students, lessonssLoading } = useAppSelector(
-    (state) => ({
+  const { userId, lessons, students, lessonssLoading, disciplines } =
+    useAppSelector((state) => ({
       userId: state.user.data?.id,
       lessons: state.lessons.data || [],
       students: state.student.data,
-      lessonssLoading: state.lessons.isLoading
-    })
-  );
+      lessonssLoading: state.lessons.isLoading,
+      disciplines: state.discipline.data
+    }));
 
   const [currentDate, setCurrentDate] = useState<moment.Moment | null>(null);
 
@@ -90,13 +91,14 @@ const Schedule = () => {
     }
 
     if (currentDate && userId && weekStart && weekEnd) {
-      dispatch(fetchStudents(userId));
       try {
+        isErrorDispatch(dispatch(fetchStudents(userId)));
         isErrorDispatch(
           dispatch(
             getLessons({ userId, dateStart: weekStart, dateEnd: weekEnd })
           )
         );
+        isErrorDispatch(dispatch(fetchDisciplines(userId)));
       } catch (err) {
         PopupError(err);
       }
@@ -201,7 +203,28 @@ const Schedule = () => {
                         }`}
                       >
                         <div className="flex items-center">
-                          <div className="w-2 h-2 bg-slate-300 rounded mr-2" />
+                          <Tooltip
+                            title={`discipline: ${
+                              disciplines.find(
+                                (discipline) =>
+                                  discipline.id === item.disciplineId
+                              )?.title || 'General'
+                            }`}
+                          >
+                            <div
+                              style={
+                                item.disciplineId
+                                  ? {
+                                      backgroundColor: disciplines.find(
+                                        (discipline) =>
+                                          discipline.id === item.disciplineId
+                                      )?.color
+                                    }
+                                  : {}
+                              }
+                              className="w-2 h-2 bg-slate-300 rounded mr-2"
+                            />
+                          </Tooltip>
                           {item.id === changeTime ? (
                             <TimePicker
                               format={'HH:mm'}

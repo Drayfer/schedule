@@ -102,7 +102,20 @@ const Students = (props: Props) => {
     {
       title: 'Name',
       dataIndex: 'name',
-      render: (name: string, record: IStudent) => `${name} ${record.surname}`,
+      render: (name: string, record: IStudent) => (
+        <div className="flex flex-col justify-center min-h-7">
+          <div>{`${name} ${record.surname}`}</div>
+          {record.disciplines.length ? (
+            <div className="text-[2px]">
+              {record.disciplines.map((item) => (
+                <Tooltip title={item.title}>
+                  <DotColor color={item.color} />
+                </Tooltip>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ),
       sorter: (a: IStudent, b: IStudent) =>
         b.name.toString().localeCompare(a.name.toString())
     },
@@ -367,4 +380,11 @@ export const Round = styled.div<{ color: string }>`
 
 const CountButton = styled(Button)`
   margin: 0 5px;
+`;
+
+const DotColor = styled(Round)`
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 3px;
 `;

@@ -4,6 +4,6 @@ export interface ILesson {
   userId: number;
   studentId: number;
   complete: boolean;
-  category: string;
   fullName: string;
+  disciplineId: number;
 }
