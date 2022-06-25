@@ -1,3 +1,4 @@
+import { IOption } from './../../models/IOption';
 import { getTokenHeader } from './../../components/helpers/getTokenHeader';
 import { ILesson } from './../../models/ILesson';
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
@@ -8,13 +9,15 @@ interface UserState {
   fullMenu: boolean;
   todayLessons: ILesson[];
   searchedStudentId: number | null;
+  data: IOption | null;
 }
 
 const initialState: UserState = {
   activeBoard: 'schedule',
   fullMenu: true,
   todayLessons: [],
-  searchedStudentId: null
+  searchedStudentId: null,
+  data: null
 };
 
 interface GetTodayLessons {
@@ -30,6 +33,25 @@ export const getTodayLessons = createAsyncThunk(
         `${process.env.REACT_APP_API_URL}/lesson/today`,
         payload,
         getTokenHeader()
+      );
+      return response.data;
+    } catch (err: any) {
+      if (axios.isAxiosError(err) && err.response) {
+        return thunkAPI.rejectWithValue(
+          (err.response?.data as AxiosErr).message
+        );
+      }
+    }
+  }
+);
+
+export const fetchOptionsData = createAsyncThunk(
+  'option/all/:id',
+  async (payload: number, thunkAPI) => {
+    try {
+      const response = await axios.get<IOption>(
+        `${process.env.REACT_APP_API_URL}/option/all/${payload}`
+        // getTokenHeader()
       );
       return response.data;
     } catch (err: any) {
@@ -63,6 +85,12 @@ export const optionsSlice = createSlice({
       action: PayloadAction<ILesson[]>
     ) => {
       state.todayLessons = action.payload;
+    },
+    [fetchOptionsData.fulfilled.type]: (
+      state,
+      action: PayloadAction<IOption>
+    ) => {
+      state.data = action.payload;
     }
   }
 });
