@@ -31,6 +31,7 @@ import {
   updateLesson
 } from '../../store/reducers/LessonActions';
 import {
+  fetchOptionsData,
   setActiveBoard,
   setSearchedStudent
 } from '../../store/reducers/OptionsSlice';
@@ -99,6 +100,7 @@ const Schedule = () => {
           )
         );
         isErrorDispatch(dispatch(fetchDisciplines(userId)));
+        isErrorDispatch(dispatch(fetchOptionsData(userId)));
       } catch (err) {
         PopupError(err);
       }

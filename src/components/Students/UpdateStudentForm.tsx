@@ -120,7 +120,7 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
     <Formik
       initialValues={{
         ...student,
-        selectDisciplines: student.disciplines.map((item) => item.title)
+        selectDisciplines: student?.disciplines.map((item) => item.title)
       }}
       onSubmit={handleSubmit}
       innerRef={formRef}
