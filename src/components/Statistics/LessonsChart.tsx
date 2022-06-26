@@ -1,51 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
+import { useAppSelector } from '../../hooks/redux';
+import axios from 'axios';
+import { PopupError } from '../helpers/PopupError';
+import { Spin } from 'antd';
 
 type Props = {};
 
+interface IChart {
+  lessons: number;
+  date: string;
+}
+
 const LessonsChart = (props: Props) => {
-  const data = [
-    {
-      year: '1991',
-      value: 3
-    },
-    {
-      year: '1992',
-      value: 4
-    },
-    {
-      year: '1993',
-      value: 3.5
-    },
-    {
-      year: '1994',
-      value: 5
-    },
-    {
-      year: '1995',
-      value: 4.9
-    },
-    {
-      year: '1996',
-      value: 6
-    },
-    {
-      year: '1997',
-      value: 7
-    },
-    {
-      year: '1998',
-      value: 9
-    },
-    {
-      year: '1999',
-      value: 13
+  const { userId } = useAppSelector((state) => ({
+    userId: state.user.data?.id
+  }));
+
+  const [chardData, setChartData] = useState<IChart[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (userId) {
+      try {
+        setLoading(true);
+        axios
+          .get<IChart[]>(
+            `${process.env.REACT_APP_API_URL}/option/statistic/chart/${userId}`
+          )
+          .then((result) => {
+            setChartData(result.data);
+            setLoading(false);
+          });
+      } catch (err) {
+        PopupError(err);
+        setLoading(false);
+      }
     }
-  ];
+    // eslint-disable-next-line
+  }, [userId]);
+
   const config = {
-    data,
-    xField: 'year',
-    yField: 'value',
+    data: chardData,
+    xField: 'date',
+    yField: 'lessons',
     label: {},
     point: {
       size: 5,
@@ -74,7 +72,13 @@ const LessonsChart = (props: Props) => {
       }
     ]
   };
-  return <Line {...config} />;
+  return loading ? (
+    <div className="flex justify-center">
+      <Spin />
+    </div>
+  ) : (
+    <Line {...config} />
+  );
 };
 
 export default LessonsChart;

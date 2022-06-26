@@ -1,9 +1,20 @@
-import { Card, Col, InputNumber, Row, Slider, Switch } from 'antd';
+import { Card, Col, message, Row } from 'antd';
 import { Formik } from 'formik';
-import { Form, FormItem, Input, SubmitButton } from 'formik-antd';
-import React, { useEffect } from 'react';
+import {
+  Form,
+  FormItem,
+  SubmitButton,
+  InputNumber,
+  Switch,
+  Slider,
+  Select
+} from 'formik-antd';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { fetchOptionsData } from '../../store/reducers/OptionsSlice';
+import {
+  fetchOptionsData,
+  updateDataOption
+} from '../../store/reducers/OptionsSlice';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 
 interface IFormSettings {
@@ -12,6 +23,7 @@ interface IFormSettings {
   notifyVolume: number;
   rateWithBalance: number;
   rateWithoutBalance: number;
+  currency: string;
 }
 
 const Settings = () => {
@@ -21,10 +33,12 @@ const Settings = () => {
     notifyMinutes,
     notifyVolume,
     rateWithBalance,
-    rateWithoutBalance
+    rateWithoutBalance,
+    currency
   } = useAppSelector((state) => ({
     userId: state.user.data?.id,
-    notification: state.options.data?.notification || true,
+    currency: state.options.data?.currency || '',
+    notification: state.options.data?.notification || false,
     notifyMinutes: state.options.data?.notifyMinutes || 3,
     notifyVolume: state.options.data?.notifyVolume || 100,
     rateWithBalance: state.options.data?.rateWithBalance || 0,
@@ -36,8 +50,11 @@ const Settings = () => {
     notifyMinutes: notifyMinutes,
     notifyVolume: notifyVolume,
     rateWithBalance: rateWithBalance,
-    rateWithoutBalance: rateWithoutBalance
+    rateWithoutBalance: rateWithoutBalance,
+    currency: currency
   };
+
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -53,129 +70,115 @@ const Settings = () => {
   }, [userId]);
 
   const handleSubmit = async (values: IFormSettings) => {
-    console.log(values);
-    try {
-      // setLoading(true);
-      // await axios.put(`${process.env.REACT_APP_API_URL}/user/setNewPassword`, {
-      //   email: user?.email,
-      //   password: values.password
-      // });
-      // setIsInfoUser(false);
-      // formRef.current?.resetForm();
-    } catch (err) {
-      PopupError(err);
-    } finally {
-      // setLoading(false);
+    if (userId) {
+      console.log(values);
+      try {
+        setLoading(true);
+        await isErrorDispatch(
+          dispatch(updateDataOption({ userId, ...values }))
+        );
+        message.info(`Settings updated`);
+      } catch (err) {
+        PopupError(err);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      // validationSchema={ValidationSchema}
-      // innerRef={formRef}
-      validateOnBlur
-    >
-      {({ values, errors, setFieldValue }) => (
-        <Form className="mt-12 w-full">
-          <div className="flex justify-center gap-4 m-32 flex-wrap">
-            <Card
-              type="inner"
-              title="Notifications"
-              bordered={false}
-              style={{ width: 320 }}
-            >
-              <Row>
-                <Col className="w-3/5">
-                  <p>Enable:</p>
-                  <p>Notify (minutes):</p>
-                  <p>Volume:</p>
-                </Col>
-
-                <Col className="w-2/5">
-                  {/* <FormItem name="notification"> */}
-                  <p>
-                    <Switch
-                      size="small"
-                      checked={values.notification}
-                      onChange={() =>
-                        setFieldValue('notification', !values.notification)
-                      }
-                    />
-                  </p>
-                  {/* </FormItem> */}
-                  <InputNumber
-                    min={0}
-                    value={values.notifyMinutes}
-                    onChange={(value: number) =>
-                      setFieldValue('notifyMinutes', value)
-                    }
-                    style={{ width: 70 }}
-                    disabled={!values.notification}
-                  />
-
-                  <Slider
-                    className="pt-2"
-                    value={values.notifyVolume}
-                    onChange={(value: number) =>
-                      setFieldValue('notifyVolume', value)
-                    }
-                    disabled={!values.notification}
-                  />
-                </Col>
-              </Row>
-            </Card>
-
-            <Card
-              type="inner"
-              title="Students"
-              bordered={false}
-              style={{ width: 320 }}
-            >
-              <Row>
-                <Col className="w-3/5">
-                  <p>Base price with balance:</p>
-                  <p>Base price without balance:</p>
-                </Col>
-                <Col className="w-2/5">
-                  <InputNumber
-                    min={0}
-                    value={values.rateWithBalance}
-                    onChange={(value: number) =>
-                      setFieldValue('rateWithBalance', value)
-                    }
-                    style={{ width: 70 }}
-                  />
-                  <InputNumber
-                    min={0}
-                    value={values.rateWithoutBalance}
-                    onChange={(value: number) =>
-                      setFieldValue('rateWithoutBalance', value)
-                    }
-                    style={{ width: 70 }}
-                  />
-                </Col>
-              </Row>
-            </Card>
-            <div className="w-full flex justify-center">
-              <SubmitButton
-                key="submit"
-                className="w-[150px] rounded-sm"
-
-                // loading={loading}
-                // disabled={
-                //   !values.password ||
-                //   !values.repeatPassword ||
-                //   !!errors.password
-                //}
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      {({ values, touched }) => {
+        return (
+          <Form className="mt-12 w-full">
+            <div className="flex justify-center gap-4 m-32 flex-wrap">
+              <Card
+                type="inner"
+                title="Notifications"
+                bordered={false}
+                style={{ width: 320 }}
               >
-                Save Settings
-              </SubmitButton>
+                <Row>
+                  <Col className="w-3/5">
+                    <p>Enable:</p>
+                    <p>Notify (minutes):</p>
+                    <p>Volume:</p>
+                  </Col>
+
+                  <Col className="w-2/5">
+                    <p>
+                      <Switch name="notification" size="small" />
+                    </p>
+                    <FormItem name="notifyMinutes">
+                      <InputNumber
+                        min={0}
+                        name="notifyMinutes"
+                        style={{ width: 70 }}
+                        disabled={!values.notification}
+                      />
+                    </FormItem>
+                    <Slider
+                      name="notifyVolume"
+                      className="pt-2"
+                      disabled={!values.notification}
+                    />
+                  </Col>
+                </Row>
+              </Card>
+
+              <Card
+                type="inner"
+                title="Students"
+                bordered={false}
+                style={{ width: 320 }}
+              >
+                <Row>
+                  <Col className="w-3/5">
+                    <p>Cost with balance:</p>
+                    <p>Cost without balance:</p>
+                    <p>Currency:</p>
+                  </Col>
+                  <Col className="w-2/5">
+                    <InputNumber
+                      min={0}
+                      name="rateWithBalance"
+                      style={{ width: 80 }}
+                    />
+
+                    <InputNumber
+                      min={0}
+                      name="rateWithoutBalance"
+                      style={{ width: 80 }}
+                    />
+
+                    <Select
+                      name="currency"
+                      value={values.currency}
+                      style={{ width: 80 }}
+                      className="mt-2"
+                    >
+                      <Select.Option value="USD">USD</Select.Option>
+                      <Select.Option value="EUR">EUR</Select.Option>
+                      <Select.Option value="UAH">UAH</Select.Option>
+                      <Select.Option value="RUB">RUB</Select.Option>
+                    </Select>
+                  </Col>
+                </Row>
+              </Card>
+              <div className="w-full flex justify-center">
+                <SubmitButton
+                  key="submit"
+                  className="w-[150px] rounded-sm"
+                  loading={loading}
+                  disabled={!Object.keys(touched).length}
+                >
+                  Save Settings
+                </SubmitButton>
+              </div>
             </div>
-          </div>
-        </Form>
-      )}
+          </Form>
+        );
+      }}
     </Formik>
   );
 };

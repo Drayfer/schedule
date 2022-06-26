@@ -1,5 +1,5 @@
 import { Button, Space, Avatar, Drawer } from 'antd';
-import { Formik, FormikProps, FormikValues } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { Form, FormItem, Input, SubmitButton } from 'formik-antd';
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
