@@ -25,6 +25,10 @@ interface GetTodayLessons {
   date: Date;
 }
 
+interface IUpdateDataOption extends Partial<IOption> {
+  userId: number;
+}
+
 export const getTodayLessons = createAsyncThunk(
   'lesson/today',
   async (payload: GetTodayLessons, thunkAPI) => {
@@ -64,6 +68,38 @@ export const fetchOptionsData = createAsyncThunk(
   }
 );
 
+export const updateDataOption = createAsyncThunk(
+  'option/update/:id',
+  async (payload: IUpdateDataOption, thunkAPI) => {
+    try {
+      const { userId, ...body } = payload;
+      const { data } = await axios.patch(
+        `${process.env.REACT_APP_API_URL}/option/update/${userId}`,
+        body
+        // getTokenHeader()
+      );
+      return data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getSttistic = createAsyncThunk(
+  'option/statistic/:userId',
+  async (payload: number, thunkAPI) => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL}/option/statistic/${payload}`
+        // getTokenHeader()
+      );
+      return data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const optionsSlice = createSlice({
   name: 'options',
   initialState,
@@ -91,6 +127,15 @@ export const optionsSlice = createSlice({
       action: PayloadAction<IOption>
     ) => {
       state.data = action.payload;
+    },
+    [updateDataOption.fulfilled.type]: (
+      state,
+      action: PayloadAction<IOption>
+    ) => {
+      state.data = { ...state.data, ...action.payload };
+    },
+    [getSttistic.fulfilled.type]: (state, action: PayloadAction<IOption>) => {
+      state.data = { ...state.data, ...action.payload };
     }
   }
 });

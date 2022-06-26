@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 import addNotification from 'react-push-notification';
@@ -9,20 +10,28 @@ const sound = require('../../assets/audio/sounds/notification.mp3');
 const playSound = new Audio(sound);
 
 const PushNotification = () => {
-  const { lessons, userId, todayLessons } = useAppSelector((state) => ({
-    lessons: state.lessons.data || [],
-    userId: state.user.data?.id,
-    todayLessons: state.options.todayLessons
-  }));
+  const { lessons, userId, todayLessons, optionsData } = useAppSelector(
+    (state) => ({
+      lessons: state.lessons.data || [],
+      userId: state.user.data?.id,
+      todayLessons: state.options.todayLessons,
+      optionsData: state.options.data
+    })
+  );
   const dispatch = useAppDispatch();
 
-  const notification = (name: string, dif: number) => {
+  const notificationMessage = (name: string, dif: number) => {
     addNotification({
       title: 'Lesson',
       subtitle: name,
       message: `${name} - after ${dif} minutes!`,
       theme: 'darkblue',
       native: true // when using native, your OS will handle theming.
+    });
+    return notification[`info`]({
+      message: 'Lesson',
+      description: `${name} - after ${dif} minutes!`,
+      duration: 10
     });
   };
   const [todayDate, setTodayDate] = useState(moment());
@@ -66,19 +75,20 @@ const PushNotification = () => {
         if (
           moment().format('DD.MM.YYYY HH:mm') >=
             moment(lesson.date)
-              .subtract(3, 'minutes')
+              .subtract(optionsData?.notifyMinutes || 3, 'minutes')
               .format('DD.MM.YYYY HH:mm') &&
           moment().format('DD.MM.YYYY HH:mm') <
             moment(lesson.date).format('DD.MM.YYYY HH:mm') &&
-          play
+          play &&
+          optionsData?.notification
         ) {
-          notification(
+          notificationMessage(
             lesson.fullName,
             moment(moment(lesson.date).diff(moment()))
               .add(1, 'minutes')
               .minutes()
           );
-          playSound.volume = 100 / 100;
+          playSound.volume = (optionsData.notifyVolume || 100) / 100;
           playSound.play();
           setPlay(false);
         } else if (

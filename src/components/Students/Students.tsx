@@ -105,7 +105,7 @@ const Students = (props: Props) => {
       render: (name: string, record: IStudent) => (
         <div className="flex flex-col justify-center min-h-7">
           <div>{`${name} ${record.surname}`}</div>
-          {record.disciplines?.length ? (
+          {record?.disciplines?.length ? (
             <div className="text-[2px]">
               {record.disciplines.map((item) => (
                 <Tooltip title={item.title}>
