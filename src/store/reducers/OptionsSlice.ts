@@ -54,8 +54,8 @@ export const fetchOptionsData = createAsyncThunk(
   async (payload: number, thunkAPI) => {
     try {
       const response = await axios.get<IOption>(
-        `${process.env.REACT_APP_API_URL}/option/all/${payload}`
-        // getTokenHeader()
+        `${process.env.REACT_APP_API_URL}/option/all/${payload}`,
+        getTokenHeader()
       );
       return response.data;
     } catch (err: any) {
@@ -75,8 +75,8 @@ export const updateDataOption = createAsyncThunk(
       const { userId, ...body } = payload;
       const { data } = await axios.patch(
         `${process.env.REACT_APP_API_URL}/option/update/${userId}`,
-        body
-        // getTokenHeader()
+        body,
+        getTokenHeader()
       );
       return data;
     } catch (err: any) {
@@ -90,8 +90,8 @@ export const getSttistic = createAsyncThunk(
   async (payload: number, thunkAPI) => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_URL}/option/statistic/${payload}`
-        // getTokenHeader()
+        `${process.env.REACT_APP_API_URL}/option/statistic/${payload}`,
+        getTokenHeader()
       );
       return data;
     } catch (err: any) {

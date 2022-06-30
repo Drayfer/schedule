@@ -28,7 +28,7 @@ const CornerButtons = (props: CornerButtonsProps) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="absolute top-1 right-2">
+    <div className="absolute top-12 left-2 flex flex-col z-10">
       {weekStart && weekStart < moment().startOf('isoWeek').add(3, 'week') && (
         <Popconfirm
           title="Are you sure you want to copy the previous week?"
@@ -51,13 +51,10 @@ const CornerButtons = (props: CornerButtonsProps) => {
           okText="Yes"
           cancelText="No"
         >
-          <Tooltip title="сopy previous week">
-            <Button
-              shape="round"
-              // onClick={}
-            >
+          <Tooltip placement="right" title="сopy previous week">
+            <div className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer">
               <CopyOutlined />
-            </Button>
+            </div>
           </Tooltip>
         </Popconfirm>
       )}
@@ -82,10 +79,10 @@ const CornerButtons = (props: CornerButtonsProps) => {
         okText="Yes"
         cancelText="No"
       >
-        <Tooltip title="clear week">
-          <Button shape="round">
+        <Tooltip placement="right" title="clear week">
+          <div className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer">
             <ClearOutlined />
-          </Button>
+          </div>
         </Tooltip>
       </Popconfirm>
     </div>

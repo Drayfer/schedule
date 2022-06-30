@@ -14,16 +14,9 @@ import {
 
 import { Menu, MenuProps } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { resetUser } from '../../store/reducers/UserSlice';
-import {
-  resetOpions,
-  setActiveBoard,
-  setFullMenu
-} from '../../store/reducers/OptionsSlice';
-import { resetStudent } from '../../store/reducers/StudentSlice';
-import { resetLesson } from '../../store/reducers/LessonSlice';
-import { resetDiscipline } from '../../store/reducers/DisciplineSlice';
+import { setActiveBoard, setFullMenu } from '../../store/reducers/OptionsSlice';
 import UpdateProfile from './UpdateProfile';
+import { useLogOut } from '../helpers/LogOut';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -61,6 +54,7 @@ const items: MenuItem[] = [
 
 const SidebarMenu = () => {
   const dispatch = useAppDispatch();
+  const logOut = useLogOut();
   const { activeBoard, user, fullMenu } = useAppSelector((state) => ({
     activeBoard: state.options.activeBoard,
     user: state.user,
@@ -81,13 +75,7 @@ const SidebarMenu = () => {
         </div>
         <div
           className="font-medium text-base text-slate-500 cursor-pointer pt-1.5 pl-5 pr-5"
-          onClick={() => {
-            dispatch(resetUser());
-            dispatch(resetStudent());
-            dispatch(resetOpions());
-            dispatch(resetLesson());
-            dispatch(resetDiscipline());
-          }}
+          onClick={logOut}
         >
           Log Out
         </div>

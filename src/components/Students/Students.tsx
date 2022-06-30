@@ -59,6 +59,8 @@ const Students = (props: Props) => {
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useAppDispatch();
 
+  const isMobile = window.screen.width < 768;
+
   useEffect(() => {
     dispatch(fetchStudents(userId));
   }, [userId, dispatch]);
@@ -126,7 +128,7 @@ const Students = (props: Props) => {
       render: (count: number, record: IStudent) => {
         return (
           <Row className="flex items-center justify-around">
-            <Col span={12}>
+            <Col span={!isMobile ? 12 : 24}>
               {record.showBalance && (
                 <Row>
                   <CountButton
@@ -168,7 +170,7 @@ const Students = (props: Props) => {
                 </Row>
               )}
             </Col>
-            <Col span={12}>
+            <Col span={!isMobile ? 12 : 22}>
               <Tooltip title="show/hide balance">
                 <Switch
                   size="small"
@@ -190,7 +192,6 @@ const Students = (props: Props) => {
     },
     {
       title: 'Added',
-
       dataIndex: 'createdDate',
       render: (date: Date) => moment(date).format('DD.MM.YYYY'),
       sorter: (a: IStudent, b: IStudent) =>
@@ -346,7 +347,9 @@ const Students = (props: Props) => {
 
       <Table
         className="ml-4 mr-4"
-        columns={columns}
+        columns={
+          !isMobile ? columns : columns.filter((item) => item.title !== 'Added')
+        }
         dataSource={filteredStudents}
         loading={loadingStudents}
         size={'small'}

@@ -24,6 +24,8 @@ const Disciplines = () => {
     }));
   const dispatch = useAppDispatch();
 
+  const isMobile = window.screen.width < 768;
+
   useEffect(() => {
     dispatch(fetchDisciplines(userId));
   }, [userId, dispatch]);
@@ -58,7 +60,7 @@ const Disciplines = () => {
       render: (record: IStudent[]) => (
         <div className="flex flex-wrap">
           {record.map((student) => (
-            <div className="flex items-center mx-1 bg-slate-100/70 px-1">
+            <div className="flex items-center mx-1 px-1">
               <LittleRound color={student.color} />
               <div>{`${student.name} ${student.surname}`}</div>
             </div>
@@ -125,7 +127,9 @@ const Disciplines = () => {
 
       <Table
         className="ml-4 mr-4"
-        columns={columns}
+        columns={
+          !isMobile ? columns : columns.filter((item) => item.title !== 'Count')
+        }
         dataSource={[
           general,
           ...disciplines.filter((item) => !item?.deletedAt)

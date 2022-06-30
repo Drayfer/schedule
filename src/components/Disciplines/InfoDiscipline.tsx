@@ -1,22 +1,19 @@
 import {
   CloseCircleFilled,
   CloseOutlined,
-  DeleteOutlined,
   InfoCircleOutlined
 } from '@ant-design/icons';
 import {
   Avatar,
   Button,
-  Col,
   Drawer,
   message,
   Popconfirm,
-  Row,
   Space,
   Tooltip
 } from 'antd';
 import * as Yup from 'yup';
-import { Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { Form, FormItem, Input, Select, SubmitButton } from 'formik-antd';
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -26,9 +23,7 @@ import { IStudent } from '../../models/IStudent';
 import { updateDiscipline } from '../../store/reducers/DisciplineActions';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import { LittleRound } from '../Schedule/AddLesson';
-import Students, { Round } from '../Students/Students';
 import { StyledInput } from './AddDisciplineForm';
-// import UpdateStudentForm from './UpdateStudentForm';
 
 const { Option } = Select;
 
@@ -51,13 +46,11 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
   const { discipline, allStudents } = props;
 
   const [isInfoStudent, setIsInfoStudent] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
 
   const dispatch = useAppDispatch();
   const formRef = useRef<FormikProps<IUpdateDisciplineForm>>(null);
 
   const closeModal = () => {
-    setIsEdit(false);
     setIsInfoStudent(false);
     formRef.current?.resetForm();
   };
@@ -250,16 +243,6 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
 };
 
 export default InfoDiscipline;
-
-const NameCol = styled(Col)`
-  width: 30%;
-  font-weight: 600;
-  margin-bottom: 5px;
-`;
-
-const ValueCol = styled(Col)`
-  width: 70%;
-`;
 
 const StyledDrawer = styled(Drawer)<{ fullMobileWidth?: boolean }>`
   .ant-drawer-content-wrapper {

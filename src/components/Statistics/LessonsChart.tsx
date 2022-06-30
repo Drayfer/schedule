@@ -4,6 +4,7 @@ import { useAppSelector } from '../../hooks/redux';
 import axios from 'axios';
 import { PopupError } from '../helpers/PopupError';
 import { Spin } from 'antd';
+import { getTokenHeader } from '../helpers/getTokenHeader';
 
 type Props = {};
 
@@ -26,7 +27,8 @@ const LessonsChart = (props: Props) => {
         setLoading(true);
         axios
           .get<IChart[]>(
-            `${process.env.REACT_APP_API_URL}/option/statistic/chart/${userId}`
+            `${process.env.REACT_APP_API_URL}/option/statistic/chart/${userId}`,
+            getTokenHeader()
           )
           .then((result) => {
             setChartData(result.data);
