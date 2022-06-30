@@ -5,8 +5,6 @@ import {
   updateDiscipline
 } from './DisciplineActions';
 import { IDiscipline } from './../../models/IDiscipline';
-
-import { IStudent } from './../../models/IStudent';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface StudentState {

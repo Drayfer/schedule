@@ -148,7 +148,7 @@ const AddLesson = (props: AddLessonProps) => {
               DISCIPLINE <SwapRightOutlined className="ml-2" />
             </div>
             {students
-              .find((student) => student.id === activeStudent)
+              ?.find((student) => student.id === activeStudent)
               ?.disciplines.map((item) => (
                 <div
                   className={`text-gray-500/70 font-bold text-sm mr-3 mb-[3px] ${
@@ -165,7 +165,7 @@ const AddLesson = (props: AddLessonProps) => {
                 General
               </Radio>
               {students
-                .find((student) => student.id === activeStudent)
+                ?.find((student) => student.id === activeStudent)
                 ?.disciplines.map((item) => (
                   <Radio key={item.id} value={item.id}>
                     {item.title}

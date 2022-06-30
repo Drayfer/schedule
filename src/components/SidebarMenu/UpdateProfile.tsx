@@ -60,7 +60,9 @@ const UpdateProfile = (props: IUpdateProfile) => {
 
   return (
     <>
-      <div onClick={() => setIsInfoUser(true)}>Profile</div>
+      <div onClick={() => setIsInfoUser(true)} className="cursor-pointer">
+        Profile
+      </div>
       <StyledDrawer
         fullMobileWidth={/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
           navigator.userAgent

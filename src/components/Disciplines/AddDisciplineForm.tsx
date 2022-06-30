@@ -1,20 +1,12 @@
-import { BgColorsOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { Avatar, Button, Drawer, Space, Switch } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { Avatar, Button, Drawer, Space } from 'antd';
 import { Formik, FormikProps } from 'formik';
-import {
-  Form,
-  FormItem,
-  Input,
-  InputNumber,
-  Select,
-  SubmitButton
-} from 'formik-antd';
+import { Form, FormItem, Input, Select, SubmitButton } from 'formik-antd';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { createDiscipline } from '../../store/reducers/DisciplineActions';
-import { createStudent } from '../../store/reducers/StudentActions';
 import { PopupError } from '../helpers/PopupError';
 const randomColor = require('randomcolor');
 
