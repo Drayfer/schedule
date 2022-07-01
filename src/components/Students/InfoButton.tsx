@@ -1,5 +1,6 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Avatar, Button, Col, Drawer, Row, Space, Tooltip } from 'antd';
+import moment from 'moment';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IDiscipline } from '../../models/IDiscipline';
@@ -95,8 +96,11 @@ const InfoButton = (props: InfoButtonProps) => {
                   </div>
                 ))}
               </ValueCol>
-              <NameCol>Age:</NameCol>
-              <ValueCol>{student.age}</ValueCol>
+              <NameCol>Birthday:</NameCol>
+              <ValueCol>
+                {student.birthday &&
+                  moment(student.birthday).format('DD.MM.YYYY')}
+              </ValueCol>
               <NameCol>Parent:</NameCol>
               <ValueCol>{student.parent}</ValueCol>
               <NameCol>Pnone:</NameCol>

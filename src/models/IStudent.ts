@@ -13,6 +13,6 @@ export interface IStudent {
   createdDate: Date;
   phone: string;
   parent: string;
-  age: number;
+  birthday: Date;
   disciplines: IDiscipline[];
 }

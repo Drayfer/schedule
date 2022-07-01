@@ -28,7 +28,7 @@ const CornerButtons = (props: CornerButtonsProps) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="absolute top-12 left-2 flex flex-col z-10">
+    <div className="absolute top-12 left-2 flex flex-col z-10 bigPhone:top-1 bigPhone:right-2 bigPhone:flex-row">
       {weekStart && weekStart < moment().startOf('isoWeek').add(3, 'week') && (
         <Popconfirm
           title="Are you sure you want to copy the previous week?"
