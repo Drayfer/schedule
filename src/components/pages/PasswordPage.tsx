@@ -5,7 +5,7 @@ import { Form, FormItem, Input, SubmitButton } from 'formik-antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Logo from '../../assets/images/logo.png';
+import TeachAppLogo from '../../assets/images/TeachAppLogo.png';
 import * as Yup from 'yup';
 import { PopupError } from '../helpers/PopupError';
 
@@ -69,7 +69,7 @@ const PasswordPage = (props: Props) => {
   return (
     <Container>
       <div className="tablet:w-96 phone:w-11/12 flex flex-col items-center rounded pt-10 bg-white pb-4">
-        <img src={Logo} alt="logo" className="" />
+        <img src={TeachAppLogo} alt="logo" className="h-14 w-auto" />
         <h1 className="mt-2 font-semibold text-gray-500/70 text-lg">
           Dashboard Kit
         </h1>

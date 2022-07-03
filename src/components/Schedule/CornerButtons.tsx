@@ -3,7 +3,7 @@ import {
   CloseCircleFilled,
   CopyOutlined
 } from '@ant-design/icons';
-import { Button, Popconfirm, Tooltip } from 'antd';
+import { Popconfirm, Tooltip } from 'antd';
 import moment from 'moment';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -52,7 +52,7 @@ const CornerButtons = (props: CornerButtonsProps) => {
           cancelText="No"
         >
           <Tooltip placement="right" title="сopy previous week">
-            <div className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer">
+            <div className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer mr-1 mb-1">
               <CopyOutlined />
             </div>
           </Tooltip>

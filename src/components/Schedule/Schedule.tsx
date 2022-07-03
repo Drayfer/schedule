@@ -3,10 +3,12 @@ import {
   CloseCircleFilled,
   CloseOutlined,
   DeleteOutlined,
-  EllipsisOutlined
+  EllipsisOutlined,
+  StepBackwardOutlined,
+  StepForwardOutlined,
+  UndoOutlined
 } from '@ant-design/icons';
 import {
-  Button,
   Card,
   Col,
   DatePicker,
@@ -143,29 +145,38 @@ const Schedule = () => {
 
   return (
     <>
-      <div className="flex justify-center relative">
-        {weekStart && weekStart < moment().startOf('isoWeek') ? null : (
-          <CornerButtons currentDate={currentDate} />
-        )}
-
-        <Button
+      {weekStart && weekStart < moment().startOf('isoWeek') ? null : (
+        <CornerButtons currentDate={currentDate} />
+      )}
+      <div className="flex justify-center relative z-20">
+        {/* Prev */}
+        <div
+          className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer mr-1"
           onClick={() =>
             setCurrentDate(moment(currentDate).subtract(1, 'week'))
           }
         >
-          Prev
-        </Button>
+          <StepBackwardOutlined />
+        </div>
         <DatePicker onChange={dateHandler} value={currentDate} picker="week" />
-        <Button
+        {/* Next */}
+        <div
+          className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer ml-1"
           onClick={() => setCurrentDate(moment(currentDate).add(1, 'week'))}
         >
-          Next
-        </Button>
-        {currentDate?.week() !== moment().week() && (
-          <Button onClick={() => setCurrentDate(moment(moment()))}>
-            Reset
-          </Button>
-        )}
+          <StepForwardOutlined />
+        </div>
+        {/* Undo */}
+        <div className="relative w-0">
+          {currentDate?.week() !== moment().week() && (
+            <div
+              className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer absolute left-1"
+              onClick={() => setCurrentDate(moment(moment()))}
+            >
+              <UndoOutlined />
+            </div>
+          )}
+        </div>
       </div>
       <Row justify="center" gutter={[20, 5]}>
         {days.map((day, index) => (
@@ -274,10 +285,12 @@ const Schedule = () => {
                           >
                             <Tooltip
                               title={`balance: ${
-                                students.find(
-                                  (st) =>
-                                    st.id === item.studentId && st.showBalance
-                                )?.balance || 'hidden'
+                                students
+                                  .find(
+                                    (st) =>
+                                      st.id === item.studentId && st.showBalance
+                                  )
+                                  ?.balance.toString() || 'hidden'
                               }`}
                             >
                               <span
