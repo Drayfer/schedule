@@ -2,7 +2,7 @@ import { Formik, FormikProps, FormikValues } from 'formik';
 import { Form, FormItem, Input, SubmitButton } from 'formik-antd';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Logo from '../../assets/images/logo.png';
+import TeachAppLogo from '../../assets/images/TeachAppLogo.png';
 import * as Yup from 'yup';
 import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -194,12 +194,12 @@ const LoginPage = () => {
   return (
     <Container>
       <div className="tablet:w-96 phone:w-11/12 flex flex-col items-center rounded pt-10 bg-white pb-4">
-        <img src={Logo} alt="logo" className="" />
+        <img src={TeachAppLogo} alt="logo" className="h-14 w-auto" />
         <h1 className="mt-2 font-semibold text-gray-500/70 text-lg">
-          Dashboard Kit
+          Teacher's App
         </h1>
         <h2 className="mt-3 tablet:text-2xl phone:text-xl font-bold">
-          Log In to Dashboard Kit
+          Log In to Teacher's App
         </h2>
         <p className="mt-1 font-normal text-sm text-gray-500/90">
           Enter your email and password below

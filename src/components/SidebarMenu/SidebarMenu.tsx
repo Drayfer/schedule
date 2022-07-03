@@ -1,7 +1,7 @@
 import { Avatar, Button, Col, Popover } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import Logo from '../../assets/images/logo.png';
+import TeachAppLogo from '../../assets/images/TeachAppLogo.png';
 import {
   UpOutlined,
   DownOutlined,
@@ -14,7 +14,11 @@ import {
 
 import { Menu, MenuProps } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setActiveBoard, setFullMenu } from '../../store/reducers/OptionsSlice';
+import {
+  setActiveBoard,
+  setFullMenu,
+  setSearchedStudent
+} from '../../store/reducers/OptionsSlice';
 import UpdateProfile from './UpdateProfile';
 import { useLogOut } from '../helpers/LogOut';
 
@@ -91,22 +95,26 @@ const SidebarMenu = () => {
         </BurgerButton>
       </Burger>
       <div className="flex items-center justify-center bg-black h-28">
-        <img src={Logo} alt="logo" className="w-8" />
+        <img src={TeachAppLogo} alt="logo" className="w-12" />
         {!collapsed && (
           <h1 className="ml-3 font-semibold text-gray-500/70 text-lg mb-0 whitespace-nowrap font-sans overflow-hidden">
-            Dashboard Kit
+            Teacher's App
           </h1>
         )}
       </div>
       <Menu
         defaultSelectedKeys={[`${activeBoard}`]}
+        selectedKeys={[`${activeBoard}`]}
         defaultOpenKeys={['sub1']}
         mode="inline"
         theme="dark"
         inlineCollapsed={collapsed}
         items={items}
         style={{ height: 'calc(100vh - 112px)' }}
-        onClick={({ key }) => dispatch(setActiveBoard(key))}
+        onClick={({ key }) => {
+          dispatch(setActiveBoard(key));
+          dispatch(setSearchedStudent(null));
+        }}
       />
       <MenuBottom>
         <Popover placement="topRight" content={avatarContent()} trigger="click">

@@ -10,7 +10,10 @@ import {
 
 import { Menu, MenuProps } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setActiveBoard } from '../../store/reducers/OptionsSlice';
+import {
+  setActiveBoard,
+  setSearchedStudent
+} from '../../store/reducers/OptionsSlice';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -50,7 +53,10 @@ const FooterMenu = () => {
     <>
       <StyledMenu
         defaultSelectedKeys={[`${activeBoard}`]}
-        onClick={({ key }) => dispatch(setActiveBoard(key))}
+        onClick={({ key }) => {
+          dispatch(setActiveBoard(key));
+          dispatch(setSearchedStudent(null));
+        }}
         mode="horizontal"
         items={items}
         theme="dark"
