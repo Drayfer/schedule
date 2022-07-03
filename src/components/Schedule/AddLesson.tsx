@@ -112,6 +112,18 @@ const AddLesson = (props: AddLessonProps) => {
               setActiveStudent(id);
               setActiveDiscipline(null);
             }}
+            filterOption={(inputValue, option) => {
+              if (
+                option?.props?.children?.props?.children[1]?.props?.children
+              ) {
+                return option.props.children.props.children[1].props.children
+                  .join('')
+                  .toLowerCase()
+                  .includes(inputValue.toLowerCase());
+              } else {
+                return true;
+              }
+            }}
             value={activeStudent}
             style={{ width: 200 }}
           >
