@@ -148,7 +148,7 @@ const Schedule = () => {
       {weekStart && weekStart < moment().startOf('isoWeek') ? null : (
         <CornerButtons currentDate={currentDate} />
       )}
-      <div className="flex justify-center relative z-20">
+      <div className="flex justify-center relative">
         {/* Prev */}
         <div
           className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer mr-1"
