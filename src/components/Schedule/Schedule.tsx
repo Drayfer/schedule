@@ -63,6 +63,7 @@ const Schedule = () => {
   const weekEnd = currentDate?.clone().endOf('isoWeek');
 
   const [changeTime, setChangeTime] = useState<number | null>(null);
+  const [isDisableCheck, setIsDisableCheck] = useState(false);
 
   const toFindDuplicates = (arr: string[]) =>
     arr.filter((item, index) => arr.indexOf(item) !== index);
@@ -76,7 +77,7 @@ const Schedule = () => {
       if (weekEnd && moment() > weekEnd) {
         setCurrentDate(moment());
       }
-    }, 10000);
+    }, 100000);
     return () => clearInterval(interval);
   });
 
@@ -114,34 +115,39 @@ const Schedule = () => {
     if (date) setCurrentDate(date);
   };
 
-  const actionButtons = (day: moment.Moment, index: number) => [
-    <Popconfirm
-      title="Are you sure to delete all lessons at this day?"
-      icon={<CloseCircleFilled style={{ color: 'red' }} />}
-      onConfirm={async () => {
-        try {
-          userId &&
-            (await isErrorDispatch(
-              dispatch(
-                deleteLessonsDay({
-                  userId,
-                  dateStart: moment(weekStart).toDate(),
-                  date: moment(weekStart).add(index, 'days').toDate()
-                })
-              )
-            ));
-        } catch (err) {
-          PopupError(err);
-        }
-      }}
-      okText="Yes"
-      cancelText="No"
-    >
-      <DeleteOutlined key="delete" />
-    </Popconfirm>,
-    <AddLesson day={day} key="add" />,
-    <EllipsisOutlined key="ellipsis" />
-  ];
+  const actionButtons = (day: moment.Moment, index: number) => {
+    const thisWeekDay = moment().startOf('isoWeek');
+    return day.isBefore(thisWeekDay)
+      ? []
+      : [
+          <Popconfirm
+            title="Are you sure to delete all lessons at this day?"
+            icon={<CloseCircleFilled style={{ color: 'red' }} />}
+            onConfirm={async () => {
+              try {
+                userId &&
+                  (await isErrorDispatch(
+                    dispatch(
+                      deleteLessonsDay({
+                        userId,
+                        dateStart: moment(weekStart).toDate(),
+                        date: moment(weekStart).add(index, 'days').toDate()
+                      })
+                    )
+                  ));
+              } catch (err) {
+                PopupError(err);
+              }
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined key="delete" />
+          </Popconfirm>,
+          <AddLesson day={day} key="add" />,
+          <EllipsisOutlined key="ellipsis" />
+        ];
+  };
 
   return (
     <>
@@ -323,8 +329,10 @@ const Schedule = () => {
                             className={`${item.complete && 'opacity-30'}`}
                             size="small"
                             checked={item.complete}
+                            disabled={isDisableCheck}
                             onChange={async () => {
                               try {
+                                setIsDisableCheck(true);
                                 await isErrorDispatch(
                                   dispatch(
                                     updateLesson({
@@ -343,6 +351,8 @@ const Schedule = () => {
                                 );
                               } catch (err) {
                                 PopupError(err);
+                              } finally {
+                                setIsDisableCheck(false);
                               }
                             }}
                           />
