@@ -1,6 +1,6 @@
 [{
         "relation": ["delegate_permission/common.handle_all_urls"],
         "target" : { "namespace": "android_app", "package_name": "com.herokuapp.schedule_lessons_app.twa",
-                     "sha256_cert_fingerprints": ["B5:B2:75:AB:90:5E:A8:D3:6D:AB:16:4C:A7:08:15:CE:B6:E1:E7:9A:AA:00:04:0D:2C:B1:AB:26:FE:7F:22:27"] }
+                     "sha256_cert_fingerprints": ["5A:50:E4:DD:58:47:65:A8:4F:12:65:D8:DE:64:B5:4E:8F:E4:B8:08:FD:E2:7A:75:EA:26:A5:7B:6C:0D:1C:9B"] }
       }
 ]
