@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "com.herokuapp.schedule_lessons_app.twa",
+                     "sha256_cert_fingerprints": ["B5:B2:75:AB:90:5E:A8:D3:6D:AB:16:4C:A7:08:15:CE:B6:E1:E7:9A:AA:00:04:0D:2C:B1:AB:26:FE:7F:22:27"] }
+      }
+]
