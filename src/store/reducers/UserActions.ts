@@ -1,3 +1,4 @@
+import { AxiosErr } from './../../types/types';
 import { IUser } from '../../models/IUser';
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -22,8 +23,12 @@ export const fetchUsers = createAsyncThunk(
         payload
       );
       return response.data;
-    } catch (e: any) {
-      return thunkAPI.rejectWithValue(e.response.data.message);
+    } catch (err: any) {
+      if (axios.isAxiosError(err) && err.response) {
+        return thunkAPI.rejectWithValue(
+          (err.response?.data as AxiosErr).message
+        );
+      }
     }
   }
 );
