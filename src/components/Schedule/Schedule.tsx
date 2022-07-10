@@ -224,7 +224,7 @@ const Schedule = () => {
                         <div className="flex items-center">
                           <Tooltip
                             title={`discipline: ${
-                              disciplines.find(
+                              disciplines?.find(
                                 (discipline) =>
                                   discipline.id === item.disciplineId
                               )?.title || 'General'
@@ -234,7 +234,7 @@ const Schedule = () => {
                               style={
                                 item.disciplineId
                                   ? {
-                                      backgroundColor: disciplines.find(
+                                      backgroundColor: disciplines?.find(
                                         (discipline) =>
                                           discipline.id === item.disciplineId
                                       )?.color
@@ -277,7 +277,7 @@ const Schedule = () => {
 
                           <LittleRound
                             color={
-                              students.find(
+                              students?.find(
                                 (student) => student.id === item.studentId
                               )?.color || '#bdbdbd'
                             }
@@ -292,7 +292,7 @@ const Schedule = () => {
                             <Tooltip
                               title={`balance: ${
                                 students
-                                  .find(
+                                  ?.find(
                                     (st) =>
                                       st.id === item.studentId && st.showBalance
                                   )
