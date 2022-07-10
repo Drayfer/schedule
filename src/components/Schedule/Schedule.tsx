@@ -316,7 +316,7 @@ const Schedule = () => {
                                 {item.fullName}
                               </span>
                             </Tooltip>
-                            {students.some(
+                            {students?.some(
                               (student) =>
                                 student.id === item.studentId &&
                                 !student.break &&
