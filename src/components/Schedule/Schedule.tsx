@@ -59,8 +59,10 @@ const Schedule = () => {
   const [currentDate, setCurrentDate] = useState<moment.Moment | null>(null);
 
   const [days, setDays] = useState<moment.Moment[]>([]);
-  const weekStart = currentDate?.clone().startOf('isoWeek');
-  const weekEnd = currentDate?.clone().endOf('isoWeek');
+  const [weekStart, setWeekStart] = useState<moment.Moment | null>(null);
+  const [weekEnd, setWeekEnd] = useState<moment.Moment | null>(null);
+  // const weekStart = currentDate?.clone().startOf('isoWeek');
+  // const weekEnd = currentDate?.clone().endOf('isoWeek');
 
   const [changeTime, setChangeTime] = useState<number | null>(null);
   const [isDisableCheck, setIsDisableCheck] = useState(false);
@@ -86,15 +88,20 @@ const Schedule = () => {
   }, []);
 
   useEffect(() => {
-    const week = [];
     if (currentDate) {
+      setWeekStart(currentDate.clone().startOf('isoWeek'));
+      setWeekEnd(currentDate.clone().endOf('isoWeek'));
+    }
+  }, [currentDate]);
+
+  useEffect(() => {
+    const week = [];
+
+    if (currentDate && userId && weekStart && weekEnd) {
       for (let i = 0; i <= 6; i++) {
         week.push(moment(weekStart).add(i, 'days'));
       }
       setDays(week);
-    }
-
-    if (currentDate && userId && weekStart && weekEnd) {
       try {
         isErrorDispatch(dispatch(fetchStudents(userId)));
         isErrorDispatch(
@@ -109,7 +116,7 @@ const Schedule = () => {
       }
     }
     // eslint-disable-next-line
-  }, [currentDate, userId]);
+  }, [currentDate, userId, weekStart, weekEnd]);
 
   const dateHandler = (date: moment.Moment | null) => {
     if (date) setCurrentDate(date);
