@@ -77,7 +77,6 @@ const Settings = () => {
 
   const handleSubmit = async (values: IFormSettings) => {
     if (userId) {
-      console.log(values);
       try {
         setLoading(true);
         await isErrorDispatch(
