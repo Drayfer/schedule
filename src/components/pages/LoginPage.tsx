@@ -16,12 +16,12 @@ import { PopupError } from '../helpers/PopupError';
 import { AxiosErr } from '../../types/types';
 
 const FormSchema = Yup.object().shape({
-  email: Yup.string().email('Enter valid email').required('Required field'),
+  // email: Yup.string().email('Enter valid email').required('Required field'),
   password: Yup.string().min(3, 'Too short password').required('Required field')
 });
 
 const ForgotPasswordSchema = Yup.object().shape({
-  email: Yup.string().email('Enter valid email').required('Required field')
+  // email: Yup.string().email('Enter valid email').required('Required field')
 });
 
 const LoginPage = () => {
@@ -211,6 +211,7 @@ const LoginPage = () => {
             isForgotPassword ? ForgotPasswordSchema : FormSchema
           }
           innerRef={formRef}
+          validateOnBlur
         >
           {({ errors, values, setErrors, setFieldError }) => (
             <Form className="mt-12 w-10/12">
@@ -225,7 +226,7 @@ const LoginPage = () => {
                   <Input
                     name="name"
                     placeholder="Your name"
-                    // type="email"
+                    type="email"
                     bordered
                     onChange={() => setErrorFormMessage('')}
                   />
@@ -241,7 +242,6 @@ const LoginPage = () => {
                 <Input
                   name="email"
                   placeholder="Email address"
-                  type="email"
                   bordered
                   onChange={() => setErrorFormMessage('')}
                 />
