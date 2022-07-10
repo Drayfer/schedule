@@ -34,7 +34,6 @@ const AddDisciplineForm = () => {
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (values: IAddDisciplineForm) => {
-    console.log(values);
     try {
       const response = await dispatch(createDiscipline({ ...values, userId }));
       if (response.hasOwnProperty('error'))

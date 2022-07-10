@@ -117,7 +117,7 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
       PopupError(err);
     }
   };
-  console.log(formRef.current?.values);
+
   return (
     <Formik
       initialValues={{

@@ -37,7 +37,11 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(resetUser());
+    if (user.data?.id) {
+      navigate('/dashboard');
+    } else {
+      dispatch(resetUser());
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -87,7 +91,6 @@ const LoginPage = () => {
   };
 
   const handleSubmit = async (values: FormikValues) => {
-    console.log((values.email as string).toLowerCase().trim());
     setLoading(true);
     if (isRegistration) {
       if (values.name === '' || values.name.length < 2)
