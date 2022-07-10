@@ -12,7 +12,7 @@ import emailjs from '@emailjs/browser';
 import axios from 'axios';
 import { IUser } from '../../models/IUser';
 import { useNavigate } from 'react-router-dom';
-import { PopupError } from '../helpers/PopupError';
+import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import { AxiosErr } from '../../types/types';
 
 const FormSchema = Yup.object().shape({
@@ -87,6 +87,7 @@ const LoginPage = () => {
   };
 
   const handleSubmit = async (values: FormikValues) => {
+    console.log((values.email as string).toLowerCase().trim());
     setLoading(true);
     if (isRegistration) {
       if (values.name === '' || values.name.length < 2)
@@ -95,7 +96,7 @@ const LoginPage = () => {
         const { data } = await axios.post<IUser>(
           `${process.env.REACT_APP_API_URL}/auth/registration`,
           {
-            email: values.email,
+            email: (values.email as string).toLowerCase().trim(),
             password: values.password,
             name: values.name
           }
@@ -123,7 +124,7 @@ const LoginPage = () => {
         const { data } = await axios.post<{ token: string; name: string }>(
           `${process.env.REACT_APP_API_URL}/auth/forgotPassword`,
           {
-            email: values.email
+            email: (values.email as string).toLowerCase().trim()
           }
         );
         if (data?.token) {
@@ -140,11 +141,21 @@ const LoginPage = () => {
       return;
     }
 
-    const response = await dispatch(
-      fetchUsers({ email: values.email, password: values.password })
-    );
-    if (response.hasOwnProperty('error')) setErrorFormMessage('User not found');
-    setLoading(false);
+    //login
+    try {
+      await isErrorDispatch(
+        dispatch(
+          fetchUsers({
+            email: (values.email as string).toLowerCase().trim(),
+            password: values.password
+          })
+        )
+      );
+    } catch (err) {
+      PopupError(err);
+      setErrorFormMessage('User not found');
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
