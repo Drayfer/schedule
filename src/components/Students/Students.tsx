@@ -71,7 +71,7 @@ const Students = (props: Props) => {
       setFilteredStudents(search);
     } else {
       setFilteredStudents(
-        students.filter((item) => (isActive ? !item.break : item.break))
+        students?.filter((item) => (isActive ? !item.break : item.break))
       );
     }
   }, [students, isActive, searchedStudentId, dispatch]);
