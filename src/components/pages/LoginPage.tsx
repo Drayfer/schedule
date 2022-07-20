@@ -240,7 +240,6 @@ const LoginPage = () => {
                   <Input
                     name="name"
                     placeholder="Your name"
-                    type="email"
                     bordered
                     onChange={() => setErrorFormMessage('')}
                   />
