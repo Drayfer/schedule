@@ -29,7 +29,7 @@ const AddLesson = (props: AddLessonProps) => {
     (state) => ({
       students: state.student.data,
       userId: state.user.data?.id,
-      lessons: state.lessons.data,
+      lessons: state.lessons.data || [],
       lessonssLoading: state.lessons.isLoading
     })
   );
@@ -60,7 +60,10 @@ const AddLesson = (props: AddLessonProps) => {
   const handleAdd = async () => {
     try {
       if (!activeStudent || !userId) return;
-      if (dayLessons.some((lesson) => moment(lesson.date).isSame(time))) {
+      if (
+        dayLessons.length &&
+        dayLessons.some((lesson) => moment(lesson.date).isSame(time))
+      ) {
         throw new Error(`Time ${time.format('HH:mm [in] ddd')} is busy`);
       }
       const response = await dispatch(
