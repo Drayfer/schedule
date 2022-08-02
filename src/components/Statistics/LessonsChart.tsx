@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Line } from '@ant-design/plots';
+import { Column } from '@ant-design/plots';
 import { useAppSelector } from '../../hooks/redux';
 import axios from 'axios';
 import { PopupError } from '../helpers/PopupError';
 import { Spin } from 'antd';
 import { getTokenHeader } from '../helpers/getTokenHeader';
-
-type Props = {};
+import moment from 'moment';
 
 interface IChart {
   lessons: number;
   date: string;
 }
 
-const LessonsChart = (props: Props) => {
-  const { userId } = useAppSelector((state) => ({
-    userId: state.user.data?.id
+const LessonsChart = () => {
+  const { userId, currency } = useAppSelector((state) => ({
+    userId: state.user.data?.id,
+    currency: state.options.data?.currency
   }));
 
   const [chardData, setChartData] = useState<IChart[]>([]);
@@ -56,9 +56,9 @@ const LessonsChart = (props: Props) => {
         lineWidth: 2
       }
     },
-    tooltip: {
-      showMarkers: false
-    },
+    // tooltip: {
+    //   showMarkers: false
+    // },
     state: {
       active: {
         style: {
@@ -68,18 +68,61 @@ const LessonsChart = (props: Props) => {
         }
       }
     },
+    tooltip: {
+      showMarkers: true,
+      customContent: (title: string, data: any[]): string | HTMLElement => {
+        return (
+          <div>
+            <p className="pt-2">
+              {title} -{' '}
+              {moment(title, 'DD.MM.YYYY').add(6, 'days').format('DD.MM.YYYY')}
+            </p>
+            {data.map((t) => (
+              <div key={title}>
+                <p>
+                  Lessons: <b>{t.data.lessons}</b>
+                </p>
+                <p>
+                  Income:{' '}
+                  <b>
+                    {t.data.weekIncome} {currency}
+                  </b>
+                </p>
+                <p>
+                  Added Students:{' '}
+                  <b>
+                    {t.data.weekStudents
+                      ?.map((st: string) => {
+                        const student = st.trim().split('::');
+                        return `${student[0]} (${moment(student[1]).format(
+                          'DD.MM.YYYY'
+                        )})`;
+                      })
+                      .join(', ') || '-'}
+                  </b>
+                </p>
+              </div>
+            ))}
+          </div>
+        ) as unknown as HTMLElement;
+      }
+    },
     interactions: [
       {
         type: 'marker-active'
       }
-    ]
+    ],
+    slider: {
+      start: 0,
+      end: 1
+    }
   };
   return loading ? (
     <div className="flex justify-center">
       <Spin />
     </div>
   ) : (
-    <Line {...config} />
+    <Column {...config} />
   );
 };
 
