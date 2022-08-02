@@ -94,10 +94,9 @@ const LessonsChart = () => {
                     {t.data.weekStudents
                       ?.map((st: string) => {
                         const student = st.trim().split('::');
-                        return `${student[0]} (${moment
-                          .utc(student[1])
-                          .local()
-                          .format('DD.MM.YYYY')})`;
+                        return `${student[0]} (${moment(student[1]).format(
+                          'DD.MM.YYYY'
+                        )})`;
                       })
                       .join(', ') || '-'}
                   </b>
