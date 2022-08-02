@@ -193,7 +193,7 @@ const Students = (props: Props) => {
     {
       title: 'Added',
       dataIndex: 'createdDate',
-      render: (date: Date) => moment(date).format('DD.MM.YYYY'),
+      render: (date: Date) => moment.utc(date).local().format('DD.MM.YYYY'),
       sorter: (a: IStudent, b: IStudent) =>
         moment(b.createdDate).unix() - moment(a.createdDate).unix()
     },
