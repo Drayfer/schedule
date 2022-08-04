@@ -27,7 +27,9 @@ const LessonsChart = () => {
         setLoading(true);
         axios
           .get<IChart[]>(
-            `${process.env.REACT_APP_API_URL}/option/statistic/chart/${userId}`,
+            `${
+              process.env.REACT_APP_API_URL
+            }/option/statistic/chart/${userId}/utc/${moment().utcOffset()}`,
             getTokenHeader()
           )
           .then((result) => {
