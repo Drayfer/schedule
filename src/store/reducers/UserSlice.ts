@@ -1,6 +1,6 @@
 import { IUser } from '../../models/IUser';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchUsers } from './UserActions';
+import { fetchUsers, updateProfile } from './UserActions';
 
 interface UserState {
   data: IUser | null;
@@ -34,6 +34,15 @@ export const userSlice = createSlice({
     },
     [fetchUsers.rejected.type]: (state, action: PayloadAction<string>) => {
       return { ...initialState, error: action.payload };
+    },
+    [updateProfile.fulfilled.type]: (
+      state,
+      { payload }: PayloadAction<Partial<IUser>>
+    ) => {
+      if (state.data?.name && state.data?.email) {
+        state.data.name = payload.name as string;
+        state.data.email = payload.email as string;
+      }
     }
   }
 });

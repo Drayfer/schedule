@@ -180,7 +180,7 @@ const Settings = () => {
                   Save Settings
                 </SubmitButton>
                 <div className="text-[#1890ff] mt-3">
-                  <UpdateProfile user={user} />
+                  <UpdateProfile />
                 </div>
                 <Button type="link" onClick={logOut}>
                   Log Out
