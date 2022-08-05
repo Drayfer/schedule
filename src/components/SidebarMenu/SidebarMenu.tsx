@@ -75,7 +75,7 @@ const SidebarMenu = () => {
     return (
       <div>
         <div className="font-medium text-base text-slate-500 cursor-pointer border-b pb-1.5 pl-5 pr-5">
-          <UpdateProfile user={user.data} />
+          <UpdateProfile />
         </div>
         <div
           className="font-medium text-base text-slate-500 cursor-pointer pt-1.5 pl-5 pr-5"
