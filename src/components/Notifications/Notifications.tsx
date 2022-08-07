@@ -32,7 +32,7 @@ const Notifications = () => {
 
   return (
     <>
-      <Bell className="absolute top-1 right-2 z-10">
+      <Bell className="absolute top-1 right-2 z-10 w-[36px]">
         <div
           className="relative w-8 h-8 flex bigPhone:inline-flex justify-center items-center rounded-full bg-white cursor-pointer mr-1 mb-1"
           onClick={() => setIsOpen(true)}
