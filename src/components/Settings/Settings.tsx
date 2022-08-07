@@ -37,8 +37,7 @@ const Settings = () => {
     notifyVolume,
     rateWithBalance,
     rateWithoutBalance,
-    currency,
-    user
+    currency
   } = useAppSelector((state) => ({
     userId: state.user.data?.id,
     currency: state.options.data?.currency || '',
@@ -46,8 +45,7 @@ const Settings = () => {
     notifyMinutes: state.options.data?.notifyMinutes || 3,
     notifyVolume: state.options.data?.notifyVolume || 100,
     rateWithBalance: state.options.data?.rateWithBalance || 0,
-    rateWithoutBalance: state.options.data?.rateWithoutBalance || 0,
-    user: state.user.data
+    rateWithoutBalance: state.options.data?.rateWithoutBalance || 0
   }));
 
   const initialValues = {

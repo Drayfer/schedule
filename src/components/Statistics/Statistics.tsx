@@ -117,7 +117,7 @@ const Statistics = () => {
         type="inner"
         title="Intensity Graph"
         bordered={false}
-        style={{ width: '100%' }}
+        className="!mx-4 !w-full"
       >
         <LessonsChart />
       </Card>

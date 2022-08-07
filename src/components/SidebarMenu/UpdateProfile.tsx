@@ -203,7 +203,7 @@ const UpdateProfile = () => {
 
 export default UpdateProfile;
 
-const StyledDrawer = styled(Drawer)<{ fullMobileWidth?: boolean }>`
+export const StyledDrawer = styled(Drawer)<{ fullMobileWidth?: boolean }>`
   .ant-drawer-content-wrapper {
     width: ${(props) => props.fullMobileWidth && '100% !important'};
   }
