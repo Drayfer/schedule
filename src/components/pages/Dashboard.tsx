@@ -8,6 +8,8 @@ import MainBoard from '../MainBoard/MainBoard';
 import SidebarMenu from '../SidebarMenu/SidebarMenu';
 import PushNotification from '../Schedule/PushNotification';
 import { useLogOut } from '../helpers/LogOut';
+import Notifications from '../Notifications/Notifications';
+import TimerNotifications from '../Notifications/TimerNotifications';
 
 const Dashboard = () => {
   const { user } = useAppSelector((state) => state);
@@ -35,15 +37,16 @@ const Dashboard = () => {
   return (
     <>
       <PushNotification />
+      <TimerNotifications />
       <div className="flex w-screen">
         <SidebarMenu />
 
         <div className="bg-slate-200 overflow-auto h-screen w-full relative overflow-x-hidden">
           {/* <Header /> */}
+          <Notifications />
           <div className="pb-10 overflow-x-hidden h-screen mt-1 phone:pb-16 phone:overflow-y-auto tablet:h-screen">
             <MainBoard />
           </div>
-
           <Footer />
         </div>
       </div>

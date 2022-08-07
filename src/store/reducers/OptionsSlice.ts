@@ -1,4 +1,4 @@
-import { IOption } from './../../models/IOption';
+import { INotification, IOption } from './../../models/IOption';
 import { getTokenHeader } from './../../components/helpers/getTokenHeader';
 import { ILesson } from './../../models/ILesson';
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
@@ -26,6 +26,9 @@ interface GetTodayLessons {
 }
 
 interface IUpdateDataOption extends Partial<IOption> {
+  userId: number;
+}
+interface ICreateNotification extends INotification {
   userId: number;
 }
 
@@ -100,6 +103,78 @@ export const getSttistic = createAsyncThunk(
   }
 );
 
+export const createNotification = createAsyncThunk(
+  'option/notification/:userId',
+  async (payload: ICreateNotification, thunkAPI) => {
+    try {
+      const { data } = await axios.post<INotification[]>(
+        `${process.env.REACT_APP_API_URL}/option/notification/${payload.userId}`,
+        {
+          id: payload.id,
+          text: payload.text,
+          date: payload.date,
+          complete: payload.complete
+        },
+        getTokenHeader()
+      );
+      return data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const removeNotification = createAsyncThunk(
+  'option/notification/:noteId/:userId',
+  async (payload: { userId: number; noteId: number }, thunkAPI) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/option/notification/${payload.noteId}/${payload.userId}`,
+        getTokenHeader()
+      );
+      return payload.noteId;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const editNotification = createAsyncThunk(
+  'option/notification/:userId',
+  async (payload: ICreateNotification, thunkAPI) => {
+    try {
+      const { data } = await axios.patch<INotification[]>(
+        `${process.env.REACT_APP_API_URL}/option/notification/${payload.userId}`,
+        {
+          id: payload.id,
+          text: payload.text,
+          date: payload.date,
+          complete: payload.complete
+        },
+        getTokenHeader()
+      );
+      return data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const allCompleteNotification = createAsyncThunk(
+  'option/notification/allComplete/:userId',
+  async (payload: { userId: number }, thunkAPI) => {
+    try {
+      const { data } = await axios.delete<INotification[]>(
+        `${process.env.REACT_APP_API_URL}/option/all/${payload.userId}`,
+        getTokenHeader()
+      );
+      return data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const optionsSlice = createSlice({
   name: 'options',
   initialState,
@@ -136,6 +211,40 @@ export const optionsSlice = createSlice({
     },
     [getSttistic.fulfilled.type]: (state, action: PayloadAction<IOption>) => {
       state.data = { ...state.data, ...action.payload };
+    },
+    [createNotification.fulfilled.type]: (
+      state,
+      action: PayloadAction<INotification[]>
+    ) => {
+      if (state.data?.notificationsArr) {
+        state.data.notificationsArr = action.payload;
+      }
+    },
+    [removeNotification.fulfilled.type]: (
+      state,
+      action: PayloadAction<number>
+    ) => {
+      if (state.data?.notificationsArr) {
+        state.data.notificationsArr = state.data.notificationsArr.filter(
+          (note) => note.id !== action.payload
+        );
+      }
+    },
+    [editNotification.fulfilled.type]: (
+      state,
+      action: PayloadAction<INotification[]>
+    ) => {
+      if (state.data?.notificationsArr) {
+        state.data.notificationsArr = action.payload;
+      }
+    },
+    [allCompleteNotification.fulfilled.type]: (
+      state,
+      action: PayloadAction<INotification[]>
+    ) => {
+      if (state.data?.notificationsArr) {
+        state.data.notificationsArr = action.payload;
+      }
     }
   }
 });
