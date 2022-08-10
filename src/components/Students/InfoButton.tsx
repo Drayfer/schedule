@@ -3,6 +3,7 @@ import { Avatar, Button, Col, Drawer, Row, Space, Tooltip } from 'antd';
 import moment from 'moment';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useAppSelector } from '../../hooks/redux';
 import { IDiscipline } from '../../models/IDiscipline';
 import { IStudent } from '../../models/IStudent';
 import { LittleRound } from '../Schedule/AddLesson';
@@ -15,6 +16,9 @@ interface InfoButtonProps {
 
 const InfoButton = (props: InfoButtonProps) => {
   const { student, allDisciplines } = props;
+  const { lang } = useAppSelector((state) => ({
+    lang: state.options.lang
+  }));
 
   const [isInfoStudent, setIsInfoStudent] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -26,7 +30,7 @@ const InfoButton = (props: InfoButtonProps) => {
 
   return (
     <>
-      <Tooltip title="student info">
+      <Tooltip title={lang.students[33]}>
         <InfoCircleOutlined
           style={{
             fontSize: '20px',
@@ -40,14 +44,14 @@ const InfoButton = (props: InfoButtonProps) => {
           navigator.userAgent
         )}
         className=""
-        title="Student Info"
+        title={lang.students[34]}
         // width={390}
         onClose={closeModal}
         visible={isInfoStudent}
         bodyStyle={{ paddingBottom: 80 }}
         extra={
           <Space>
-            <Button onClick={closeModal}>Cancel</Button>
+            <Button onClick={closeModal}>{lang.students[35]}</Button>
           </Space>
         }
       >
@@ -79,15 +83,17 @@ const InfoButton = (props: InfoButtonProps) => {
               {student.name} {student.surname}
             </span>
             <Row className="my-3">
-              <NameCol>Balance:</NameCol>
+              <NameCol>{lang.students[36]}:</NameCol>
               <ValueCol>{student.balance}</ValueCol>
-              <NameCol>Active:</NameCol>
-              <ValueCol>{student.break ? 'No' : 'Yes'}</ValueCol>
-              <NameCol>Disciplines:</NameCol>
+              <NameCol>{lang.students[37]}:</NameCol>
+              <ValueCol>
+                {student.break ? lang.students[38] : lang.students[39]}
+              </ValueCol>
+              <NameCol>{lang.students[40]}:</NameCol>
               <ValueCol>
                 <div className="flex items-center">
                   <LittleRound color="#CBD5E1" />
-                  General
+                  {lang.students[41]}
                 </div>
                 {student.disciplines?.map((item) => (
                   <div className="flex items-center">
@@ -96,23 +102,25 @@ const InfoButton = (props: InfoButtonProps) => {
                   </div>
                 ))}
               </ValueCol>
-              <NameCol>Birthday:</NameCol>
+              <NameCol>{lang.students[42]}:</NameCol>
               <ValueCol>
                 {student.birthday &&
                   moment(student.birthday).format('DD.MM.YYYY')}
               </ValueCol>
-              <NameCol>Parent:</NameCol>
+              <NameCol>{lang.students[43]}:</NameCol>
               <ValueCol>{student.parent}</ValueCol>
-              <NameCol>Pnone:</NameCol>
+              <NameCol>{lang.students[44]}:</NameCol>
               <ValueCol>{student.phone}</ValueCol>
-              <NameCol>Email:</NameCol>
+              <NameCol>{lang.students[45]}:</NameCol>
               <ValueCol>{student.email}</ValueCol>
-              <NameCol>Skype:</NameCol>
+              <NameCol>{lang.students[46]}:</NameCol>
               <ValueCol>{student.skype}</ValueCol>
-              <NameCol>Note:</NameCol>
+              <NameCol>{lang.students[47]}:</NameCol>
               <Col span={24}>{student.note}</Col>
             </Row>
-            <Button onClick={() => setIsEdit(!isEdit)}>Edit</Button>
+            <Button onClick={() => setIsEdit(!isEdit)}>
+              {lang.students[48]}
+            </Button>
           </>
         )}
       </StyledDrawer>

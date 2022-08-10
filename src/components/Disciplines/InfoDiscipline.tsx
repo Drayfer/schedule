@@ -17,7 +17,7 @@ import { Formik, FormikProps } from 'formik';
 import { Form, FormItem, Input, Select, SubmitButton } from 'formik-antd';
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { IDiscipline } from '../../models/IDiscipline';
 import { IStudent } from '../../models/IStudent';
 import { updateDiscipline } from '../../store/reducers/DisciplineActions';
@@ -38,12 +38,14 @@ export interface IUpdateDisciplineForm {
   color: string;
 }
 
-const ValidationSchema = Yup.object().shape({
-  title: Yup.string().required('Required field')
-});
-
 const InfoDiscipline = (props: InfoDisciplineProps) => {
+  const { lang } = useAppSelector((state) => ({
+    lang: state.options.lang
+  }));
   const { discipline, allStudents } = props;
+  const ValidationSchema = Yup.object().shape({
+    title: Yup.string().required(lang.disciplines[18])
+  });
 
   const [isInfoStudent, setIsInfoStudent] = useState(false);
 
@@ -78,7 +80,7 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
       );
       formRef.current?.resetForm();
       closeModal();
-      message.success('Discipline updated successfully.');
+      message.success(lang.disciplines[19]);
     } catch (err) {
       PopupError(err);
     }
@@ -86,7 +88,7 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
 
   return (
     <>
-      <Tooltip title="discipline info">
+      <Tooltip title={lang.disciplines[20]}>
         <InfoCircleOutlined
           style={{
             fontSize: '20px',
@@ -100,14 +102,14 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
           navigator.userAgent
         )}
         className=""
-        title="Discipline Info"
+        title={lang.disciplines[21]}
         // width={390}
         onClose={closeModal}
         visible={isInfoStudent}
         bodyStyle={{ paddingBottom: 80 }}
         extra={
           <Space>
-            <Button onClick={closeModal}>Cancel</Button>
+            <Button onClick={closeModal}>{lang.disciplines[22]}</Button>
           </Space>
         }
       >
@@ -147,9 +149,13 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
                   htmlFor="title"
                   className="text-gray-500/70 font-bold text-xs"
                 >
-                  TITLE
+                  {lang.disciplines[23]}
                 </label>
-                <Input name="title" placeholder="Discipline title" bordered />
+                <Input
+                  name="title"
+                  placeholder={lang.disciplines[24]}
+                  bordered
+                />
               </FormItem>
 
               <FormItem name="studentId">
@@ -157,11 +163,11 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
                   htmlFor="studentId"
                   className="text-gray-500/70 font-bold text-xs"
                 >
-                  STUDENTS
+                  {lang.disciplines[25]}
                 </label>
                 <Select
                   mode="tags"
-                  placeholder="Select students"
+                  placeholder={lang.disciplines[26]}
                   style={{ width: '100%' }}
                   name="studentId"
                 >
@@ -193,10 +199,10 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
                     </div>
 
                     <Popconfirm
-                      title={`Are you sure to delete ${student.name} ${student.surname}?`}
+                      title={`${lang.disciplines[27]} ${student.name} ${student.surname}?`}
                       icon={<CloseCircleFilled style={{ color: 'red' }} />}
-                      okText="Yes"
-                      cancelText="No"
+                      okText={lang.disciplines[28]}
+                      cancelText={lang.disciplines[29]}
                       onConfirm={async () => {
                         try {
                           await isErrorDispatch(
@@ -209,7 +215,7 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
                               })
                             )
                           );
-                          message.success('Student deleted successfully.');
+                          message.success(lang.disciplines[30]);
                         } catch (err) {
                           PopupError(err);
                         }
@@ -230,9 +236,8 @@ const InfoDiscipline = (props: InfoDisciplineProps) => {
                 key="submit"
                 className="w-full rounded-sm mt-2"
                 disabled={!values.title}
-                // loading={loading}
               >
-                Update
+                {lang.disciplines[31]}
               </SubmitButton>
             </Form>
           )}

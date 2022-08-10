@@ -45,13 +45,15 @@ const Students = (props: Props) => {
     students,
     loadingStudents,
     searchedStudentId,
-    allDisciplines
+    allDisciplines,
+    lang
   } = useAppSelector((state) => ({
     userId: state.user.data?.id || 0,
     students: state.student.data,
     loadingStudents: state.student.isLoading,
     searchedStudentId: state.options.searchedStudentId,
-    allDisciplines: state.discipline.data
+    allDisciplines: state.discipline.data,
+    lang: state.options.lang
   }));
 
   const [filteredStudents, setFilteredStudents] = useState<IStudent[]>([]);
@@ -102,7 +104,7 @@ const Students = (props: Props) => {
       render: (color: string) => <Round color={color} />
     },
     {
-      title: 'Name',
+      title: lang.students[0],
       dataIndex: 'name',
       render: (name: string, record: IStudent) => (
         <div className="flex flex-col justify-center min-h-7">
@@ -122,7 +124,7 @@ const Students = (props: Props) => {
         b.name.toString().localeCompare(a.name.toString())
     },
     {
-      title: 'Balance',
+      title: lang.students[1],
       dataIndex: 'balance',
       sorter: (a: IStudent, b: IStudent) => a.balance - b.balance,
       render: (count: number, record: IStudent) => {
@@ -171,7 +173,7 @@ const Students = (props: Props) => {
               )}
             </Col>
             <Col span={!isMobile ? 12 : 22}>
-              <Tooltip title="show/hide balance">
+              <Tooltip title={lang.menu[2]}>
                 <Switch
                   size="small"
                   checked={record.showBalance}
@@ -191,19 +193,19 @@ const Students = (props: Props) => {
       }
     },
     {
-      title: 'Added',
+      title: lang.students[3],
       dataIndex: 'createdDate',
       render: (date: Date) => moment.utc(date).local().format('DD.MM.YYYY'),
       sorter: (a: IStudent, b: IStudent) =>
         moment(b.createdDate).unix() - moment(a.createdDate).unix()
     },
     {
-      title: 'Actions',
+      title: lang.students[4],
       render: (record: IStudent) => {
         return (
           <>
             <Popconfirm
-              title="Are you sure to delete this student? All scheduled lessons in the timetable will be deleted."
+              title={lang.students[5]}
               icon={<CloseCircleFilled style={{ color: 'red' }} />}
               onConfirm={async () => {
                 try {
@@ -217,17 +219,15 @@ const Students = (props: Props) => {
                       })
                     )
                   );
-                  message.success(
-                    'Student deleted successfully. All scheduled lessons deleted successfully.'
-                  );
+                  message.success(lang.students[6]);
                 } catch (err) {
                   PopupError(err);
                 }
               }}
-              okText="Yes"
-              cancelText="No"
+              okText={lang.students[7]}
+              cancelText={lang.students[8]}
             >
-              <Tooltip title="delete student">
+              <Tooltip title={lang.students[9]}>
                 <DeleteOutlined
                   style={{
                     fontSize: '20px',
@@ -239,7 +239,7 @@ const Students = (props: Props) => {
             </Popconfirm>
 
             <Popconfirm
-              title="Are you sure to send this student to rest? All scheduled lessons in the timetable will be deleted."
+              title={lang.students[10]}
               onConfirm={async () => {
                 try {
                   await isErrorDispatch(
@@ -260,18 +260,18 @@ const Students = (props: Props) => {
                     );
                   }
                   message.info(
-                    `Student is ${
-                      isActive ? 'hidden' : 'active'
-                    }. All scheduled lessons deleted successfully.`
+                    `${lang.students[11]} ${
+                      isActive ? lang.students[12] : lang.students[13]
+                    }. ${lang.students[14]}`
                   );
                 } catch (err) {
                   PopupError(err);
                 }
               }}
-              okText="Yes"
-              cancelText="No"
+              okText={lang.students[7]}
+              cancelText={lang.students[8]}
             >
-              <Tooltip title="send to rest">
+              <Tooltip title={lang.students[15]}>
                 {isActive ? (
                   <MinusCircleOutlined
                     style={{
@@ -307,7 +307,7 @@ const Students = (props: Props) => {
             <AddStudentForm />
             <Input
               width={150}
-              placeholder="Search student"
+              placeholder={lang.students[16]}
               onChange={(e) => handleSearchChange(e)}
               value={searchValue}
             />
@@ -321,13 +321,11 @@ const Students = (props: Props) => {
                 );
               }}
             >
-              Clear
+              {lang.students[17]}
             </Button>
           </div>
 
-          <Tooltip
-            title={isActive ? 'Show hidden students' : 'Show active students'}
-          >
+          <Tooltip title={isActive ? lang.students[18] : lang.students[19]}>
             <Button
               type="default"
               onClick={() => {
@@ -339,7 +337,7 @@ const Students = (props: Props) => {
                 setIsActive(!isActive);
               }}
             >
-              {isActive ? 'Active' : 'Hidden'}
+              {isActive ? lang.students[20] : lang.students[21]}
             </Button>
           </Tooltip>
         </div>
@@ -365,7 +363,7 @@ const Students = (props: Props) => {
             dispatch(setSearchedStudent(null));
           }}
         >
-          Back to Schedule
+          {lang.students[22]}
         </Button>
       )}
     </>

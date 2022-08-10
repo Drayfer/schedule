@@ -8,8 +8,8 @@ import MainBoard from '../MainBoard/MainBoard';
 import SidebarMenu from '../SidebarMenu/SidebarMenu';
 import PushNotification from '../Schedule/PushNotification';
 import { useLogOut } from '../helpers/LogOut';
-import Notifications from '../Notifications/Notifications';
 import TimerNotifications from '../Notifications/TimerNotifications';
+import Header from '../Header/Header';
 
 const Dashboard = () => {
   const { user } = useAppSelector((state) => state);
@@ -42,9 +42,9 @@ const Dashboard = () => {
         <SidebarMenu />
 
         <div className="bg-slate-200 overflow-auto h-screen w-full relative overflow-x-hidden">
-          {/* <Header /> */}
-          <Notifications />
-          <div className="pb-10 overflow-x-hidden h-screen mt-1 phone:pb-16 phone:overflow-y-auto tablet:h-screen">
+          <Header />
+
+          <div className="pb-5 pt-[50px] overflow-x-hidden h-screen phone:pb-16 phone:overflow-y-auto tablet:h-screen">
             <MainBoard />
           </div>
           <Footer />

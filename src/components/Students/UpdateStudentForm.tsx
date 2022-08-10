@@ -13,7 +13,7 @@ import React, { useRef } from 'react';
 import { IStudent } from '../../models/IStudent';
 import * as Yup from 'yup';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { updateStudent } from '../../store/reducers/StudentActions';
 import { IDiscipline } from '../../models/IDiscipline';
 import { updateDiscipline } from '../../store/reducers/DisciplineActions';
@@ -28,16 +28,19 @@ interface UpdateStudentFormProps {
   allDisciplines: IDiscipline[];
 }
 
-const ValidationSchema = Yup.object().shape({
-  name: Yup.string().min(2).required('Required field')
-});
-
 interface UpdateForm extends IStudent {
   selectDisciplines?: string[];
 }
 
 const UpdateStudentForm = (props: UpdateStudentFormProps) => {
   const { student, setIsEdit, allDisciplines } = props;
+  const { lang } = useAppSelector((state) => ({
+    lang: state.options.lang
+  }));
+
+  const ValidationSchema = Yup.object().shape({
+    name: Yup.string().min(2).required(lang.students[49])
+  });
   const dispatch = useAppDispatch();
   const formRef = useRef<FormikProps<UpdateForm>>(null);
 
@@ -64,7 +67,7 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
         )
       );
       setIsEdit(false);
-      message.info(`Student profile updated`);
+      message.info(lang.students[50]);
     } catch (err) {
       PopupError(err);
     }
@@ -109,9 +112,7 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
         );
       }
       message.success(
-        type === 'select'
-          ? 'Discipline added successfully.'
-          : 'Discipline remove successfully.'
+        type === 'select' ? lang.students[51] : lang.students[52]
       );
     } catch (err) {
       PopupError(err);
@@ -150,20 +151,20 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
             <StyledInput type="color" name="color" />
           </div>
           <FormItem name="name">
-            <Input name="name" placeholder="Student name" bordered />
+            <Input name="name" placeholder={lang.students[53]} bordered />
           </FormItem>
           <FormItem name="surname">
-            <Input name="surname" placeholder="Student surname" bordered />
+            <Input name="surname" placeholder={lang.students[54]} bordered />
           </FormItem>
           <FormItem name="balance">
-            <label className="w-1/5">Balance: </label>
+            <label className="w-1/5">{lang.students[55]}: </label>
             <InputNumber name="balance" style={{ width: '80%' }} />
           </FormItem>
 
           <FormItem name="selectDisciplines">
             <Select
               mode="tags"
-              placeholder="Select disciplines"
+              placeholder={lang.students[56]}
               style={{ width: '100%' }}
               name="selectDisciplines"
               onSelect={(value: string) => handleSelect(value, 'select')}
@@ -186,7 +187,7 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
           <FormItem name="birthday">
             <DatePicker
               name="birthday"
-              placeholder="Student birthday"
+              placeholder={lang.students[57]}
               bordered
               format={'DD.MM.YYYY'}
               style={{ width: '100%' }}
@@ -194,33 +195,38 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
           </FormItem>
 
           <FormItem name="parent">
-            <Input name="parent" placeholder="Parent's name" bordered />
+            <Input name="parent" placeholder={lang.students[58]} bordered />
           </FormItem>
 
           <FormItem name="phone">
-            <Input name="phone" placeholder="Student phone" bordered />
+            <Input name="phone" placeholder={lang.students[59]} bordered />
           </FormItem>
 
           <FormItem name="email">
-            <Input name="email" placeholder="Student email" bordered />
+            <Input name="email" placeholder={lang.students[60]} bordered />
           </FormItem>
 
           <FormItem name="skype">
-            <Input name="skype" placeholder="Student skype" bordered />
+            <Input name="skype" placeholder={lang.students[61]} bordered />
           </FormItem>
 
           <FormItem name="note">
-            <Input.TextArea name="note" rows={4} placeholder="Notes" bordered />
+            <Input.TextArea
+              name="note"
+              rows={4}
+              placeholder={lang.students[62]}
+              bordered
+            />
           </FormItem>
 
           <SubmitButton key="submit" className="w-full rounded-sm">
-            Update
+            {lang.students[63]}
           </SubmitButton>
           <Button
             className="w-full rounded-sm mt-2"
             onClick={() => setIsEdit(false)}
           >
-            Back
+            {lang.students[64]}
           </Button>
         </Form>
       )}

@@ -8,18 +8,21 @@ const sound = require('../../assets/audio/sounds/notification2.wav');
 const playSound = new Audio(sound);
 
 const TimerNotifications = () => {
-  const { notificationsArr, userId, optionsData } = useAppSelector((state) => ({
-    notificationsArr: state.options.data?.notificationsArr,
-    userId: state.user.data?.id,
-    optionsData: state.options.data
-  }));
+  const { notificationsArr, userId, optionsData, lang } = useAppSelector(
+    (state) => ({
+      notificationsArr: state.options.data?.notificationsArr,
+      userId: state.user.data?.id,
+      optionsData: state.options.data,
+      lang: state.options.lang
+    })
+  );
   const [play, setPlay] = useState(0);
 
   const dispatch = useAppDispatch();
 
   const notificationMessage = (noteId: number) => {
     addNotification({
-      title: `New notifications (+${
+      title: `${lang.notification[17]} (+${
         notificationsArr?.filter((n) => n.complete).length
       })`,
       message: `${

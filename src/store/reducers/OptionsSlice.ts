@@ -4,12 +4,14 @@ import { ILesson } from './../../models/ILesson';
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { AxiosErr } from '../../types/types';
+import { lang } from '../../assets/constants/lang';
 interface UserState {
   activeBoard: string;
   fullMenu: boolean;
   todayLessons: ILesson[];
   searchedStudentId: number | null;
-  data: IOption | null;
+  data: IOption;
+  lang: any;
 }
 
 const initialState: UserState = {
@@ -17,7 +19,23 @@ const initialState: UserState = {
   fullMenu: true,
   todayLessons: [],
   searchedStudentId: null,
-  data: null
+  lang: lang.en,
+  data: {
+    currency: '',
+    notification: true,
+    notifyMinutes: 3,
+    notifyVolume: 100,
+    rateWithBalance: 0,
+    rateWithoutBalance: 0,
+    deletedStudents: 0,
+    monthLessons: 0,
+    totalLessons: 0,
+    monthIncome: 0,
+    totalIncome: 0,
+    weekIncome: 0,
+    notificationsArr: [],
+    locale: 'en'
+  }
 };
 
 interface GetTodayLessons {
@@ -175,6 +193,21 @@ export const allCompleteNotification = createAsyncThunk(
   }
 );
 
+export const setLocale = createAsyncThunk(
+  'option/locale/:userId/:locale',
+  async ({ userId, locale }: { userId: number; locale: string }, thunkAPI) => {
+    try {
+      const { data } = await axios.get<string>(
+        `${process.env.REACT_APP_API_URL}/option/locale/${userId}/${locale}`,
+        getTokenHeader()
+      );
+      return data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const optionsSlice = createSlice({
   name: 'options',
   initialState,
@@ -188,6 +221,9 @@ export const optionsSlice = createSlice({
     },
     setSearchedStudent: (state, action: PayloadAction<number | null>) => {
       state.searchedStudentId = action.payload;
+    },
+    setLang: (state, action: PayloadAction<any>) => {
+      state.lang = action.payload;
     }
   },
   extraReducers: {
@@ -245,11 +281,19 @@ export const optionsSlice = createSlice({
       if (state.data?.notificationsArr) {
         state.data.notificationsArr = action.payload;
       }
+    },
+    [setLocale.fulfilled.type]: (state, action: PayloadAction<string>) => {
+      state.data.locale = action.payload;
     }
   }
 });
 
-export const { setActiveBoard, setFullMenu, resetOpions, setSearchedStudent } =
-  optionsSlice.actions;
+export const {
+  setActiveBoard,
+  setFullMenu,
+  resetOpions,
+  setSearchedStudent,
+  setLang
+} = optionsSlice.actions;
 
 export default optionsSlice.reducer;

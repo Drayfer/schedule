@@ -16,7 +16,8 @@ const Statistics = () => {
     monthIncome,
     totalIncome,
     weekIncome,
-    currency
+    currency,
+    lang
   } = useAppSelector((state) => ({
     lessons: state.lessons.data || [],
     students: state.student.data,
@@ -27,7 +28,8 @@ const Statistics = () => {
     monthIncome: state.options.data?.monthIncome,
     totalIncome: state.options.data?.totalIncome,
     weekIncome: state.options.data?.weekIncome,
-    currency: state.options.data?.currency
+    currency: state.options.data?.currency,
+    lang: state.options.lang
   }));
 
   const dispatch = useAppDispatch();
@@ -47,15 +49,15 @@ const Statistics = () => {
     <div className="flex justify-center gap-4 flex-wrap">
       <Card
         type="inner"
-        title="Lessons"
+        title={lang.statistics[0]}
         bordered={false}
         style={{ width: 300 }}
       >
         <Row>
           <Col className="w-3/5">
-            <p>Peer week:</p>
-            <p>Peer month:</p>
-            <p>Total:</p>
+            <p>{lang.statistics[1]}:</p>
+            <p>{lang.statistics[2]}:</p>
+            <p>{lang.statistics[3]}:</p>
           </Col>
           <Col className="w-2/5">
             <p>{lessons.length}</p>
@@ -67,15 +69,15 @@ const Statistics = () => {
 
       <Card
         type="inner"
-        title="Students"
+        title={lang.statistics[4]}
         bordered={false}
         style={{ width: 300 }}
       >
         <Row>
           <Col className="w-3/5">
-            <p>Active:</p>
-            <p>Hide:</p>
-            <p>Delete:</p>
+            <p>{lang.statistics[5]}:</p>
+            <p>{lang.statistics[6]}:</p>
+            <p>{lang.statistics[7]}:</p>
           </Col>
           <Col className="w-2/5">
             <p>{students.filter((student) => !student.break).length}</p>
@@ -87,15 +89,15 @@ const Statistics = () => {
 
       <Card
         type="inner"
-        title="Finance"
+        title={lang.statistics[8]}
         bordered={false}
         style={{ width: 300 }}
       >
         <Row>
           <Col className="w-3/5">
-            <p>Per last week:</p>
-            <p>Per last month:</p>
-            <p>Total:</p>
+            <p>{lang.statistics[9]}:</p>
+            <p>{lang.statistics[10]}:</p>
+            <p>{lang.statistics[11]}:</p>
           </Col>
           <Col className="w-2/5">
             <p>
@@ -115,7 +117,7 @@ const Statistics = () => {
       </Card>
       <Card
         type="inner"
-        title="Intensity Graph"
+        title={lang.statistics[12]}
         bordered={false}
         className="!mx-4 !w-full"
       >

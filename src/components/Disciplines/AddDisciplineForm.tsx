@@ -18,16 +18,17 @@ export interface IAddDisciplineForm {
   color: string;
 }
 
-const ValidationSchema = Yup.object().shape({
-  title: Yup.string().required('Required field')
-});
-
 const AddDisciplineForm = () => {
-  const { userId, students, loading } = useAppSelector((state) => ({
+  const { userId, students, loading, lang } = useAppSelector((state) => ({
     userId: state.user.data?.id || 0,
     students: state.student.data,
-    loading: state.discipline.isLoading
+    loading: state.discipline.isLoading,
+    lang: state.options.lang
   }));
+
+  const ValidationSchema = Yup.object().shape({
+    title: Yup.string().required(lang.disciplines[9])
+  });
 
   const [isAddDiscipline, setIsAddDiscipline] = useState(false);
   const formRef = useRef<FormikProps<IAddDisciplineForm>>(null);
@@ -63,17 +64,19 @@ const AddDisciplineForm = () => {
         onClick={() => setIsAddDiscipline(true)}
         className="mr-2"
       >
-        Add new
+        {lang.disciplines[10]}
       </Button>
       <Drawer
-        title="Add a new discipline"
+        title={lang.disciplines[11]}
         width={390}
         onClose={() => setIsAddDiscipline(false)}
         visible={isAddDiscipline}
         bodyStyle={{ paddingBottom: 80 }}
         extra={
           <Space>
-            <Button onClick={() => setIsAddDiscipline(false)}>Cancel</Button>
+            <Button onClick={() => setIsAddDiscipline(false)}>
+              {lang.disciplines[12]}
+            </Button>
           </Space>
         }
       >
@@ -113,9 +116,13 @@ const AddDisciplineForm = () => {
                   htmlFor="title"
                   className="text-gray-500/70 font-bold text-xs"
                 >
-                  TITLE
+                  {lang.disciplines[13]}
                 </label>
-                <Input name="title" placeholder="Discipline title" bordered />
+                <Input
+                  name="title"
+                  placeholder={lang.disciplines[14]}
+                  bordered
+                />
               </FormItem>
 
               <FormItem name="studentId">
@@ -123,11 +130,11 @@ const AddDisciplineForm = () => {
                   htmlFor="studentId"
                   className="text-gray-500/70 font-bold text-xs"
                 >
-                  STUDENTS
+                  {lang.disciplines[15]}
                 </label>
                 <Select
                   mode="tags"
-                  placeholder="Select students"
+                  placeholder={lang.disciplines[16]}
                   style={{ width: '100%' }}
                   name="studentId"
                 >
@@ -147,7 +154,7 @@ const AddDisciplineForm = () => {
                 disabled={!values.title}
                 loading={loading}
               >
-                Add
+                {lang.disciplines[17]}
               </SubmitButton>
             </Form>
           )}

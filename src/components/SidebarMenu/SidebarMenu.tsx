@@ -40,31 +40,32 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  getItem('Schedule', 'schedule', <ScheduleOutlined />),
-  getItem('Students', 'students', <TeamOutlined />),
-  getItem('Disciplines', 'disciplines', <PieChartOutlined />),
-  getItem('Statistics', 'statistics', <BarChartOutlined />),
-  getItem('Settings', 'settings', <SettingOutlined />)
-
-  // getItem('Settings', 'sub1', <MailOutlined />, [
-  //   getItem('Option 5', '5'),
-  //   getItem('Option 6', '6')
-  // ]),
-  // getItem('Students', '4', <DesktopOutlined />),
-
-  // getItem('Students', '100', <DesktopOutlined />)
-];
-
 const SidebarMenu = () => {
   const dispatch = useAppDispatch();
   const logOut = useLogOut();
-  const { activeBoard, user, fullMenu } = useAppSelector((state) => ({
+  const { activeBoard, user, fullMenu, lang } = useAppSelector((state) => ({
     activeBoard: state.options.activeBoard,
     user: state.user,
-    fullMenu: state.options.fullMenu
+    fullMenu: state.options.fullMenu,
+    lang: state.options.lang
   }));
   const [collapsed, setCollapsed] = React.useState(!fullMenu);
+
+  const items: MenuItem[] = [
+    getItem(lang.menu[0], 'schedule', <ScheduleOutlined />),
+    getItem(lang.menu[1], 'students', <TeamOutlined />),
+    getItem(lang.menu[2], 'disciplines', <PieChartOutlined />),
+    getItem(lang.menu[3], 'statistics', <BarChartOutlined />),
+    getItem(lang.menu[4], 'settings', <SettingOutlined />)
+
+    // getItem('Settings', 'sub1', <MailOutlined />, [
+    //   getItem('Option 5', '5'),
+    //   getItem('Option 6', '6')
+    // ]),
+    // getItem('Students', '4', <DesktopOutlined />),
+
+    // getItem('Students', '100', <DesktopOutlined />)
+  ];
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -81,7 +82,7 @@ const SidebarMenu = () => {
           className="font-medium text-base text-slate-500 cursor-pointer pt-1.5 pl-5 pr-5"
           onClick={logOut}
         >
-          Log Out
+          {lang.menu[5]}
         </div>
       </div>
     );

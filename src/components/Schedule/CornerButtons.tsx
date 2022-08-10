@@ -19,8 +19,9 @@ interface CornerButtonsProps {
 
 const CornerButtons = (props: CornerButtonsProps) => {
   const { currentDate } = props;
-  const { userId } = useAppSelector((state) => ({
-    userId: state.user.data?.id
+  const { userId, lang } = useAppSelector((state) => ({
+    userId: state.user.data?.id,
+    lang: state.options.lang
   }));
 
   const weekStart = currentDate?.clone().startOf('isoWeek') || moment();
@@ -28,11 +29,10 @@ const CornerButtons = (props: CornerButtonsProps) => {
   const dispatch = useAppDispatch();
 
   return (
-    // <div className="absolute top-12 left-2 flex flex-col z-10 bigPhone:top-1 bigPhone:right-2 bigPhone:flex-row">
-    <div className="absolute top-12 left-2 bigPhone:top-1 bigPhone:left-2 inline z-10">
+    <div className="absolute top-1 left-2 flex z-50">
       {weekStart && weekStart < moment().startOf('isoWeek').add(3, 'week') && (
         <Popconfirm
-          title="Are you sure you want to copy the previous week?"
+          title={lang.schedule[13]}
           icon={<CloseCircleFilled style={{ color: 'red' }} />}
           onConfirm={async () => {
             try {
@@ -49,18 +49,18 @@ const CornerButtons = (props: CornerButtonsProps) => {
               PopupError(err);
             }
           }}
-          okText="Yes"
-          cancelText="No"
+          okText={lang.schedule[5]}
+          cancelText={lang.schedule[6]}
         >
-          <Tooltip placement="right" title="сopy previous week">
-            <div className="w-8 h-8 flex bigPhone:inline-flex justify-center items-center rounded-full bg-white cursor-pointer mr-1 mb-1">
+          <Tooltip placement="right" title={lang.schedule[22]}>
+            <div className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer mr-1 mb-1 border-slate-600 border-[1px]">
               <CopyOutlined />
             </div>
           </Tooltip>
         </Popconfirm>
       )}
       <Popconfirm
-        title="Are you sure you want to clear the schedule?"
+        title={lang.schedule[14]}
         icon={<CloseCircleFilled style={{ color: 'red' }} />}
         onConfirm={async () => {
           try {
@@ -77,11 +77,11 @@ const CornerButtons = (props: CornerButtonsProps) => {
             PopupError(err);
           }
         }}
-        okText="Yes"
-        cancelText="No"
+        okText={lang.schedule[5]}
+        cancelText={lang.schedule[6]}
       >
-        <Tooltip placement="right" title="clear week">
-          <div className="w-8 h-8 flex bigPhone:inline-flex justify-center items-center rounded-full bg-white cursor-pointer">
+        <Tooltip placement="right" title={lang.schedule[21]}>
+          <div className="w-8 h-8 flex justify-center items-center rounded-full bg-white cursor-pointer border-slate-600 border-[1px]">
             <ClearOutlined />
           </div>
         </Tooltip>

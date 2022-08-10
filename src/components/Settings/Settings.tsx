@@ -37,7 +37,8 @@ const Settings = () => {
     notifyVolume,
     rateWithBalance,
     rateWithoutBalance,
-    currency
+    currency,
+    lang
   } = useAppSelector((state) => ({
     userId: state.user.data?.id,
     currency: state.options.data?.currency || '',
@@ -45,7 +46,8 @@ const Settings = () => {
     notifyMinutes: state.options.data?.notifyMinutes || 3,
     notifyVolume: state.options.data?.notifyVolume || 100,
     rateWithBalance: state.options.data?.rateWithBalance || 0,
-    rateWithoutBalance: state.options.data?.rateWithoutBalance || 0
+    rateWithoutBalance: state.options.data?.rateWithoutBalance || 0,
+    lang: state.options.lang
   }));
 
   const initialValues = {
@@ -80,7 +82,7 @@ const Settings = () => {
         await isErrorDispatch(
           dispatch(updateDataOption({ userId, ...values }))
         );
-        message.info(`Settings updated`);
+        message.info(lang.settings[0]);
       } catch (err) {
         PopupError(err);
       } finally {
@@ -97,15 +99,15 @@ const Settings = () => {
             <div className="flex justify-center mt-10 gap-4 flex-wrap">
               <Card
                 type="inner"
-                title="Notifications"
+                title={lang.settings[1]}
                 bordered={false}
                 style={{ minWidth: 320 }}
               >
                 <Row>
                   <Col className="w-3/5">
-                    <p>Enable:</p>
-                    <p>Notify (minutes):</p>
-                    <p>Volume:</p>
+                    <p>{lang.settings[2]}:</p>
+                    <p>{lang.settings[3]}:</p>
+                    <p>{lang.settings[4]}:</p>
                   </Col>
 
                   <Col className="w-2/5">
@@ -131,15 +133,15 @@ const Settings = () => {
 
               <Card
                 type="inner"
-                title="Students"
+                title={lang.settings[5]}
                 bordered={false}
                 style={{ minWidth: 320 }}
               >
                 <Row>
                   <Col className="mr-1">
-                    <p>Cost with balance:</p>
-                    <p>Cost without balance:</p>
-                    <p>Currency:</p>
+                    <p>{lang.settings[6]}:</p>
+                    <p>{lang.settings[7]}:</p>
+                    <p>{lang.settings[8]}:</p>
                   </Col>
                   <Col>
                     <InputNumber
@@ -175,13 +177,13 @@ const Settings = () => {
                   loading={loading}
                   disabled={!Object.keys(touched).length}
                 >
-                  Save Settings
+                  {lang.settings[9]}
                 </SubmitButton>
                 <div className="text-[#1890ff] mt-3">
                   <UpdateProfile />
                 </div>
                 <Button type="link" onClick={logOut}>
-                  Log Out
+                  {lang.settings[10]}
                 </Button>
               </div>
             </div>
