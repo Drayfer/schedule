@@ -25,12 +25,13 @@ interface AddLessonProps {
 
 const AddLesson = (props: AddLessonProps) => {
   const { day } = props;
-  const { students, userId, lessons, lessonssLoading } = useAppSelector(
+  const { students, userId, lessons, lessonssLoading, lang } = useAppSelector(
     (state) => ({
       students: state.student.data,
       userId: state.user.data?.id,
       lessons: state.lessons.data || [],
-      lessonssLoading: state.lessons.isLoading
+      lessonssLoading: state.lessons.isLoading,
+      lang: state.options.lang
     })
   );
 
@@ -64,7 +65,11 @@ const AddLesson = (props: AddLessonProps) => {
         dayLessons.length &&
         dayLessons.some((lesson) => moment(lesson.date).isSame(time))
       ) {
-        throw new Error(`Time ${time.format('HH:mm [in] ddd')} is busy`);
+        throw new Error(
+          `${lang.schedule[7]} ${time.format('HH:mm [in] ddd')} ${
+            lang.schedule[8]
+          }`
+        );
       }
       const response = await dispatch(
         createLesson({
@@ -80,7 +85,7 @@ const AddLesson = (props: AddLessonProps) => {
       setActiveStudent(null);
       setIsModalVisible(false);
       setActiveDiscipline(null);
-      message.success('New lesson added successful!');
+      message.success(lang.schedule[9]);
     } catch (err) {
       PopupError(err);
     }
@@ -109,7 +114,7 @@ const AddLesson = (props: AddLessonProps) => {
 
           <Select
             showSearch
-            placeholder="Select a student"
+            placeholder={lang.schedule[10]}
             optionFilterProp="children"
             onChange={(id) => {
               setActiveStudent(id);
@@ -149,7 +154,7 @@ const AddLesson = (props: AddLessonProps) => {
                 })}
           </Select>
           <Button type="primary" onClick={handleAdd} loading={lessonssLoading}>
-            Add
+            {lang.schedule[11]}
           </Button>
         </div>
 
@@ -160,7 +165,7 @@ const AddLesson = (props: AddLessonProps) => {
                 !activeDiscipline ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              DISCIPLINE <SwapRightOutlined className="ml-2" />
+              {lang.schedule[12]} <SwapRightOutlined className="ml-2" />
             </div>
             {students
               ?.find((student) => student.id === activeStudent)
@@ -170,14 +175,14 @@ const AddLesson = (props: AddLessonProps) => {
                     item.id === activeDiscipline ? 'opacity-100' : 'opacity-0'
                   }`}
                 >
-                  DISCIPLINE <SwapRightOutlined className="ml-2" />
+                  {lang.schedule[12]} <SwapRightOutlined className="ml-2" />
                 </div>
               ))}
           </Space>
           <Radio.Group onChange={onChangeDiscipline} value={activeDiscipline}>
             <Space direction="vertical" className="text-sm">
               <Radio value={null} defaultChecked>
-                General
+                {lang.schedule[1]}
               </Radio>
               {students
                 ?.find((student) => student.id === activeStudent)

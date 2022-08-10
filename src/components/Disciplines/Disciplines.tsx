@@ -15,12 +15,13 @@ import AddDisciplineForm from './AddDisciplineForm';
 import InfoDiscipline from './InfoDiscipline';
 
 const Disciplines = () => {
-  const { userId, disciplines, allStudents, loadingDisciplines } =
+  const { userId, disciplines, allStudents, loadingDisciplines, lang } =
     useAppSelector((state) => ({
       userId: state.user.data?.id || 0,
       disciplines: state.discipline.data,
       allStudents: state.student.data,
-      loadingDisciplines: state.discipline.isLoading
+      loadingDisciplines: state.discipline.isLoading,
+      lang: state.options.lang
     }));
   const dispatch = useAppDispatch();
 
@@ -38,11 +39,11 @@ const Disciplines = () => {
       render: (color: string) => <Round color={color} />
     },
     {
-      title: 'Title',
+      title: lang.disciplines[0],
       dataIndex: 'title'
     },
     {
-      title: 'Count',
+      title: lang.disciplines[1],
       dataIndex: 'students',
       render: (students: IStudent[], record: IDiscipline) => {
         if (record.title === 'General') {
@@ -55,7 +56,7 @@ const Disciplines = () => {
       }
     },
     {
-      title: 'Students',
+      title: lang.disciplines[2],
       dataIndex: 'students',
       render: (record: IStudent[]) => (
         <div className="flex flex-wrap">
@@ -70,29 +71,29 @@ const Disciplines = () => {
     },
 
     {
-      title: 'Actions',
+      title: lang.disciplines[3],
       render: (record: IDiscipline) => {
         return (
           <>
             {record.title !== 'General' && (
               <>
                 <Popconfirm
-                  title="Are you sure to delete this discipline?"
+                  title={lang.disciplines[4]}
                   icon={<CloseCircleFilled style={{ color: 'red' }} />}
                   onConfirm={async () => {
                     try {
                       await isErrorDispatch(
                         dispatch(deleteDiscipline({ id: record.id }))
                       );
-                      message.success('Discipline deleted successfully.');
+                      message.success(lang.disciplines[4]);
                     } catch (err) {
                       PopupError(err);
                     }
                   }}
-                  okText="Yes"
-                  cancelText="No"
+                  okText={lang.disciplines[6]}
+                  cancelText={lang.disciplines[7]}
                 >
-                  <Tooltip title="delete discipline">
+                  <Tooltip title={lang.disciplines[8]}>
                     <DeleteOutlined
                       style={{
                         fontSize: '20px',

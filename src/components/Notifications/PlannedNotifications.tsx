@@ -14,9 +14,10 @@ interface PlannedNotificationsProps {
 
 const PlannedNotifications = (props: PlannedNotificationsProps) => {
   const { handleEdit } = props;
-  const { notificationsArr, userId } = useAppSelector((state) => ({
+  const { notificationsArr, userId, lang } = useAppSelector((state) => ({
     notificationsArr: state.options.data?.notificationsArr,
-    userId: state.user.data?.id
+    userId: state.user.data?.id,
+    lang: state.options.lang
   }));
 
   const dispatch = useAppDispatch();
@@ -32,7 +33,7 @@ const PlannedNotifications = (props: PlannedNotificationsProps) => {
           })
         )
       );
-      message.success('Notification removed successfully.');
+      message.success(lang.notification[15]);
     } catch (err) {
       PopupError(err);
     }
@@ -46,7 +47,7 @@ const PlannedNotifications = (props: PlannedNotificationsProps) => {
           imageStyle={{
             height: 60
           }}
-          description={<span>No planned notifications</span>}
+          description={<span>{lang.notification[6]}</span>}
         ></Empty>
       ) : (
         <ul>

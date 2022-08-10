@@ -12,6 +12,7 @@ import {
   Card,
   Col,
   DatePicker,
+  Empty,
   List,
   message,
   Popconfirm,
@@ -47,22 +48,29 @@ import CornerButtons from './CornerButtons';
 
 const Schedule = () => {
   const dispatch = useAppDispatch();
-  const { userId, lessons, students, lessonssLoading, disciplines } =
-    useAppSelector((state) => ({
-      userId: state.user.data?.id,
-      lessons: state.lessons.data || [],
-      students: state.student.data,
-      lessonssLoading: state.lessons.isLoading,
-      disciplines: state.discipline.data
-    }));
+  const {
+    userId,
+    lessons,
+    students,
+    lessonssLoading,
+    disciplines,
+    lang,
+    locale
+  } = useAppSelector((state) => ({
+    userId: state.user.data?.id,
+    lessons: state.lessons.data || [],
+    students: state.student.data,
+    lessonssLoading: state.lessons.isLoading,
+    disciplines: state.discipline.data,
+    lang: state.options.lang,
+    locale: state.options.data.locale
+  }));
 
   const [currentDate, setCurrentDate] = useState<moment.Moment | null>(null);
 
   const [days, setDays] = useState<moment.Moment[]>([]);
   const [weekStart, setWeekStart] = useState<moment.Moment | null>(null);
   const [weekEnd, setWeekEnd] = useState<moment.Moment | null>(null);
-  // const weekStart = currentDate?.clone().startOf('isoWeek');
-  // const weekEnd = currentDate?.clone().endOf('isoWeek');
 
   const [changeTime, setChangeTime] = useState<number | null>(null);
   const [isDisableCheck, setIsDisableCheck] = useState(false);
@@ -128,7 +136,7 @@ const Schedule = () => {
       ? []
       : [
           <Popconfirm
-            title="Are you sure to delete all lessons at this day?"
+            title={lang.schedule[0]}
             icon={<CloseCircleFilled style={{ color: 'red' }} />}
             onConfirm={async () => {
               try {
@@ -146,8 +154,8 @@ const Schedule = () => {
                 PopupError(err);
               }
             }}
-            okText="Yes"
-            cancelText="No"
+            okText={lang.schedule[5]}
+            cancelText={lang.schedule[6]}
           >
             <DeleteOutlined key="delete" />
           </Popconfirm>,
@@ -199,7 +207,14 @@ const Schedule = () => {
                 moment().format('DD.MM.YYYY') === day.format('DD.MM.YYYY')
               }
               size="small"
-              title={moment(day).format('dddd')}
+              title={
+                moment(day)
+                  .locale(locale)
+                  .format('dddd')
+                  .charAt(0)
+                  .toUpperCase() +
+                moment(day).locale(locale).format('dddd').slice(1)
+              }
               extra={moment(day).format('DD.MM.YYYY')}
               style={{
                 width: 300,
@@ -213,6 +228,16 @@ const Schedule = () => {
               <StyledList
                 size="small"
                 loading={lessonssLoading}
+                locale={{
+                  emptyText: (
+                    <div>
+                      <Empty
+                        image={Empty.PRESENTED_IMAGE_SIMPLE}
+                        description={lang.schedule[20]}
+                      />
+                    </div>
+                  )
+                }}
                 dataSource={
                   lessons
                     .map((item) => moment(item.date).day())
@@ -230,11 +255,11 @@ const Schedule = () => {
                       >
                         <div className="flex items-center">
                           <Tooltip
-                            title={`discipline: ${
+                            title={`${lang.schedule[12].toLowerCase()}: ${
                               disciplines?.find(
                                 (discipline) =>
                                   discipline.id === item.disciplineId
-                              )?.title || 'General'
+                              )?.title || lang.schedule[1]
                             }`}
                           >
                             <div
@@ -297,13 +322,13 @@ const Schedule = () => {
                             }`}
                           >
                             <Tooltip
-                              title={`balance: ${
+                              title={`${lang.schedule[18]}: ${
                                 students
                                   ?.find(
                                     (st) =>
                                       st.id === item.studentId && st.showBalance
                                   )
-                                  ?.balance.toString() || 'hidden'
+                                  ?.balance.toString() || lang.schedule[19]
                               }`}
                             >
                               <span
@@ -323,7 +348,7 @@ const Schedule = () => {
                                 student.showBalance &&
                                 student.balance < 0
                             ) && (
-                              <Tooltip title="negative balance of lessons">
+                              <Tooltip title={lang.schedule[2]}>
                                 <sup className="bg-[#7c7474] text-white rounded-full px-1 text-[10px]">
                                   -
                                 </sup>
@@ -367,7 +392,7 @@ const Schedule = () => {
                             <CheckCircleOutlined className="ml-2 opacity-50" />
                           ) : (
                             <Popconfirm
-                              title="Are you sure to delete this lesson?"
+                              title={lang.schedule[3]}
                               icon={
                                 <CloseCircleFilled style={{ color: 'red' }} />
                               }
@@ -376,15 +401,13 @@ const Schedule = () => {
                                   await isErrorDispatch(
                                     dispatch(deleteLesson({ id: item.id }))
                                   );
-                                  message.success(
-                                    'Lesson deleted successfully.'
-                                  );
+                                  message.success(lang.schedule[4]);
                                 } catch (err) {
                                   PopupError(err);
                                 }
                               }}
-                              okText="Yes"
-                              cancelText="No"
+                              okText={lang.schedule[5]}
+                              cancelText={lang.schedule[6]}
                             >
                               <CloseOutlined
                                 twoToneColor="#c11071"
@@ -413,9 +436,7 @@ const StyledList = styled(List)<{ renderItem?: any; complete?: boolean }>`
   .ant-empty-normal {
     margin: 0px !important;
   }
-  /* .ant-empty-image {
-    display: none;
-  } */
+
   .ant-list-empty-text {
     padding: 0;
   }
@@ -426,6 +447,9 @@ const ListItem = styled(List.Item)`
 `;
 
 const LessonCard = styled(Card)<{ active?: boolean }>`
+  .ant-card-head-title {
+    font-weight: 500 !important;
+  }
   .ant-card-head {
     border-top-width: ${(props) => props.active && '4px'};
     border-top-color: ${(props) => props.active && '#3b92fc'};
@@ -435,7 +459,3 @@ const LessonCard = styled(Card)<{ active?: boolean }>`
       props.active ? 'calc(100% - 91px)' : 'calc(100% - 87px)'};
   }
 `;
-
-// const TimeFont = styled.span`
-//   font-family: monospace;
-// `;

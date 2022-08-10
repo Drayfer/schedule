@@ -13,9 +13,10 @@ interface IChart {
 }
 
 const LessonsChart = () => {
-  const { userId, currency } = useAppSelector((state) => ({
+  const { userId, currency, lang } = useAppSelector((state) => ({
     userId: state.user.data?.id,
-    currency: state.options.data?.currency
+    currency: state.options.data?.currency,
+    lang: state.options.lang
   }));
 
   const [chardData, setChartData] = useState<IChart[]>([]);
@@ -82,16 +83,16 @@ const LessonsChart = () => {
             {data.map((t) => (
               <div key={title}>
                 <p>
-                  Lessons: <b>{t.data.lessons}</b>
+                  {lang.statistics[13]}: <b>{t.data.lessons}</b>
                 </p>
                 <p>
-                  Income:{' '}
+                  {lang.statistics[14]}:{' '}
                   <b>
                     {t.data.weekIncome} {currency}
                   </b>
                 </p>
                 <p>
-                  Added Students:{' '}
+                  {lang.statistics[15]}:{' '}
                   <b>
                     {t.data.weekStudents
                       ?.map((st: string) => {

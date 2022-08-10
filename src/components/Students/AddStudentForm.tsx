@@ -15,10 +15,6 @@ export interface IAddStudentForm {
   showBalance: boolean;
 }
 
-const ValidationSchema = Yup.object().shape({
-  name: Yup.string().required('Required field')
-});
-
 const initialState = {
   name: '',
   surname: '',
@@ -27,10 +23,15 @@ const initialState = {
 };
 
 const AddStudentForm = () => {
-  const { loading, userId } = useAppSelector((state) => ({
+  const { loading, userId, lang } = useAppSelector((state) => ({
     loading: state.student.isLoading,
-    userId: state.user.data?.id || 0
+    userId: state.user.data?.id || 0,
+    lang: state.options.lang
   }));
+
+  const ValidationSchema = Yup.object().shape({
+    name: Yup.string().required(lang.students[23])
+  });
 
   const [isAddStudent, setIsAddStudent] = useState(false);
   const formRef = useRef<FormikProps<IAddStudentForm>>(null);
@@ -56,17 +57,19 @@ const AddStudentForm = () => {
         onClick={() => setIsAddStudent(true)}
         className="mr-2"
       >
-        Add new
+        {lang.students[24]}
       </Button>
       <Drawer
-        title="Add a new student"
+        title={lang.students[25]}
         width={390}
         onClose={() => setIsAddStudent(false)}
         visible={isAddStudent}
         bodyStyle={{ paddingBottom: 80 }}
         extra={
           <Space>
-            <Button onClick={() => setIsAddStudent(false)}>Cancel</Button>
+            <Button onClick={() => setIsAddStudent(false)}>
+              {lang.students[26]}
+            </Button>
           </Space>
         }
       >
@@ -83,9 +86,9 @@ const AddStudentForm = () => {
                   htmlFor="name"
                   className="text-gray-500/70 font-bold text-xs"
                 >
-                  NAME
+                  {lang.students[28]}
                 </label>
-                <Input name="name" placeholder="Student name" bordered />
+                <Input name="name" placeholder={lang.students[28]} bordered />
               </FormItem>
 
               <FormItem name="surname">
@@ -93,9 +96,13 @@ const AddStudentForm = () => {
                   htmlFor="surname"
                   className="text-gray-500/70 font-bold text-xs"
                 >
-                  SURNAME
+                  {lang.students[29]}
                 </label>
-                <Input name="surname" placeholder="Student surname" bordered />
+                <Input
+                  name="surname"
+                  placeholder={lang.students[30]}
+                  bordered
+                />
               </FormItem>
 
               <FormItem name="balance">
@@ -104,7 +111,7 @@ const AddStudentForm = () => {
                     htmlFor="balance"
                     className="text-gray-500/70 font-bold text-xs mb-1"
                   >
-                    PAID LESSONS
+                    {lang.students[31]}
                   </label>
                   <div>
                     <Switch
@@ -132,7 +139,7 @@ const AddStudentForm = () => {
                 disabled={!values.name}
                 loading={loading}
               >
-                Add
+                {lang.students[32]}
               </SubmitButton>
             </Form>
           )}

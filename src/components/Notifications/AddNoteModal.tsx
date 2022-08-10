@@ -23,9 +23,10 @@ interface AddNoteModalProps {
 
 const AddNoteModal = (props: AddNoteModalProps) => {
   const { editId, resetEditId } = props;
-  const { userId, notes } = useAppSelector((state) => ({
+  const { userId, notes, lang } = useAppSelector((state) => ({
     userId: state.user.data?.id,
-    notes: state.options.data?.notificationsArr
+    notes: state.options.data?.notificationsArr,
+    lang: state.options.lang
   }));
   const dispatch = useAppDispatch();
   const formRef = useRef<FormikProps<IFormValues>>(null);
@@ -72,9 +73,7 @@ const AddNoteModal = (props: AddNoteModalProps) => {
           })
         )
       );
-      message.success(
-        `Notification ${editId ? 'updated' : 'added'} successfully.`
-      );
+      message.success(editId ? lang.notification[13] : lang.notification[12]);
       handleCancel();
     } catch (err) {
       PopupError(err);
@@ -84,14 +83,15 @@ const AddNoteModal = (props: AddNoteModalProps) => {
   return (
     <>
       <Button type="primary" className="w-full" onClick={showModal}>
-        Add new
+        {lang.notification[2]}
       </Button>
       {isModalVisible && (
         <Modal
-          title="New notification"
+          title={lang.notification[8]}
           visible={isModalVisible}
           onCancel={handleCancel}
           okButtonProps={{ style: { display: 'none' } }}
+          cancelText={lang.notification[1]}
         >
           <Formik
             initialValues={initialState}
@@ -106,11 +106,15 @@ const AddNoteModal = (props: AddNoteModalProps) => {
                       htmlFor="note"
                       className="text-gray-500/70 font-bold text-xs"
                     >
-                      NOTE
+                      {lang.notification[9]}
                     </label>
                   </div>
 
-                  <Input.TextArea rows={3} name="note" placeholder="Note" />
+                  <Input.TextArea
+                    rows={3}
+                    name="note"
+                    placeholder={lang.notification[10]}
+                  />
                 </FormItem>
                 <FormItem name="date" className="w-full">
                   <DatePicker
@@ -127,7 +131,7 @@ const AddNoteModal = (props: AddNoteModalProps) => {
                   className="w-full rounded-sm"
                   disabled={!values.note.trim()}
                 >
-                  {editId ? 'Update note' : 'Add note'}
+                  {editId ? lang.notification[14] : lang.notification[11]}
                 </SubmitButton>
               </Form>
             )}

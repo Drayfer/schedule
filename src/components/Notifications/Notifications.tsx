@@ -11,8 +11,9 @@ import PlannedNotifications from './PlannedNotifications';
 const { TabPane } = Tabs;
 
 const Notifications = () => {
-  const { notificationsArr } = useAppSelector((state) => ({
-    notificationsArr: state.options.data?.notificationsArr
+  const { notificationsArr, lang } = useAppSelector((state) => ({
+    notificationsArr: state.options.data?.notificationsArr,
+    lang: state.options.lang
   }));
 
   const [isOpen, setIsOpen] = useState(false);
@@ -32,9 +33,9 @@ const Notifications = () => {
 
   return (
     <>
-      <Bell className="absolute top-1 right-2 z-10 w-[36px]">
+      <div className="absolute top-1 right-2 z-10 w-[36px]">
         <div
-          className="relative w-8 h-8 flex bigPhone:inline-flex justify-center items-center rounded-full bg-white cursor-pointer mr-1 mb-1"
+          className="relative w-8 h-8 flex bigPhone:inline-flex justify-center items-center rounded-full bg-white cursor-pointer mr-1 mb-1 border-slate-600 border-[1px]"
           onClick={() => setIsOpen(true)}
         >
           <BellOutlined />
@@ -44,30 +45,29 @@ const Notifications = () => {
             </div>
           ) : null}
         </div>
-      </Bell>
+      </div>
       {isOpen && (
         <StyledDrawer
           fullMobileWidth={/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
             navigator.userAgent
           )}
-          className=""
-          title="Notifications"
+          title={lang.notification[0]}
           onClose={closeModal}
           visible={isOpen}
           bodyStyle={{ paddingBottom: 80 }}
           extra={
             <Space>
-              <Button onClick={closeModal}>Cancel</Button>
+              <Button onClick={closeModal}>{lang.notification[1]}</Button>
             </Space>
           }
         >
           <>
             <AddNoteModal editId={editId} resetEditId={resetEditId} />
             <CenterTabs defaultActiveKey="1" type="card" onChange={() => {}}>
-              <TabPane tab="Done" key="1">
+              <TabPane tab={lang.notification[3]} key="1">
                 <CompleteNotifications />
               </TabPane>
-              <TabPane tab="Planned" key="2">
+              <TabPane tab={lang.notification[4]} key="2">
                 <PlannedNotifications handleEdit={handleEdit} />
               </TabPane>
             </CenterTabs>
@@ -85,11 +85,5 @@ const CenterTabs = styled(Tabs)`
   .ant-tabs-nav-wrap {
     display: flex;
     justify-content: center;
-  }
-`;
-
-const Bell = styled.div`
-  @media (max-width: 400px) {
-    left: 8px;
   }
 `;

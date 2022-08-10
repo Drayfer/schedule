@@ -12,9 +12,10 @@ import {
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 
 const CompleteNotifications = () => {
-  const { notificationsArr, userId } = useAppSelector((state) => ({
+  const { notificationsArr, userId, lang } = useAppSelector((state) => ({
     notificationsArr: state.options.data?.notificationsArr,
-    userId: state.user.data?.id
+    userId: state.user.data?.id,
+    lang: state.options.lang
   }));
 
   const dispatch = useAppDispatch();
@@ -30,7 +31,7 @@ const CompleteNotifications = () => {
           })
         )
       );
-      message.success('Notification removed successfully.');
+      message.success(lang.notification[15]);
     } catch (err) {
       PopupError(err);
     }
@@ -45,7 +46,7 @@ const CompleteNotifications = () => {
           })
         )
       );
-      message.success('Notifications removed successfully.');
+      message.success(lang.notification[16]);
     } catch (err) {
       PopupError(err);
     }
@@ -59,7 +60,7 @@ const CompleteNotifications = () => {
           imageStyle={{
             height: 60
           }}
-          description={<span>No notifications</span>}
+          description={<span>{lang.notification[7]}</span>}
         ></Empty>
       ) : (
         <>
@@ -100,7 +101,7 @@ const CompleteNotifications = () => {
               ))}
           </ul>
           <div className="flex justify-center">
-            <Button onClick={handleClearAll}>Clear all</Button>
+            <Button onClick={handleClearAll}>{lang.notification[5]}</Button>
           </div>
         </>
       )}

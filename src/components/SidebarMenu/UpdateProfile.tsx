@@ -27,8 +27,9 @@ const ValidationSchema = Yup.object().shape({
 });
 
 const UpdateProfile = () => {
-  const { user } = useAppSelector((state) => ({
-    user: state.user.data
+  const { user, lang } = useAppSelector((state) => ({
+    user: state.user.data,
+    lang: state.options.lang
   }));
   const [isInfoUser, setIsInfoUser] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -48,8 +49,8 @@ const UpdateProfile = () => {
 
   const handleSubmit = async (values: IFormValues) => {
     if (values.password !== values.repeatPassword) {
-      formRef.current?.setFieldError('password', "Passwords don't match");
-      formRef.current?.setFieldError('repeatPassword', "Passwords don't match");
+      formRef.current?.setFieldError('password', lang.menu[7]);
+      formRef.current?.setFieldError('repeatPassword', lang.menu[7]);
       return;
     }
     if (user?.id) {
@@ -65,7 +66,7 @@ const UpdateProfile = () => {
             })
           )
         );
-        message.success('Profile updated successfully.');
+        message.success(lang.menu[6]);
         setIsInfoUser(false);
         formRef.current?.resetForm();
       } catch (err) {
@@ -79,7 +80,7 @@ const UpdateProfile = () => {
   return (
     <>
       <div onClick={() => setIsInfoUser(true)} className="cursor-pointer">
-        Profile
+        {lang.menu[8]}
       </div>
       {isInfoUser && (
         <StyledDrawer
@@ -87,13 +88,13 @@ const UpdateProfile = () => {
             navigator.userAgent
           )}
           className=""
-          title="Profile Info"
+          title={lang.menu[9]}
           onClose={closeModal}
           visible={isInfoUser}
           bodyStyle={{ paddingBottom: 80 }}
           extra={
             <Space>
-              <Button onClick={closeModal}>Cancel</Button>
+              <Button onClick={closeModal}>{lang.menu[10]}</Button>
             </Space>
           }
         >
@@ -130,11 +131,15 @@ const UpdateProfile = () => {
                         htmlFor="name"
                         className="text-gray-500/70 font-bold text-xs"
                       >
-                        NAME
+                        {lang.menu[11]}
                       </label>
                     </div>
 
-                    <Input name="name" placeholder="Name" type="text" />
+                    <Input
+                      name="name"
+                      placeholder={lang.menu[12]}
+                      type="text"
+                    />
                   </FormItem>
 
                   <FormItem name="email">
@@ -143,11 +148,15 @@ const UpdateProfile = () => {
                         htmlFor="email"
                         className="text-gray-500/70 font-bold text-xs"
                       >
-                        EMAIL
+                        {lang.menu[13]}
                       </label>
                     </div>
 
-                    <Input name="email" placeholder="Email" type="email" />
+                    <Input
+                      name="email"
+                      placeholder={lang.menu[14]}
+                      type="email"
+                    />
                   </FormItem>
 
                   <FormItem name="password">
@@ -156,13 +165,13 @@ const UpdateProfile = () => {
                         htmlFor="password"
                         className="text-gray-500/70 font-bold text-xs"
                       >
-                        PASSWORD
+                        {lang.menu[15]}
                       </label>
                     </div>
 
                     <Input.Password
                       name="password"
-                      placeholder="Password"
+                      placeholder={lang.menu[16]}
                       type="password"
                     />
                   </FormItem>
@@ -173,13 +182,13 @@ const UpdateProfile = () => {
                         htmlFor="password"
                         className="text-gray-500/70 font-bold text-xs"
                       >
-                        REPEAT PASSWORD
+                        {lang.menu[17]}
                       </label>
                     </div>
 
                     <Input.Password
                       name="repeatPassword"
-                      placeholder="Repeat password"
+                      placeholder={lang.menu[18]}
                       type="password"
                     />
                   </FormItem>
@@ -189,7 +198,7 @@ const UpdateProfile = () => {
                     className="w-full rounded-sm"
                     loading={loading}
                   >
-                    Update profile
+                    {lang.menu[19]}
                   </SubmitButton>
                 </Form>
               )}

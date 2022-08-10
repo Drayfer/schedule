@@ -21,4 +21,5 @@ export interface IOption {
   totalIncome: number;
   weekIncome: number;
   notificationsArr: INotification[];
+  locale: string;
 }
