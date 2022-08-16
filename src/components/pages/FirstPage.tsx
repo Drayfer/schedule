@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
-import { Button, Carousel } from 'antd';
+import { Button } from 'antd';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
-import TeachAppLogo from '../../assets/images/TeachAppLogo.png';
-import slideOne from '../../assets/images/firstScreen/1.png';
-import slideTwo from '../../assets/images/firstScreen/2.png';
-import slideThree from '../../assets/images/firstScreen/3.png';
-import slideFour from '../../assets/images/firstScreen/4.png';
-import slideFive from '../../assets/images/firstScreen/5.png';
-import slideSix from '../../assets/images/firstScreen/6.png';
+import firstPage from '../../assets/images/firstScreen/firstPage.png';
+import AppStore from '../../assets/images/firstScreen/appStore.png';
+import GooglePlay from '../../assets/images/firstScreen/googlePlay.png';
 
 const FirstPage = () => {
   let navigate = useNavigate();
@@ -22,157 +18,79 @@ const FirstPage = () => {
     // eslint-disable-next-line
   }, []);
   return (
-    <Container className="tablet:px-20">
-      <div className="flex items-center justify-center mt-2">
-        <img src={TeachAppLogo} alt="logo" className="h-16 w-auto mr-4" />
-        <div>
-          <h1 className="mt-2 font-semibold text-2xl text-slate-300">
-            Teacher's App Helper
-          </h1>
-          <p className="font-semibold text-base text-slate-300 text-center">
-            Plan your schedule
-          </p>
-        </div>
-      </div>
-
-      <Carousel autoplay>
-        <div>
-          <ContentStyle>
-            <div>
-              <h2 className="text-3xl text-slate-200 font-bold px-10">
-                Create and plan your lesson schedule:
-              </h2>
-              <ul>
-                <li>plan your time</li>
-                <li>mark completed lessons</li>
-                <li>keep track of your work</li>
-              </ul>
+    <>
+      <Container className="tablet:px-20 font-bold">
+        <div className="flex relative mt-24">
+          <div className="-rotate-90 font-normal leading-[5rem] absolute text-[5rem] border-b-2 left-[-125px] top-[20px] mb-[25px] hidden tablet:block ">
+            T-APP
+          </div>
+          <div className="bigPhone:ml-14 bigPhone:p-0 p-7">
+            <p className="font-normal text-5xl mt-[-72px] leading-[3rem]">
+              Teacher's App Helper
+            </p>
+            <ListText className=" border-t-2 pt-9">
+              <li>plan lessons and time</li>
+              <li>control income and intensity</li>
+              <li>get notifications</li>
+            </ListText>
+            <div className="flex justify-start bigPhone:justify-end">
+              <StyledButton
+                type="primary"
+                size="large"
+                className="mt-6 mb-12 w-[200px] font-roboto"
+                onClick={() => navigate('/login')}
+              >
+                Start
+              </StyledButton>
             </div>
-            <img src={slideOne} alt="slide1" />
-          </ContentStyle>
-        </div>
-        <div>
-          <ContentStyle>
-            <img src={slideTwo} alt="slide1" />
-            <div>
-              <h2 className="text-3xl text-slate-200 font-bold px-10">
-                Add students and control the balance:
-              </h2>
-              <ul>
-                <li>view student information</li>
-                <li>assign discipline</li>
-                <li>view debt</li>
-              </ul>
+            <div className="flex mt-8 gap-3 absolute">
+              <img
+                className="w-[45%] bigPhone:w-full"
+                src={AppStore}
+                alt="slide1"
+              />
+              <img
+                className="w-[45%] bigPhone:w-full"
+                src={GooglePlay}
+                alt="slide1"
+              />
             </div>
-          </ContentStyle>
+          </div>
         </div>
-        <div>
-          <ContentStyle>
-            <div>
-              <h2 className="text-3xl text-slate-200 font-bold px-10">
-                Add disciplines and distribute students:
-              </h2>
-              <ul>
-                <li>choose labels</li>
-                <li>sort students</li>
-                <li>plan your workload</li>
-              </ul>
-            </div>
-            <img src={slideThree} alt="slide1" />
-          </ContentStyle>
+        <div className="relative hidden bigPhone:block">
+          <img
+            className="laptop:w-[500px] h-auto top-0 right-0"
+            src={firstPage}
+            alt="firstPageImg"
+          />
         </div>
-        <div>
-          <ContentStyle>
-            <img src={slideFour} alt="slide1" />
-            <div>
-              <h2 className="text-3xl text-slate-200 font-bold px-10">
-                Control income and intensity statistics:
-              </h2>
-              <ul>
-                <li>know your earnings</li>
-                <li>evaluate efficiency</li>
-                <li>compare indicators</li>
-              </ul>
-            </div>
-          </ContentStyle>
-        </div>
-        <div>
-          <ContentStyle>
-            <div>
-              <h2 className="text-3xl text-slate-200 font-bold px-10">
-                Get notified about upcoming lessons:
-              </h2>
-              <ul>
-                <li>visual and audio notifications</li>
-                <li>don't miss the beginning of the lessons</li>
-                <li>set notification time</li>
-              </ul>
-            </div>
-            <img src={slideFive} alt="slide1" />
-          </ContentStyle>
-        </div>
-        <div>
-          <ContentStyle>
-            <img src={slideSix} alt="slide1" />
-            <div>
-              <h2 className="text-3xl text-slate-200 font-bold px-10">
-                Use the same App on mobile or tablet:
-              </h2>
-              <ul>
-                <li>one App on all devices</li>
-                <li>user-friendly interface</li>
-                <li>set notification time</li>
-              </ul>
-            </div>
-          </ContentStyle>
-        </div>
-      </Carousel>
-      <Button
-        type="primary"
-        size="large"
-        className="self-center mt-6 mb-3"
-        onClick={() => navigate('/login')}
-      >
-        Start
-      </Button>
-    </Container>
+      </Container>
+    </>
   );
 };
 
 export default FirstPage;
 
-const ContentStyle = styled.div`
-  height: 65vh;
-  color: #fff;
-  /* text-align: center; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #364d79;
-  img {
-    width: auto;
-    max-height: 400px;
-  }
-  ul {
-    font-weight: 600;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    list-style-type: disc;
-    margin-left: 100px;
-  }
-  @media (max-width: 768px) {
-    img {
-      height: 0px;
-    }
-    ul {
-      margin-left: 70px;
-    }
-  }
-`;
-
 const Container = styled.div`
   min-height: 100vh;
-  background: #364d79;
+  background: #252525;
   display: flex;
-  flex-direction: column;
+  color: #fdfdfe;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Rubik Dirt', cursive;
+`;
+
+const ListText = styled.ul`
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  line-height: 1.9rem;
+  list-style: disc;
+  padding-left: 36px;
+  font-weight: 300;
+`;
+
+const StyledButton = styled(Button)`
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
 `;
