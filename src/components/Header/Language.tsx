@@ -1,5 +1,5 @@
 import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Menu, MenuProps, message, Space } from 'antd';
+import { Dropdown, Menu, MenuProps, Space } from 'antd';
 import React, { useEffect } from 'react';
 import { lang, localeArray } from '../../assets/constants/lang';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
