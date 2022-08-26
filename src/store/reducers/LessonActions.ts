@@ -163,13 +163,18 @@ export const copyCurrentDay = createAsyncThunk(
       userId: number;
       date: moment.Moment;
       currentDate: moment.Moment;
+      weekStart: moment.Moment;
     },
     thunkAPI
   ) => {
     try {
       const response = await axios.post<ILesson[]>(
         `${process.env.REACT_APP_API_URL}/lesson/calendar/copy/${payload.userId}`,
-        { date: payload.date, currentDate: payload.currentDate },
+        {
+          date: payload.date,
+          currentDate: payload.currentDate,
+          weekStart: payload.weekStart
+        },
         getTokenHeader()
       );
       return response.data;

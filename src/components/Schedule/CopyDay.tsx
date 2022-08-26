@@ -15,10 +15,11 @@ import { getTokenHeader } from '../helpers/getTokenHeader';
 
 interface AddLessonProps {
   day: moment.Moment;
+  weekStart: moment.Moment | null;
 }
 
 const CopyDay = (props: AddLessonProps) => {
-  const { day } = props;
+  const { day, weekStart } = props;
   const { students, userId, lang, locale, disciplines } = useAppSelector(
     (state) => ({
       students: state.student.data,
@@ -61,14 +62,15 @@ const CopyDay = (props: AddLessonProps) => {
     toFindDuplicates(calendarDay.map((lesson) => lesson.date.toString()));
 
   const handleSave = async () => {
-    if (userId) {
+    if (userId && weekStart) {
       try {
         await isErrorDispatch(
           dispatch(
             copyCurrentDay({
               userId,
               date: selectDay,
-              currentDate: day
+              currentDate: day,
+              weekStart
             })
           )
         );
