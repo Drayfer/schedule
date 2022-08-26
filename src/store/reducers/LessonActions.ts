@@ -155,3 +155,26 @@ export const deleteLessonsDay = createAsyncThunk(
     }
   }
 );
+
+export const copyCurrentDay = createAsyncThunk(
+  'lesson/calendar/copy/:userId',
+  async (
+    payload: {
+      userId: number;
+      date: moment.Moment;
+      currentDate: moment.Moment;
+    },
+    thunkAPI
+  ) => {
+    try {
+      const response = await axios.post<ILesson[]>(
+        `${process.env.REACT_APP_API_URL}/lesson/calendar/copy/${payload.userId}`,
+        { date: payload.date, currentDate: payload.currentDate },
+        getTokenHeader()
+      );
+      return response.data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);

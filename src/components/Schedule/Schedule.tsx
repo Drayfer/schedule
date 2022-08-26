@@ -3,7 +3,6 @@ import {
   CloseCircleFilled,
   CloseOutlined,
   DeleteOutlined,
-  EllipsisOutlined,
   StepBackwardOutlined,
   StepForwardOutlined,
   UndoOutlined
@@ -44,6 +43,7 @@ import {
 } from '../../store/reducers/StudentActions';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import AddLesson, { LittleRound } from './AddLesson';
+import CopyDay from './CopyDay';
 import CornerButtons from './CornerButtons';
 
 const Schedule = () => {
@@ -160,7 +160,7 @@ const Schedule = () => {
             <DeleteOutlined key="delete" />
           </Popconfirm>,
           <AddLesson day={day} key="add" />,
-          <EllipsisOutlined key="ellipsis" />
+          <CopyDay day={day} key="copy" />
         ];
   };
 
@@ -432,7 +432,10 @@ const Schedule = () => {
 
 export default Schedule;
 
-const StyledList = styled(List)<{ renderItem?: any; complete?: boolean }>`
+export const StyledList = styled(List)<{
+  renderItem?: any;
+  complete?: boolean;
+}>`
   .ant-empty-normal {
     margin: 0px !important;
   }
@@ -442,11 +445,11 @@ const StyledList = styled(List)<{ renderItem?: any; complete?: boolean }>`
   }
 `;
 
-const ListItem = styled(List.Item)`
+export const ListItem = styled(List.Item)`
   padding: 0px 5px !important;
 `;
 
-const LessonCard = styled(Card)<{ active?: boolean }>`
+export const LessonCard = styled(Card)<{ active?: boolean }>`
   .ant-card-head-title {
     font-weight: 500 !important;
   }

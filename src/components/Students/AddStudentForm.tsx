@@ -86,7 +86,7 @@ const AddStudentForm = () => {
                   htmlFor="name"
                   className="text-gray-500/70 font-bold text-xs"
                 >
-                  {lang.students[28]}
+                  {lang.students[27]}
                 </label>
                 <Input name="name" placeholder={lang.students[28]} bordered />
               </FormItem>
