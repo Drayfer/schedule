@@ -160,7 +160,7 @@ const Schedule = () => {
             <DeleteOutlined key="delete" />
           </Popconfirm>,
           <AddLesson day={day} key="add" />,
-          <CopyDay day={day} key="copy" />
+          <CopyDay day={day} weekStart={weekStart} key="copy" />
         ];
   };
 
