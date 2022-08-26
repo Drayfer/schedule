@@ -1,4 +1,5 @@
 import {
+  copyCurrentDay,
   copyLessonsWeek,
   createLesson,
   deleteLesson,
@@ -130,6 +131,15 @@ export const lessonSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.isLoading = false;
+    },
+
+    [copyCurrentDay.fulfilled.type]: (
+      state,
+      action: PayloadAction<ILesson[]>
+    ) => {
+      state.isLoading = false;
+      state.error = '';
+      state.data = action.payload;
     }
   }
 });
