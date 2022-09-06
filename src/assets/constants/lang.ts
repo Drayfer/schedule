@@ -137,7 +137,9 @@ export const lang: { [key: string]: object } = {
       'Student skype',
       'Notes',
       'Update',
-      'Back'
+      'Back',
+      'take out of rest',
+      'Are you sure you want to take the student out of rest? You will be able to assign a schedule for this student.'
     ],
     disciplines: [
       'Title',
@@ -341,7 +343,9 @@ export const lang: { [key: string]: object } = {
       'Скайп ученика',
       'Заметки',
       'Обновить',
-      'Назад'
+      'Назад',
+      'вывести из отпуска',
+      'Вы уверены, что хотите вывести ученика из отпуска? Вы сможете назначать расписание для этого ученика.'
     ],
     disciplines: [
       'Название',
@@ -545,7 +549,9 @@ export const lang: { [key: string]: object } = {
       'Скайп студента',
       'Нотатки',
       'Оновити',
-      'Назад'
+      'Назад',
+      'вивести з відпустки',
+      'Ви впевнені, що хочете вивести учня з відпустки? Ви зможете призначати розклад для цього учня.'
     ],
     disciplines: [
       'Назва',

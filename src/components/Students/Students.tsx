@@ -173,7 +173,7 @@ const Students = (props: Props) => {
               )}
             </Col>
             <Col span={!isMobile ? 12 : 22}>
-              <Tooltip title={lang.menu[2]}>
+              <Tooltip title={lang.students[2]}>
                 <Switch
                   size="small"
                   checked={record.showBalance}
@@ -239,7 +239,7 @@ const Students = (props: Props) => {
             </Popconfirm>
 
             <Popconfirm
-              title={lang.students[10]}
+              title={isActive ? lang.students[10] : lang.students[66]}
               onConfirm={async () => {
                 try {
                   await isErrorDispatch(
@@ -271,7 +271,7 @@ const Students = (props: Props) => {
               okText={lang.students[7]}
               cancelText={lang.students[8]}
             >
-              <Tooltip title={lang.students[15]}>
+              <Tooltip title={isActive ? lang.students[15] : lang.students[65]}>
                 {isActive ? (
                   <MinusCircleOutlined
                     style={{
