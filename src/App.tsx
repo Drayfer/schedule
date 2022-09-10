@@ -22,12 +22,6 @@ function App() {
 
   moment.locale(locale);
 
-  setTimeout(() => {
-    if (window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage('hello');
-    }
-  }, 2000);
-
   return (
     <>
       <ConfigProvider

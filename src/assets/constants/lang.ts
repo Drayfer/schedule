@@ -205,7 +205,8 @@ export const lang: { [key: string]: object } = {
       'Currency',
       'Save Settings',
       'Log Out'
-    ]
+    ],
+    lesson: ['Lesson', 'after', 'minutes']
   },
   ru: {
     notification: [
@@ -411,7 +412,8 @@ export const lang: { [key: string]: object } = {
       'Валюта',
       'Сохранить',
       'Выйти'
-    ]
+    ],
+    lesson: ['Урок', 'через', 'минут']
   },
   ua: {
     notification: [
@@ -617,6 +619,7 @@ export const lang: { [key: string]: object } = {
       'Валюта',
       'Зберегти',
       'Вийти'
-    ]
+    ],
+    lesson: ['Урок', 'за', 'хвилин']
   }
 };
