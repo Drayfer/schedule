@@ -10,27 +10,38 @@ const sound = require('../../assets/audio/sounds/notification.mp3');
 const playSound = new Audio(sound);
 
 const PushNotification = () => {
-  const { lessons, userId, todayLessons, optionsData } = useAppSelector(
+  const { lessons, userId, todayLessons, optionsData, lang } = useAppSelector(
     (state) => ({
       lessons: state.lessons.data || [],
       userId: state.user.data?.id,
       todayLessons: state.options.todayLessons,
-      optionsData: state.options.data
+      optionsData: state.options.data,
+      lang: state.options.lang
     })
   );
   const dispatch = useAppDispatch();
 
   const notificationMessage = (name: string, dif: number) => {
+    if (window.ReactNativeWebView) {
+      const webViewNotification = {
+        title: lang.lesson[0],
+        body: `${name} - ${lang.lesson[1]} ${dif} ${lang.lesson[2]}!`
+      };
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify(webViewNotification)
+      );
+    }
+
     addNotification({
-      title: 'Lesson',
+      title: lang.lesson[0],
       subtitle: name,
-      message: `${name} - after ${dif} minutes!`,
+      message: `${name} - ${lang.lesson[1]} ${dif} ${lang.lesson[2]}!`,
       theme: 'darkblue',
       native: true // when using native, your OS will handle theming.
     });
     return notification[`info`]({
-      message: 'Lesson',
-      description: `${name} - after ${dif} minutes!`,
+      message: lang.lesson[0],
+      description: `${name} - ${lang.lesson[1]} ${dif} ${lang.lesson[2]}!`,
       duration: 10
     });
   };
