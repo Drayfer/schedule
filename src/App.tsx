@@ -17,7 +17,7 @@ import { useAppSelector } from './hooks/redux';
 
 function App() {
   const { locale } = useAppSelector((state) => ({
-    locale: state.options.data.locale
+    locale: state.options.data.locale || 'en'
   }));
 
   moment.locale(locale);
