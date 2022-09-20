@@ -25,7 +25,7 @@ const CopyDay = (props: AddLessonProps) => {
       students: state.student.data,
       userId: state.user.data?.id,
       lang: state.options.lang,
-      locale: state.options.data.locale,
+      locale: state.options?.data?.locale || 'en',
       disciplines: state.discipline.data
     })
   );

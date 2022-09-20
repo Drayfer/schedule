@@ -63,7 +63,7 @@ const Schedule = () => {
     lessonssLoading: state.lessons.isLoading,
     disciplines: state.discipline.data,
     lang: state.options.lang,
-    locale: state.options.data.locale
+    locale: state.options?.data?.locale || 'en'
   }));
 
   const [currentDate, setCurrentDate] = useState<moment.Moment | null>(null);

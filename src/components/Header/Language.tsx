@@ -8,7 +8,7 @@ import { setLang, setLocale } from '../../store/reducers/OptionsSlice';
 const Language = () => {
   const { userId, locale } = useAppSelector((state) => ({
     userId: state.user.data?.id || 0,
-    locale: state.options.data.locale
+    locale: state.options?.data?.locale || 'en'
   }));
   const dispatch = useAppDispatch();
 
