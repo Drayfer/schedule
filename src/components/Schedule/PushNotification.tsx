@@ -22,16 +22,6 @@ const PushNotification = () => {
   const dispatch = useAppDispatch();
 
   const notificationMessage = (name: string, dif: number) => {
-    if (window.ReactNativeWebView) {
-      const webViewNotification = {
-        title: lang.lesson[0],
-        body: `${name} - ${lang.lesson[1]} ${dif} ${lang.lesson[2]}!`
-      };
-      window.ReactNativeWebView.postMessage(
-        JSON.stringify(webViewNotification)
-      );
-    }
-
     addNotification({
       title: lang.lesson[0],
       subtitle: name,

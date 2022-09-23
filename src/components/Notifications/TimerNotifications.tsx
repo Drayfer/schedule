@@ -31,17 +31,6 @@ const TimerNotifications = () => {
       theme: 'darkblue',
       native: true // when using native, your OS will handle theming.
     });
-    if (window.ReactNativeWebView) {
-      const webViewNotification = {
-        title: `${lang.notification[17]} (+${
-          notificationsArr?.filter((n) => n.complete).length
-        })`,
-        body: `${notificationsArr?.filter((n) => n.complete).reverse()[0].text}`
-      };
-      window.ReactNativeWebView.postMessage(
-        JSON.stringify(webViewNotification)
-      );
-    }
   };
 
   useEffect(() => {

@@ -10,10 +10,12 @@ export const useLogOut = () => {
   const logOut = () => {
     dispatch(resetUser());
     dispatch(resetStudent());
-    dispatch(resetOpions());
     dispatch(resetLesson());
     dispatch(resetDiscipline());
     dispatch(resetOpions());
+    if (window.navigator.userAgent.toLowerCase().includes('wv')) {
+      window.ReactNativeWebView.postMessage('exit');
+    }
   };
 
   return logOut;
