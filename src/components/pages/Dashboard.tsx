@@ -34,6 +34,23 @@ const Dashboard = () => {
     // eslint-disable-next-line
   }, [user.data?.expToken, dispatch]);
 
+  useEffect(() => {
+    if (
+      window.ReactNativeWebView &&
+      user.data?.id &&
+      user.data?.token &&
+      window.navigator.userAgent.toLowerCase().includes('wv')
+    ) {
+      const webViewNotification = {
+        userId: user.data.id,
+        token: user.data.token
+      };
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify(webViewNotification)
+      );
+    }
+  }, [user.data]);
+
   return (
     <>
       <PushNotification />
