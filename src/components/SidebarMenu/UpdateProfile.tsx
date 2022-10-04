@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import { updateProfile } from '../../store/reducers/UserActions';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { CopyOutlined } from '@ant-design/icons';
 
 interface IFormValues {
   name: string;
@@ -77,6 +78,11 @@ const UpdateProfile = () => {
     }
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(`ID:${user?.id}`);
+    message.success(lang.menu[21]);
+  };
+
   return (
     <>
       <div onClick={() => setIsInfoUser(true)} className="cursor-pointer">
@@ -116,6 +122,18 @@ const UpdateProfile = () => {
               {user?.name.slice(0, 1)}
             </Avatar>
             <span className="font-bold text-lg">{user?.name}</span>
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-gray-500/70 font-bold text-xs uppercase">
+                {lang.menu[20]}
+              </div>
+              <div
+                className="flex items-center cursor-copy"
+                onClick={handleCopy}
+              >
+                <CopyOutlined style={{ color: '#2791FB' }} className="mr-1" />
+                ID:{user?.id}
+              </div>
+            </div>
             <Formik
               initialValues={initialValues}
               onSubmit={handleSubmit}
