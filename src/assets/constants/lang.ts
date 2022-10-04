@@ -70,7 +70,9 @@ export const lang: { [key: string]: object } = {
       'Password',
       'REPEAT PASSWORD',
       'Repeat password',
-      'Update profile'
+      'Update profile',
+      'Account',
+      'User ID successfully copied.'
     ],
     students: [
       'Name',
@@ -277,7 +279,9 @@ export const lang: { [key: string]: object } = {
       'Пароль',
       'ПОДТВЕРЖДЕНИЕ ПАРОЛЯ',
       'Подтверждение пароля',
-      'Обновить профиль'
+      'Обновить профиль',
+      'Аккаунт',
+      'ID пользователя успешно скопирован.'
     ],
     students: [
       'Имя',
@@ -484,7 +488,9 @@ export const lang: { [key: string]: object } = {
       'Пароль',
       'ПІДТВЕРДЖЕННЯ ПАРОЛЯ',
       'Підтвердження пароля',
-      'Оновити профіль'
+      'Оновити профіль',
+      'Акаунт',
+      'ID користувача успішно скопійовано.'
     ],
     students: [
       "Ім'я",
