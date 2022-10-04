@@ -127,7 +127,7 @@ const UpdateProfile = () => {
                 {lang.menu[20]}
               </div>
               <div
-                className="flex items-center cursor-copy"
+                className="flex items-center cursor-copy bg-slate-100/50 p-1 px-2 text-slate-700"
                 onClick={handleCopy}
               >
                 <CopyOutlined style={{ color: '#2791FB' }} className="mr-1" />
