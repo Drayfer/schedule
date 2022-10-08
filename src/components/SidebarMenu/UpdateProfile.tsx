@@ -80,7 +80,9 @@ const UpdateProfile = () => {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(`ID:${user?.id}`);
-    message.success(lang.menu[21]);
+    if (!window.navigator.userAgent.toLowerCase().includes('wv')) {
+      message.success(lang.menu[21]);
+    }
   };
 
   return (

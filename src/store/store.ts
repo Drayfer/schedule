@@ -6,11 +6,12 @@ import storage from 'redux-persist/lib/storage';
 import OptionsSlice from './reducers/OptionsSlice';
 import StudentSlice from './reducers/StudentSlice';
 import disciplineSlice from './reducers/DisciplineSlice';
+import LandingSlice from './reducers/LandingSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: []
+  blacklist: ['landing']
 };
 
 const rootReducer = combineReducers({
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   options: OptionsSlice,
   student: StudentSlice,
   lessons: lessonsSlice,
-  discipline: disciplineSlice
+  discipline: disciplineSlice,
+  landing: LandingSlice
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

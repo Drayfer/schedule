@@ -208,7 +208,147 @@ export const lang: { [key: string]: object } = {
       'Save Settings',
       'Log Out'
     ],
-    lesson: ['Lesson', 'after', 'minutes']
+    lesson: ['Lesson', 'after', 'minutes'],
+    header: ['Price', 'Contacts', 'Guide'],
+    firstPage: [
+      'plan lessons and time',
+      'control income and intensity',
+      'get notifications',
+      'Start Web'
+    ],
+    price: [
+      'Demo',
+      'price',
+      'free',
+      'first 30 days',
+      'Try without restrictions',
+      'After the trial period, to continue using the service, pay for the subscription. All data will be saved.',
+      'Plan a schedule',
+      'Create disciplines',
+      'Add students',
+      'Control finances',
+      'Left',
+      'days',
+      'Month',
+      'price',
+      '1 month',
+      'Access to full functionality',
+      'No limits',
+      'Full access',
+      'Notifications in the browser',
+      'Notifications in the mobile application',
+      'History of lessons and finance',
+      'Online support',
+      'Pay',
+      'Year',
+      'price',
+      '1 year',
+      'Saving',
+      'Full access',
+      'Notifications in the browser',
+      'Notifications in the mobile application',
+      'History of lessons and finance',
+      'Online support',
+      'Pay'
+    ],
+    footer: [
+      'All Rights Reserved',
+      'Privacy Policy',
+      'Refund Policy',
+      'Responsibility'
+    ],
+    refundPage: [
+      'Home',
+      'Refund policy',
+      'Since the services we provide are not material and are not subject to change, we do not carry out the return of the service, after it was paid and transferred to the customer. As a customer, you are responsible for your decision to buy the proposed service in the form in which it is offered on our website, without any changes or additions. ',
+      'Taking into account the above, we can return the service under the circumstances below:',
+      'The service was not provided. For any reason, the service was not provided. In this case, we recommend that we contact our support service to receive assistance. ',
+      'Incorrigible sho,rtcomings of the service. Although all services are tested by the relevant departments of our company, we do not exclude the possibility of errors. You need to contact our support service within 72 hours from the date of transfer of a report on the results of the service. '
+    ],
+    responsibilityPage: [
+      `Home`,
+      `Responsibility`,
+      `Rights and obligations of the parties`,
+      `The user has the right:`,
+      `- to search for information on the site
+- receive information on the site
+- Create information for the site
+- disseminate information on the site
+- comment on the content posted on the site
+- demand from the administration of hiding any information transferred by the user to the site
+- use the site information for personal non -profit purposes
+- use the site information for commercial purposes without special permission`,
+      `The administration has the right:`,
+      `- at your discretion and the need to create, change, cancel the rules
+- limit access to any information on the site
+- create, change, delete information
+- Delete accounts
+- refuse registration without explanation`,
+      `The user agrees:`,
+      `- ensure the reliability of the information provided
+- ensure the safety of personal data from the access of third parties
+- update the personal data provided during registration, in case of change
+- not to disseminate the information that is aimed at promoting war, inciting national, racial or religious hatred and enmity, as well as other information, for the spread of which criminal or administrative liability is provided for
+- Do not violate the performance of the site
+- do not perform actions aimed at the introduction of other users into misleading
+- Do not transfer your account and/or login and password for your account to third parties
+- Do not post materials of advertising, erotic, pornographic or offensive in nature, as well as other information, the placement of which is prohibited or contradicts the norms of the current legislation of the Russian Federation
+- Do not use scripts (programs) for automated information collecting and/or interactions with the site and its services`,
+      `The administration is obligated:`,
+      `- to maintain the performance of the site, except when this is impossible for reasons beyond the control of the administration.
+- carry out diverse protection of the user account
+- protect information, the distribution of which is limited or prohibited by laws by making a warning or removing the account of the user who violated the rules
+- provide all the available information about the user authorized state authorities in cases established by law`,
+      `Responsibility of the parties`,
+      `- the user personally is fully responsible for the information distributed to him
+- the administration does not bear any responsibility for the reliability of information copied from other sources
+- the administration is not responsible for the mismatch of the services expected by the user and the actually received services
+- the administration does not bear any responsibility for the services provided by third parties
+- in the event of a force majeure situation (hostilities, emergency, natural disaster, etc.)
+The administration does not guarantee the safety of the information posted by the user, as well as the uninterrupted operation of the information resource`,
+      `The conditions of the agreement`,
+      `This agreement comes into force with any use of this site.
+The agreement ceases to operate when its new version appears.
+The administration reserves the right to unilaterally change this agreement at its discretion.
+The administration does not notify users about the change in the agreement.`
+    ],
+    privacyPage: [
+      'Home',
+      'Privacy Policy',
+      'Privacy Policy',
+      'This comercial service app is provided by Oleh Mykhailychenko and is intended for use as is.',
+      'This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.',
+      'If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.',
+      'The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at T-App unless otherwise defined in this Privacy Policy.',
+      'Information Collection and Use',
+      'For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.',
+      'The app does use third-party services that may collect information used to identify you.',
+      'Link to the privacy policy of third-party service providers used by the app',
+      'Google Play Services',
+      'Log Data',
+      'I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third-party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.',
+      'Cookies',
+      "Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.",
+      'This Service does not use these “cookies” explicitly. However, the app may use third-party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.',
+      'Service Providers',
+      'I may employ third-party companies and individuals due to the following reasons:',
+      '- To facilitate our Service;',
+      '- To provide the Service on our behalf;',
+      '- To perform Service-related services; or',
+      '- To assist us in analyzing how our Service is used.',
+      'I want to inform users of this Service that these third parties have access to their Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.',
+      'Security',
+      'I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.',
+      'Links to Other Sites',
+      'This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.',
+      'Children’s Privacy',
+      'These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13 years of age. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do the necessary actions.',
+      'Changes to This Privacy Policy',
+      'I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.',
+      'This policy is effective as of 2022-10-07',
+      'Contact Us',
+      'If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at devlydexter@gmail.com.'
+    ]
   },
   ru: {
     notification: [
@@ -417,7 +557,147 @@ export const lang: { [key: string]: object } = {
       'Сохранить',
       'Выйти'
     ],
-    lesson: ['Урок', 'через', 'минут']
+    lesson: ['Урок', 'через', 'минут'],
+    header: ['Цены', 'Контакты', 'Руководство'],
+    firstPage: [
+      'планируйте уроки и время',
+      'контролируйте доходы и интенсивность',
+      'получайте уведомления',
+      'Веб версия'
+    ],
+    price: [
+      'Демо',
+      'цена',
+      'бесплатно',
+      'первые 30 дней',
+      'Попробовать без ограничений',
+      'По истечению пробного периода, для продолжения пользования сервисом, оплатите подписку. Все данные будут сохранены.',
+      'Планируйте расписание',
+      'Создавайте дисциплины',
+      'Добавляйте учеников',
+      'Контролируйте финансы',
+      'Осталось',
+      'дней',
+      'Месяц',
+      'цена',
+      '1 месяц',
+      'Доступ к полному функционалу',
+      'Без ограничений',
+      'Полный доступ',
+      'Оповещения в браузере',
+      'Уведомления в мобильном приложении',
+      'История уроков и финансов',
+      'Онлайн поддержка',
+      'Оплатить',
+      'Год',
+      'цена',
+      '1 год',
+      'Экономия',
+      'Полный доступ',
+      'Оповещения в браузере',
+      'Уведомления в мобильном приложении',
+      'История уроков и финансов',
+      'Онлайн поддержка',
+      'Оплатить'
+    ],
+    footer: [
+      'Все права защищены',
+      'Политика конфиденциальности',
+      'Политика возврата',
+      'Ответственность'
+    ],
+    refundPage: [
+      'Главная',
+      'Возврат средств',
+      'Так как предоставляемые нами услуги являются не материальными и не подлежат изменению, мы не осуществляем возврат услуги, после того, как она была оплачена и передана заказчику. Как заказчик, вы несете ответственность за ваше решение купить предлагаемую услугу в том виде, в котором он предлагается на нашем сайте, без каких либо изменений или дополнений.',
+      'Принимая во внимание вышесказанное, мы можем осуществить возврат услуги при нижеуказанных обстоятельствах:',
+      'Услуга не была предоставлена. По какой-либо причине, услуга не была оказана. В этом случае мы рекомендуем связаться с нашей службой поддержки для получения помощи.',
+      'Неисправимые недостатки услуги. Хотя все услуги тестируются соответствующими отделами нашей компании, мы не исключаем возможности возникновения ошибок. Вам необходимо связаться с нашей службой поддержки в течение 72 часов с момента передачи вам отчета о результатах услуги.'
+    ],
+    responsibilityPage: [
+      `Главная`,
+      `Responsibility`,
+      `Права и обязанности сторон`,
+      `Пользователь имеет право:`,
+      `- осуществлять поиск информации на сайте
+- получать информацию на сайте
+- создавать информацию для сайта
+- распространять информацию на сайте
+- комментировать контент, выложенный на сайте
+- требовать от администрации скрытия любой информации переданной пользователем сайту
+- использовать информацию сайта в личных некоммерческих целях
+- использовать информацию сайта в коммерческих целях без специального разрешения`,
+      `Администрация имеет право:`,
+      `- по своему усмотрению и необходимости создавать, изменять, отменять правила
+- ограничивать доступ к любой информации на сайте
+- создавать, изменять, удалять информацию
+- удалять учетные записи
+- отказывать в регистрации без объяснения причин`,
+      `Пользователь обязуется:`,
+      `- обеспечить достоверность предоставляемой информации
+- обеспечивать сохранность личных данных от доступа третьих лиц
+- обновлять Персональные данные, предоставленные при регистрации, в случае их изменения
+- не распространять информацию, которая направлена на пропаганду войны, разжигание национальной, расовой или религиозной ненависти и вражды, а также иной информации, за распространение которой предусмотрена уголовная или административная ответственность
+- не нарушать работоспособность сайта
+- не совершать действия, направленные на введение других Пользователей в заблуждение
+- не передавать в пользование свою учетную запись и/или логин и пароль своей учетной записи третьим лицам
+- не размещать материалы рекламного, эротического, порнографического или оскорбительного характера, а также иную информацию, размещение которой запрещено или противоречит нормам действующего законодательства РФ
+- не использовать скрипты (программы) для автоматизированного сбора информации и/или взаимодействия с Сайтом и его Сервисами`,
+      `Администрация обязуется:`,
+      `- поддерживать работоспособность сайта за исключением случаев, когда это невозможно по независящим от Администрации причинам.
+- осуществлять разностороннюю защиту учетной записи Пользователя
+- защищать информацию, распространение которой ограничено или запрещено законами путем вынесения предупреждения либо удалением учетной записи пользователя, нарушившего правила
+- предоставить всю доступную информацию о Пользователе уполномоченным на то органам государственной власти в случаях, установленных законом`,
+      `Ответственность сторон`,
+      `- пользователь лично несет полную ответственность за распространяемую им информацию
+- администрация не несет никакой ответственности за достоверность информации, скопированной из других источников
+- администрация не несёт ответственность за несовпадение ожидаемых Пользователем и реально полученных услуг
+- администрация не несет никакой ответственности за услуги, предоставляемые третьими лицами
+- в случае возникновения форс-мажорной ситуации (боевые действия, чрезвычайное положение, стихийное бедствие и т. д.)
+Администрация не гарантирует сохранность информации, размещённой Пользователем, а также бесперебойную работу информационного ресурса`,
+      `Условия действия Соглашения`,
+      `Данное Соглашение вступает в силу при любом использовании данного сайта.
+Соглашение перестает действовать при появлении его новой версии.
+Администрация оставляет за собой право в одностороннем порядке изменять данное соглашение по своему усмотрению.
+Администрация не оповещает пользователей об изменении в Соглашении.`
+    ],
+    privacyPage: [
+      'Главная',
+      'Политика конфиденциальности',
+      'Политика конфиденциальности',
+      'Это коммерческое сервисное приложение предоставлено Олегом Михайличенко и предназначено для использования как есть.',
+      'Эта страница используется для информирования посетителей о моих правилах сбора, использования и раскрытия Личной информации, если кто-то решил воспользоваться моей Услугой.',
+      'Если вы решите использовать мой Сервис, вы соглашаетесь на сбор и использование информации в связи с этой политикой. Личная информация, которую я собираю, используется для предоставления и улучшения Сервиса. Я не буду использовать или передавать вашу информацию кому-либо, кроме случаев, описанных в настоящей Политике конфиденциальности.',
+      'Термины, используемые в настоящей Политике конфиденциальности, имеют те же значения, что и в наших Условиях и положениях, которые доступны в T-App, если иное не определено в настоящей Политике конфиденциальности.',
+      'Сбор и использование информации',
+      'Для лучшего опыта при использовании нашего Сервиса я могу потребовать от вас предоставить нам определенную личную информацию. Информация, которую я запрашиваю, будет сохранена на вашем устройстве и никоим образом не будет собираться мной.',
+      'Приложение использует сторонние сервисы, которые могут собирать информацию, используемую для вашей идентификации.',
+      'Ссылка на политику конфиденциальности сторонних поставщиков услуг, используемых приложением',
+      'Сервисы Google Play',
+      'Данные журнала',
+      'Я хочу сообщить вам, что всякий раз, когда вы используете мой Сервис, в случае ошибки в приложении я собираю данные и информацию (через сторонние продукты) на вашем телефоне под названием "Данные журнала". Эти данные журнала могут включать в себя такую ​​информацию, как адрес интернет-протокола ("IP") вашего устройства, имя устройства, версия операционной системы, конфигурация приложения при использовании моего Сервиса, время и дата использования вами Сервиса и другие статистические данные.',
+      'Печенье',
+      'Файлы cookies — это файлы с небольшим объемом данных, которые обычно используются в качестве анонимных уникальных идентификаторов. Они отправляются в ваш браузер с веб-сайтов, которые вы посещаете, и сохраняются во внутренней памяти вашего устройства.',
+      'Эта Служба не использует эти "cookies" в явном виде. Однако приложение может использовать сторонний код и библиотеки, которые используют файлы cookie для сбора информации и улучшения своих услуг. У вас есть возможность либо принять, либо отказаться от этих файлов cookie и узнать, когда файл cookie отправляется на ваше устройство. Если вы решите отказаться от наших файлов cookie, вы не сможете использовать некоторые части этой Услуги.',
+      'Поставщики услуг',
+      'Я могу нанимать сторонние компании и частных лиц по следующим причинам:',
+      '- Для облегчения нашего Сервиса;',
+      '- Предоставить Услугу от нашего имени;',
+      '- Для выполнения Сервисных услуг;',
+      '- Чтобы помочь нам проанализировать, как используется наш Сервис.',
+      'Я хочу сообщить пользователям этого Сервиса, что эти третьи лица имеют доступ к их Персональным данным. Причина в том, чтобы выполнять возложенные на них задачи от нашего имени. Однако они обязаны не разглашать и не использовать информацию для каких-либо других целей.',
+      'Безопасность',
+      'Я ценю ваше доверие в предоставлении нам вашей личной информации, поэтому мы стремимся использовать коммерчески приемлемые средства ее защиты. Но помните, что ни один метод передачи через Интернет или метод электронного хранения не является на 100% безопасным и надежным, и я не могу гарантировать его абсолютную безопасность.',
+      'Ссылки на другие сайты',
+      'Данная Служба может содержать ссылки на другие сайты. Если вы нажмете на стороннюю ссылку, вы будете перенаправлены на этот сайт. Обратите внимание, что эти внешние сайты не управляются мной. Поэтому я настоятельно рекомендую вам ознакомиться с Политикой конфиденциальности этих веб-сайтов. Я не контролирую и не несу ответственности за содержание, политику конфиденциальности или действия любых сторонних сайтов или служб.',
+      'Конфиденциальность детей',
+      'Эти услуги не предназначены для лиц моложе 13 лет. Я сознательно не собираю личную информацию от детей младше 13 лет. Если я узнаю, что ребенок младше 13 лет предоставил мне личную информацию, я немедленно удаляю ее с наших серверов. Если вы являетесь родителем или опекуном и знаете, что ваш ребенок предоставил нам личную информацию, свяжитесь со мной, чтобы я мог предпринять необходимые действия.',
+      'Изменения в настоящей Политике конфиденциальности',
+      'Я могу время от времени обновлять нашу Политику конфиденциальности. Таким образом, вам рекомендуется периодически просматривать эту страницу на предмет любых изменений. Я сообщу вам о любых изменениях, опубликовав новую Политику конфиденциальности на этой странице.',
+      'Эта политика действует с 07.10.2022',
+      'Свяжитесь с нами',
+      'Если у вас есть какие-либо вопросы или предложения по поводу моей Политики конфиденциальности, не стесняйтесь обращаться ко мне по адресу devlydexter@gmail.com'
+    ]
   },
   ua: {
     notification: [
@@ -626,6 +906,64 @@ export const lang: { [key: string]: object } = {
       'Зберегти',
       'Вийти'
     ],
-    lesson: ['Урок', 'за', 'хвилин']
+    lesson: ['Урок', 'за', 'хвилин'],
+    header: ['Ціни', 'Контакти', 'Посібник'],
+    firstPage: [
+      'планувати уроки та час',
+      'контролюйте дохід та інтенсивність',
+      'отримуйте сповіщення',
+      'Веб версія'
+    ],
+    price: [
+      'Демо',
+      'ціна',
+      'безкоштовно',
+      'Перші 30 днів',
+      'Спробуйте без обмежень',
+      'Після пробного періоду, щоб продовжувати користуватися послугою, оплатіть підписку. Усі дані будуть збережені. ',
+      'Плануйте графік',
+      'Створіть дисципліни',
+      'Додавайте учнів',
+      'Контролюйте фінанси',
+      'Залишилось',
+      'днів',
+      'Місяць',
+      'ціна',
+      '1 місяць',
+      'Доступ до повної функціональності',
+      'Без обмежень',
+      'Повний доступ',
+      'Повідомлення в браузері',
+      'Повідомлення в мобільному додатку',
+      'Історія уроків та фінансів',
+      'Онлайн підтримка',
+      'Оплатити',
+      'Рік',
+      'ціна',
+      '1 рік',
+      'Заощаджуйте',
+      'Повний доступ',
+      'Повідомлення в браузері',
+      'Повідомлення в мобільному додатку',
+      'Історія уроків та фінансів',
+      'Онлайн підтримка',
+      'Оплатити'
+    ],
+    footer: [
+      'Всі права захищені',
+      'Політика конфіденційності',
+      'Політика повернення',
+      'Відповідальність'
+    ],
+    refundPage: [
+      'Головна',
+      'Повернення коштів',
+      'Оскільки послуги, які ми надаємо, не є істотними і не можуть змінюватися, ми не здійснюємо повернення послуги, після того, як вона була сплачена та передана замовнику. Як клієнт, ви несете відповідальність за своє рішення придбати запропоновану послугу у формі, в якій вона пропонується на нашому веб -сайті, без будь -яких змін чи доповнень. ',
+      'Враховуючи вище, ми можемо повернути послугу за обставин нижче:',
+      'Служба не була надана. З будь -якої причини послугу не надавали. У цьому випадку ми рекомендуємо звернутися до нашої служби підтримки, щоб отримати допомогу. ',
+      'Незмінні недоліки послуги. Хоча всі послуги перевіряються відповідними відділами нашої компанії, ми не виключаємо можливості помилок. Вам потрібно зв’язатися з нашою службою підтримки протягом 72 годин з дати передачі звіту про результати Служби. '
+    ],
+    responsibilityPage: [],
+    privacyPage: []
   }
 };

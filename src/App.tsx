@@ -14,6 +14,9 @@ import en from 'antd/lib/locale/en_US';
 import ua from 'antd/lib/locale/uk_UA';
 import { ConfigProvider } from 'antd';
 import { useAppSelector } from './hooks/redux';
+import PrivacyPage from './components/pages/PrivacyPage';
+import RefundPage from './components/pages/RefundPage';
+import ResponsibilityPage from './components/pages/ResponsibilityPage';
 
 function App() {
   const { locale } = useAppSelector((state) => ({
@@ -43,7 +46,10 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/activate/:id" element={<Activation />} />
             <Route path="/password/:id" element={<PasswordPage />} />
-            <Route path="*" element={'Not Found'} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/refund" element={<RefundPage />} />
+            <Route path="/responsibility" element={<ResponsibilityPage />} />
+            <Route path="*" element={`Not Found`} />
           </Routes>
         </BrowserRouter>
       </ConfigProvider>

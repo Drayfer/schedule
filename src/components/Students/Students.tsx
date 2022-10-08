@@ -311,18 +311,20 @@ const Students = (props: Props) => {
               onChange={(e) => handleSearchChange(e)}
               value={searchValue}
             />
-            <Button
-              onClick={() => {
-                setSearchValue('');
-                setFilteredStudents(
-                  students.filter((item) =>
-                    isActive ? !item.break : item.break
-                  )
-                );
-              }}
-            >
-              {lang.students[17]}
-            </Button>
+            <div className="phone:hidden block">
+              <Button
+                onClick={() => {
+                  setSearchValue('');
+                  setFilteredStudents(
+                    students.filter((item) =>
+                      isActive ? !item.break : item.break
+                    )
+                  );
+                }}
+              >
+                {lang.students[17]}
+              </Button>
+            </div>
           </div>
 
           <Tooltip title={isActive ? lang.students[18] : lang.students[19]}>

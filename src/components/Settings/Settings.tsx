@@ -19,6 +19,7 @@ import {
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import { useLogOut } from '../helpers/LogOut';
 import UpdateProfile from '../SidebarMenu/UpdateProfile';
+import TarifCard from './TarifCard';
 
 interface IFormSettings {
   notification: boolean;
@@ -92,105 +93,108 @@ const Settings = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ values, touched }) => {
-        return (
-          <Form className="mt-3 w-full">
-            <div className="flex justify-center mt-10 gap-4 flex-wrap">
-              <Card
-                type="inner"
-                title={lang.settings[1]}
-                bordered={false}
-                style={{ minWidth: 320 }}
-              >
-                <Row>
-                  <Col className="w-3/5">
-                    <p>{lang.settings[2]}:</p>
-                    <p>{lang.settings[3]}:</p>
-                    <p>{lang.settings[4]}:</p>
-                  </Col>
+    <>
+      <TarifCard />
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        {({ values, touched }) => {
+          return (
+            <Form className="mt-3 w-full">
+              <div className="flex justify-center mt-10 gap-4 flex-wrap">
+                <Card
+                  type="inner"
+                  title={lang.settings[1]}
+                  bordered={false}
+                  style={{ minWidth: 320 }}
+                >
+                  <Row>
+                    <Col className="w-3/5">
+                      <p>{lang.settings[2]}:</p>
+                      <p>{lang.settings[3]}:</p>
+                      <p>{lang.settings[4]}:</p>
+                    </Col>
 
-                  <Col className="w-2/5">
-                    <p>
-                      <Switch name="notification" size="small" />
-                    </p>
-                    <FormItem name="notifyMinutes">
-                      <InputNumber
-                        min={0}
-                        name="notifyMinutes"
-                        style={{ width: 70 }}
+                    <Col className="w-2/5">
+                      <p>
+                        <Switch name="notification" size="small" />
+                      </p>
+                      <FormItem name="notifyMinutes">
+                        <InputNumber
+                          min={0}
+                          name="notifyMinutes"
+                          style={{ width: 70 }}
+                          disabled={!values.notification}
+                        />
+                      </FormItem>
+                      <Slider
+                        name="notifyVolume"
+                        style={{ marginTop: '-0.8rem' }}
                         disabled={!values.notification}
                       />
-                    </FormItem>
-                    <Slider
-                      name="notifyVolume"
-                      style={{ marginTop: '-0.8rem' }}
-                      disabled={!values.notification}
-                    />
-                  </Col>
-                </Row>
-              </Card>
+                    </Col>
+                  </Row>
+                </Card>
 
-              <Card
-                type="inner"
-                title={lang.settings[5]}
-                bordered={false}
-                style={{ minWidth: 320 }}
-              >
-                <Row>
-                  <Col className="mr-1">
-                    <p>{lang.settings[6]}:</p>
-                    <p>{lang.settings[7]}:</p>
-                    <p>{lang.settings[8]}:</p>
-                  </Col>
-                  <Col>
-                    <InputNumber
-                      min={0}
-                      name="rateWithBalance"
-                      style={{ width: 80, display: 'block' }}
-                    />
-
-                    <InputNumber
-                      min={0}
-                      name="rateWithoutBalance"
-                      style={{ width: 80, display: 'block' }}
-                    />
-
-                    <Select
-                      name="currency"
-                      value={values.currency}
-                      style={{ width: 80, display: 'block' }}
-                      className="mt-2"
-                    >
-                      <Select.Option value="USD">USD</Select.Option>
-                      <Select.Option value="EUR">EUR</Select.Option>
-                      <Select.Option value="UAH">UAH</Select.Option>
-                      <Select.Option value="RUB">RUB</Select.Option>
-                    </Select>
-                  </Col>
-                </Row>
-              </Card>
-              <div className="w-full flex justify-start flex-col items-center">
-                <SubmitButton
-                  key="submit"
-                  className="w-[150px] rounded-sm"
-                  loading={loading}
-                  disabled={!Object.keys(touched).length}
+                <Card
+                  type="inner"
+                  title={lang.settings[5]}
+                  bordered={false}
+                  style={{ minWidth: 320 }}
                 >
-                  {lang.settings[9]}
-                </SubmitButton>
-                <div className="text-[#1890ff] mt-3">
-                  <UpdateProfile />
+                  <Row>
+                    <Col className="mr-1">
+                      <p>{lang.settings[6]}:</p>
+                      <p>{lang.settings[7]}:</p>
+                      <p>{lang.settings[8]}:</p>
+                    </Col>
+                    <Col>
+                      <InputNumber
+                        min={0}
+                        name="rateWithBalance"
+                        style={{ width: 80, display: 'block' }}
+                      />
+
+                      <InputNumber
+                        min={0}
+                        name="rateWithoutBalance"
+                        style={{ width: 80, display: 'block' }}
+                      />
+
+                      <Select
+                        name="currency"
+                        value={values.currency}
+                        style={{ width: 80, display: 'block' }}
+                        className="mt-2"
+                      >
+                        <Select.Option value="USD">USD</Select.Option>
+                        <Select.Option value="EUR">EUR</Select.Option>
+                        <Select.Option value="UAH">UAH</Select.Option>
+                        <Select.Option value="RUB">RUB</Select.Option>
+                      </Select>
+                    </Col>
+                  </Row>
+                </Card>
+                <div className="w-full flex justify-start flex-col items-center">
+                  <SubmitButton
+                    key="submit"
+                    className="w-[150px] rounded-sm"
+                    loading={loading}
+                    disabled={!Object.keys(touched).length}
+                  >
+                    {lang.settings[9]}
+                  </SubmitButton>
+                  <div className="text-[#1890ff] mt-3">
+                    <UpdateProfile />
+                  </div>
+                  <Button type="link" onClick={logOut}>
+                    {lang.settings[10]}
+                  </Button>
                 </div>
-                <Button type="link" onClick={logOut}>
-                  {lang.settings[10]}
-                </Button>
               </div>
-            </div>
-          </Form>
-        );
-      }}
-    </Formik>
+            </Form>
+          );
+        }}
+      </Formik>
+    </>
   );
 };
 
