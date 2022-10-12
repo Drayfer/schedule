@@ -1,6 +1,6 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, MenuProps, Space } from 'antd';
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { localeArray } from '../../assets/constants/lang';
 import { lang } from '../../assets/constants/lang';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -15,7 +15,7 @@ const LanguageSelectLanding = () => {
   }));
   const dispatch = useAppDispatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!locale) {
       dispatch(setLandingLocale(navigator.language.split('-')[0]));
     } else {
