@@ -1,23 +1,21 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, MenuProps, Space } from 'antd';
-import React, { useEffect } from 'react';
-import { lang, localeArray } from '../../assets/constants/lang';
+import React from 'react';
+import { localeArray } from '../../assets/constants/lang';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setLang, setLocale } from '../../store/reducers/OptionsSlice';
+import { setLandingLocale } from '../../store/reducers/LandingSlice';
+import { useSetLandingLang } from '../helpers/useSetLandingLang';
 
-const Language = () => {
-  const { userId, locale } = useAppSelector((state) => ({
-    userId: state.user.data?.id || 0,
-    locale: state.options?.data?.locale || 'en'
+const LanguageSelectLanding = () => {
+  const { locale } = useAppSelector((state) => ({
+    locale: state.landing.locale
   }));
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(setLang(lang[locale]));
-  }, [locale, dispatch]);
+  useSetLandingLang();
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
-    dispatch(setLocale({ userId, locale: key }));
+    dispatch(setLandingLocale(key));
   };
 
   const menu = (
@@ -40,15 +38,15 @@ const Language = () => {
     />
   );
   return (
-    <div className="absolute top-[10px] right-8 z-10">
+    <div className="">
       <Dropdown overlay={menu}>
         <Space className="cursor-pointer">
-          {locale.toUpperCase()}
-          <DownOutlined className="absolute text-[10px] top-[7px]" />
+          {locale.toLocaleUpperCase()}
+          <DownOutlined className="absolute text-[10px] top-[23px]" />
         </Space>
       </Dropdown>
     </div>
   );
 };
 
-export default Language;
+export default LanguageSelectLanding;

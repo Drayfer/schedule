@@ -5,6 +5,13 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { AxiosErr } from '../../types/types';
 import { lang } from '../../assets/constants/lang';
+
+export interface IBillingInfo {
+  demo: boolean;
+  daysFromReg: number;
+  demoDays: number;
+  paidDays: number;
+}
 interface UserState {
   activeBoard: string;
   fullMenu: boolean;
@@ -12,6 +19,7 @@ interface UserState {
   searchedStudentId: number | null;
   data: IOption;
   lang: any;
+  billing: IBillingInfo | null;
 }
 
 const initialState: UserState = {
@@ -35,7 +43,8 @@ const initialState: UserState = {
     weekIncome: 0,
     notificationsArr: [],
     locale: 'en'
-  }
+  },
+  billing: null
 };
 
 interface GetTodayLessons {
@@ -208,6 +217,21 @@ export const setLocale = createAsyncThunk(
   }
 );
 
+export const getBilling = createAsyncThunk(
+  'option/billinginfo/:userId',
+  async (payload: number, thunkAPI) => {
+    try {
+      const { data } = await axios.get<IBillingInfo>(
+        `${process.env.REACT_APP_API_URL}/option/billinginfo/${payload}`,
+        getTokenHeader()
+      );
+      return data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const optionsSlice = createSlice({
   name: 'options',
   initialState,
@@ -224,6 +248,9 @@ export const optionsSlice = createSlice({
     },
     setLang: (state, action: PayloadAction<any>) => {
       state.lang = action.payload;
+    },
+    setAppLocale: (state, action: PayloadAction<string>) => {
+      state.data.locale = action.payload;
     }
   },
   extraReducers: {
@@ -284,6 +311,12 @@ export const optionsSlice = createSlice({
     },
     [setLocale.fulfilled.type]: (state, action: PayloadAction<string>) => {
       state.data.locale = action.payload;
+    },
+    [getBilling.fulfilled.type]: (
+      state,
+      action: PayloadAction<IBillingInfo>
+    ) => {
+      state.billing = action.payload;
     }
   }
 });
@@ -293,7 +326,8 @@ export const {
   setFullMenu,
   resetOpions,
   setSearchedStudent,
-  setLang
+  setLang,
+  setAppLocale
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

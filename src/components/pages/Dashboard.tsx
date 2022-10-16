@@ -10,9 +10,16 @@ import PushNotification from '../Schedule/PushNotification';
 import { useLogOut } from '../helpers/LogOut';
 import TimerNotifications from '../Notifications/TimerNotifications';
 import Header from '../Header/Header';
+import { getBilling } from '../../store/reducers/OptionsSlice';
+import Reminder from '../MainBoard/Reminder';
+import NoDemoAccess from '../Settings/NoDemoAccess';
+import EducaionBg from '../../assets/images/educationBg.png';
 
 const Dashboard = () => {
-  const { user } = useAppSelector((state) => state);
+  const { user, billing } = useAppSelector((state) => ({
+    user: state.user,
+    billing: state.options.billing
+  }));
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const logout = useLogOut();
@@ -51,6 +58,16 @@ const Dashboard = () => {
     }
   }, [user.data]);
 
+  useEffect(() => {
+    let interval = setInterval(() => {
+      if (user.data?.id) {
+        dispatch(getBilling(user.data.id));
+      }
+    }, 1000 * 60 * 60 * 3);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <PushNotification />
@@ -61,8 +78,22 @@ const Dashboard = () => {
         <div className="bg-slate-200 overflow-auto h-screen w-full relative overflow-x-hidden">
           <Header />
 
-          <div className="pb-5 pt-[50px] overflow-x-hidden h-screen phone:pb-16 phone:overflow-y-auto tablet:h-screen">
-            <MainBoard />
+          <div
+            className="table:pb-5 pt-[50px] overflow-x-hidden h-screen phone:pb-16 phone:overflow-y-auto tablet:h-screen"
+            style={
+              !billing?.demo && billing?.paidDays === 0
+                ? {
+                    backgroundImage: `url(${EducaionBg})`
+                  }
+                : {}
+            }
+          >
+            {!billing?.demo && billing?.paidDays === 0 ? (
+              <NoDemoAccess />
+            ) : (
+              <MainBoard />
+            )}
+            <Reminder />
           </div>
           <Footer />
         </div>

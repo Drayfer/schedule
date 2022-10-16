@@ -3,6 +3,7 @@ import { Button, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAppSelector } from '../../hooks/redux';
+import { StyledIcon } from '../Header/Guide';
 import { StyledDrawer } from '../SidebarMenu/UpdateProfile';
 import AddNoteModal from './AddNoteModal';
 import CompleteNotifications from './CompleteNotifications';
@@ -33,8 +34,8 @@ const Notifications = () => {
 
   return (
     <>
-      <div className="absolute top-1 right-2 z-10 w-[36px]">
-        <div
+      <div className="absolute top-1 right-[70px] z-10 w-[36px]">
+        <StyledIcon
           className="relative w-8 h-8 flex bigPhone:inline-flex justify-center items-center rounded-full bg-white cursor-pointer mr-1 mb-1 border-slate-600 border-[1px]"
           onClick={() => setIsOpen(true)}
         >
@@ -44,7 +45,7 @@ const Notifications = () => {
               {notificationsArr?.filter((note) => note.complete).length}
             </div>
           ) : null}
-        </div>
+        </StyledIcon>
       </div>
       {isOpen && (
         <StyledDrawer

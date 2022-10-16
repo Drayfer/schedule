@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import TeachAppLogo from '../../assets/images/TeachAppLogo.png';
 import * as Yup from 'yup';
 import { PopupError } from '../helpers/PopupError';
+import { useAppSelector } from '../../hooks/redux';
+import { useSetLandingLang } from '../helpers/useSetLandingLang';
 
 type Props = {};
 
@@ -16,6 +18,12 @@ const ValidationSchema = Yup.object().shape({
 });
 
 const PasswordPage = (props: Props) => {
+  const { lang } = useAppSelector((state) => ({
+    lang: state.options.lang?.login || []
+  }));
+
+  useSetLandingLang();
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState('');
@@ -53,14 +61,13 @@ const PasswordPage = (props: Props) => {
       <Container>
         <div className="tablet:w-96 phone:w-11/12 flex flex-col items-center rounded pt-10 bg-white pb-4">
           <p className="text-slate-900/70 text-lg text-center font-semibold">
-            Password changed successfully!
+            {lang[36]}
           </p>
-          <p className="text-slate-900/70 text-lg text-center">
-            You can log in using the new password.
-          </p>
+          <p className="text-slate-900/70 text-lg text-center">{lang[37]}</p>
           <Button type="link" onClick={() => navigate('/login')}>
-            Go to login page
+            {lang[35]}
           </Button>
+          <p className="text-slate-900/70 text-md text-center">{lang[31]}</p>
         </div>
       </Container>
     );
@@ -71,16 +78,14 @@ const PasswordPage = (props: Props) => {
       <div className="tablet:w-96 phone:w-11/12 flex flex-col items-center rounded pt-10 bg-white pb-4">
         <img src={TeachAppLogo} alt="logo" className="h-14 w-auto" />
         <h1 className="mt-2 font-semibold text-gray-500/70 text-lg">
-          Dashboard Kit
+          Teacher's App
         </h1>
         <h2 className="mt-3 tablet:text-2xl phone:text-xl font-bold">
-          Log In to Dashboard Kit
+          {lang[10]} Teacher's App
         </h2>
-        <p className="mt-1 font-normal text-sm text-gray-500/90">
-          Enter your email and password below
-        </p>
+        <p className="mt-1 font-normal text-sm text-gray-500/90">{lang[32]}</p>
         <p className="mt-1 font-normal">
-          Your email: <span className="font-semibold">{userEmail}</span>
+          {lang[33]}: <span className="font-semibold">{userEmail}</span>
         </p>
         <Formik
           initialValues={{ password: '' }}
@@ -97,13 +102,13 @@ const PasswordPage = (props: Props) => {
                     htmlFor="password"
                     className="text-gray-500/70 font-bold text-xs"
                   >
-                    PASSWORD
+                    {lang[16]}
                   </label>
                 </div>
 
                 <Input.Password
                   name="password"
-                  placeholder="Password"
+                  placeholder={lang[18]}
                   type="password"
                 />
               </FormItem>
@@ -114,13 +119,13 @@ const PasswordPage = (props: Props) => {
                 loading={loading}
                 disabled={!values.password || !!errors.password}
               >
-                Set new password
+                {lang[34]}
               </Submit>
             </Form>
           )}
         </Formik>
         <Button type="link" onClick={() => navigate('/login')}>
-          Go back
+          {lang[35]}
         </Button>
       </div>
     </Container>

@@ -10,6 +10,7 @@ import {
 } from '../../store/reducers/DisciplineActions';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import { LittleRound } from '../Schedule/AddLesson';
+import PaidAccess from '../Settings/PaidAccess';
 import { Round } from '../Students/Students';
 import AddDisciplineForm from './AddDisciplineForm';
 import InfoDiscipline from './InfoDiscipline';
@@ -120,25 +121,31 @@ const Disciplines = () => {
   };
   return (
     <>
-      <div className="flex justify-between m-4">
-        <div className="flex">
-          <AddDisciplineForm />
-        </div>
-      </div>
+      <div className="relative">
+        <PaidAccess />
 
-      <Table
-        className="ml-4 mr-4"
-        columns={
-          !isMobile ? columns : columns.filter((item) => item.title !== 'Count')
-        }
-        dataSource={[
-          general,
-          ...disciplines.filter((item) => !item?.deletedAt)
-        ]}
-        loading={loadingDisciplines}
-        size={'small'}
-        pagination={{ position: ['bottomCenter'] }}
-      />
+        <div className="flex justify-between mx-4 pt-4 mb-4">
+          <div className="flex">
+            <AddDisciplineForm />
+          </div>
+        </div>
+
+        <Table
+          className="ml-4 mr-4"
+          columns={
+            !isMobile
+              ? columns
+              : columns.filter((item) => item.title !== 'Count')
+          }
+          dataSource={[
+            general,
+            ...disciplines.filter((item) => !item?.deletedAt)
+          ]}
+          loading={loadingDisciplines}
+          size={'small'}
+          pagination={{ position: ['bottomCenter'] }}
+        />
+      </div>
     </>
   );
 };

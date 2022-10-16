@@ -19,12 +19,15 @@ export interface IAddDisciplineForm {
 }
 
 const AddDisciplineForm = () => {
-  const { userId, students, loading, lang } = useAppSelector((state) => ({
-    userId: state.user.data?.id || 0,
-    students: state.student.data,
-    loading: state.discipline.isLoading,
-    lang: state.options.lang
-  }));
+  const { userId, students, loading, lang, billing } = useAppSelector(
+    (state) => ({
+      userId: state.user.data?.id || 0,
+      students: state.student.data,
+      loading: state.discipline.isLoading,
+      lang: state.options.lang,
+      billing: state.options.billing
+    })
+  );
 
   const ValidationSchema = Yup.object().shape({
     title: Yup.string().required(lang.disciplines[9])
@@ -61,7 +64,7 @@ const AddDisciplineForm = () => {
       <Button
         type="primary"
         icon={<PlusCircleOutlined />}
-        onClick={() => setIsAddDiscipline(true)}
+        onClick={() => billing?.paidDays !== 0 && setIsAddDiscipline(true)}
         className="mr-2"
       >
         {lang.disciplines[10]}

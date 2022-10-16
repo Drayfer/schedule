@@ -11,23 +11,22 @@ import { resetUser } from '../../store/reducers/UserSlice';
 import emailjs from '@emailjs/browser';
 import axios from 'axios';
 import { IUser } from '../../models/IUser';
-import { useNavigate } from 'react-router-dom';
-import { isErrorDispatch, PopupError } from '../helpers/PopupError';
-import { AxiosErr } from '../../types/types';
-
-const FormSchema = Yup.object().shape({
-  // email: Yup.string().email('Enter valid email').required('Required field'),
-  password: Yup.string().min(3, 'Too short password').required('Required field')
-});
-
-const ForgotPasswordSchema = Yup.object().shape({
-  // email: Yup.string().email('Enter valid email').required('Required field')
-});
+import { useLocation, useNavigate } from 'react-router-dom';
+import { isErrorDispatch } from '../helpers/PopupError';
+import { useSetLandingLang } from '../helpers/useSetLandingLang';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { user } = useAppSelector((store) => store);
+  const { lang, emailLang } = useAppSelector((state) => ({
+    lang: state.options.lang?.login || [],
+    emailLang: state.options.lang?.email || []
+  }));
+
   const dispatch = useAppDispatch();
+
+  useSetLandingLang();
+
   const formRef = useRef<FormikProps<FormikValues>>(null);
   const [errorFormMessage, setErrorFormMessage] = useState('');
   const [isRegistration, setIsRegistration] = useState(false);
@@ -36,14 +35,44 @@ const LoginPage = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const location = useLocation();
+
+  let FormSchema = Yup.object().shape({
+    email: Yup.string().email(lang[0]).required(lang[1]),
+    password: Yup.string().min(3, lang[2]).required(lang[1])
+  });
+  if (isRegistration) {
+    FormSchema = Yup.object().shape({
+      email: Yup.string().email(lang[0]).required(lang[1]),
+      password: Yup.string().min(3, lang[2]).required(lang[1]),
+      name: Yup.string().required(lang[1])
+    });
+  }
+
+  const ForgotPasswordSchema = Yup.object().shape({
+    email: Yup.string().email(lang[0]).required(lang[1])
+  });
+
+  useEffect(() => {
+    if (location.pathname === '/login') {
+      setIsForgotPassword(false);
+      setIsRegistration(false);
+    } else if (location.pathname === '/signup') {
+      setIsForgotPassword(false);
+      setIsRegistration(true);
+    } else if (location.pathname === '/reset') {
+      setIsForgotPassword(true);
+      setIsRegistration(false);
+    }
+  }, [location.pathname]);
+
   useEffect(() => {
     if (user.data?.id) {
       navigate('/dashboard');
     } else {
       dispatch(resetUser());
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [user.data?.id, dispatch, navigate]);
 
   const sendForgotPassword = async (
     token: string,
@@ -51,10 +80,14 @@ const LoginPage = () => {
     email: string
   ) => {
     const message = {
-      link: `${window.location.origin}/password/${token}`,
+      message: `${emailLang[0]} ${name}!
+${emailLang[1]}
+
+${emailLang[5]}
+${window.location.origin}/password/${token}
+`,
       reply_to: email,
-      to_name: name,
-      from_name: 'Schedule App'
+      subject: emailLang[6]
     };
     await emailjs.send(
       'service_iwc765c',
@@ -71,12 +104,17 @@ const LoginPage = () => {
     password: string
   ) => {
     const message = {
-      message: `Registration completed, follow the link below to verify your account:
-      ${window.location.origin}/activate/${token}`,
+      message: `${emailLang[0]} ${name}!
+${emailLang[1]}
+
+${emailLang[2]}
+${window.location.origin}/activate/${token}
+
+Email: ${email}
+${emailLang[3]}: ${password}
+`,
       reply_to: email,
-      to_name: name,
-      from_name: 'Schedule App',
-      password: password
+      subject: emailLang[4]
     };
     emailjs
       .send('service_iwc765c', 'template_7l1ybxv', message, 'TxI221uSyQgO0EGEB')
@@ -94,7 +132,7 @@ const LoginPage = () => {
     setLoading(true);
     if (isRegistration) {
       if (values.name === '' || values.name.length < 2)
-        formRef.current?.setFieldError('name', 'Too short name');
+        formRef.current?.setFieldError('name', lang[3]);
       try {
         const { data } = await axios.post<IUser>(
           `${process.env.REACT_APP_API_URL}/auth/registration`,
@@ -112,9 +150,10 @@ const LoginPage = () => {
         );
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
-          setErrorFormMessage((err.response?.data as AxiosErr).message);
+          // setErrorFormMessage((err.response?.data as AxiosErr).message);
+          setErrorFormMessage(lang[27]);
         }
-        PopupError(err);
+        // PopupError(err);
       } finally {
         setLoading(false);
       }
@@ -136,8 +175,8 @@ const LoginPage = () => {
           formRef.current?.resetForm();
         }
       } catch (err) {
-        setErrorFormMessage('This email was not found');
-        PopupError(err);
+        setErrorFormMessage(lang[4]);
+        // PopupError(err);
       } finally {
         setLoading(false);
       }
@@ -155,8 +194,8 @@ const LoginPage = () => {
         )
       );
     } catch (err) {
-      PopupError(err);
-      setErrorFormMessage('User not found');
+      // PopupError(err);
+      setErrorFormMessage(lang[5]);
       setLoading(false);
     }
   };
@@ -167,7 +206,7 @@ const LoginPage = () => {
       return;
     }
     if (user.data && !user.data?.activate) {
-      setErrorFormMessage('User not activated by email');
+      setErrorFormMessage(lang[6]);
     }
     if (user.error === '' && user.data && user.data.activate) {
       navigate('/dashboard');
@@ -180,12 +219,9 @@ const LoginPage = () => {
       <Container>
         <div className="tablet:w-96 phone:w-11/12 flex flex-col items-center rounded pt-10 bg-white">
           <div className="mt-2 mb-8 font-normal text-slate-900/70 text-lg flex flex-col justify-center align-middle">
-            <p className="text-center font-extrabold">
-              Registration completed successfully!
-            </p>
-            <p className="text-center mb-8">
-              {formRef.current?.values.name || user.data?.name}, check your
-              email and follow the instructions to activate your account.
+            <p className="text-center font-extrabold">{lang[7]}</p>
+            <p className="text-center mb-8 px-3">
+              {formRef.current?.values.name || user.data?.name}, {lang[8]}
             </p>
             <Button
               type="primary"
@@ -197,7 +233,7 @@ const LoginPage = () => {
                 dispatch(resetUser());
               }}
             >
-              Ok
+              {lang[9]}
             </Button>
           </div>
         </div>
@@ -213,11 +249,9 @@ const LoginPage = () => {
           Teacher's App
         </h1>
         <h2 className="mt-3 tablet:text-2xl phone:text-xl font-bold">
-          Log In to Teacher's App
+          {lang[10]} Teacher's App
         </h2>
-        <p className="mt-1 font-normal text-sm text-gray-500/90">
-          Enter your email and password below
-        </p>
+        <p className="mt-1 font-normal text-sm text-gray-500/90">{lang[11]}</p>
         <Formik
           initialValues={{ email: '', password: '', name: '' }}
           onSubmit={handleSubmit}
@@ -227,66 +261,69 @@ const LoginPage = () => {
           innerRef={formRef}
           validateOnBlur
         >
-          {({ errors, values, setErrors, setFieldError }) => (
+          {({ errors, values, setErrors, setFieldError, setFieldValue }) => (
             <Form className="mt-12 w-10/12">
               {isRegistration && (
-                <FormItem name="name">
+                <FormItem name="name" hasFeedback={false}>
                   <label
                     htmlFor="name"
                     className="text-gray-500/70 font-bold text-xs"
                   >
-                    NAME
+                    {lang[12]}
                   </label>
                   <Input
                     name="name"
-                    placeholder="Your name"
+                    placeholder={lang[13]}
                     bordered
                     onChange={() => setErrorFormMessage('')}
                   />
                 </FormItem>
               )}
-              <FormItem name="email">
+              <FormItem name="email" hasFeedback={false}>
                 <label
                   htmlFor="email"
                   className="text-gray-500/70 font-bold text-xs"
                 >
-                  EMAIL
+                  {lang[14]}
                 </label>
                 <Input
                   name="email"
-                  placeholder="Email address"
+                  placeholder={lang[15]}
                   bordered
                   onChange={() => setErrorFormMessage('')}
                 />
               </FormItem>
               {!isForgotPassword && (
-                <FormItem name="password">
+                <FormItem name="password" hasFeedback={false}>
                   <div className="flex justify-between items-baseline mb-1.5">
                     <label
                       htmlFor="password"
                       className="text-gray-500/70 font-bold text-xs"
                     >
-                      PASSWORD
+                      {lang[16]}
                     </label>
                     <span
                       className="text-gray-500/70 font-normal text-xs hover:text-blue-400 cursor-pointer"
                       onClick={() => {
                         setIsForgotPassword(true);
+                        setIsRegistration(false);
                         setErrorFormMessage('');
+                        setFieldValue('password', '');
+                        setFieldValue('name', '');
                         window.history.replaceState(
                           null,
                           'Reset password - Schedule App',
-                          '/'
+                          '/reset'
                         );
                       }}
                     >
-                      Forgot password?
+                      {lang[17]}
                     </span>
                   </div>
 
                   <Input.Password
                     name="password"
-                    placeholder="Password"
+                    placeholder={lang[18]}
                     type="password"
                     onChange={() => setErrorFormMessage('')}
                   />
@@ -299,10 +336,10 @@ const LoginPage = () => {
                 loading={loading}
               >
                 {isRegistration
-                  ? 'Sign Up'
+                  ? lang[19]
                   : isForgotPassword
-                  ? 'Reset password'
-                  : 'Log In'}
+                  ? lang[20]
+                  : lang[21]}
               </Submit>
             </Form>
           )}
@@ -323,12 +360,12 @@ const LoginPage = () => {
               setErrorFormMessage('');
             }}
           >
-            Resent activation link
+            {lang[22]}
           </Button>
         )}
         {showMessage && isForgotPassword && (
           <p className="text-green-600 text-sm mt-2 w-3/4 text-center">
-            Check your email and follow the instructions to reset your password.
+            {lang[23]}
           </p>
         )}
         {(isForgotPassword || isRegistration) && (
@@ -337,30 +374,33 @@ const LoginPage = () => {
             onClick={() => {
               setIsRegistration(false);
               setIsForgotPassword(false);
-              window.history.replaceState(null, 'Log in - Schedule App', '/');
+              window.history.replaceState(
+                null,
+                'Log in - Schedule App',
+                '/login'
+              );
             }}
           >
-            Go back
+            {lang[24]}
           </Button>
         )}
         {!isRegistration && (
           <div className="flex mt-8 items-baseline">
-            <p className="text-gray-500/70 text-sm mr-1.5">
-              Don’t have an account?
-            </p>
+            <p className="text-gray-500/70 text-sm mr-1.5">{lang[25]}</p>
             <p
               className="cursor-pointer text-blue-500 font-normal"
               onClick={() => {
                 setIsRegistration(true);
+                setErrorFormMessage('');
                 setIsForgotPassword(false);
                 window.history.replaceState(
                   null,
                   'Sign up - Schedule App',
-                  '/'
+                  '/signup'
                 );
               }}
             >
-              Sign up
+              {lang[26]}
             </p>
           </div>
         )}

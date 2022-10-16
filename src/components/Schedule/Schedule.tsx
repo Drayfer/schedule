@@ -34,6 +34,7 @@ import {
 } from '../../store/reducers/LessonActions';
 import {
   fetchOptionsData,
+  getBilling,
   setActiveBoard,
   setSearchedStudent
 } from '../../store/reducers/OptionsSlice';
@@ -81,6 +82,14 @@ const Schedule = () => {
   const duplicates =
     lessons.length &&
     toFindDuplicates(lessons.map((lesson) => lesson.date.toString()));
+
+  useEffect(() => {
+    if (userId) {
+      setTimeout(() => {
+        dispatch(getBilling(userId));
+      }, 1000);
+    }
+  }, [userId, dispatch]);
 
   useEffect(() => {
     let interval = setInterval(() => {
@@ -199,7 +208,7 @@ const Schedule = () => {
           )}
         </div>
       </div>
-      <Row justify="center" gutter={[20, 5]}>
+      <Row justify="center" gutter={[20, 5]} className="mb-5">
         {days.map((day, index) => (
           <Col key={day.toString()}>
             <LessonCard
