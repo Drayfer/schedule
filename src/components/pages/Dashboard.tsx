@@ -10,15 +10,18 @@ import PushNotification from '../Schedule/PushNotification';
 import { useLogOut } from '../helpers/LogOut';
 import TimerNotifications from '../Notifications/TimerNotifications';
 import Header from '../Header/Header';
-import { getBilling } from '../../store/reducers/OptionsSlice';
+import { getBilling, setLang } from '../../store/reducers/OptionsSlice';
 import Reminder from '../MainBoard/Reminder';
 import NoDemoAccess from '../Settings/NoDemoAccess';
 import EducaionBg from '../../assets/images/educationBg.png';
+import { lang as language } from '../../assets/constants/lang';
 
 const Dashboard = () => {
-  const { user, billing } = useAppSelector((state) => ({
+  const { user, billing, locale, lang } = useAppSelector((state) => ({
     user: state.user,
-    billing: state.options.billing
+    billing: state.options.billing,
+    locale: state.options?.data?.locale || 'en',
+    lang: state.options.lang
   }));
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -68,36 +71,47 @@ const Dashboard = () => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    if (locale) {
+      dispatch(setLang(language[locale]));
+    }
+    // eslint-disable-next-line
+  }, [locale]);
+
   return (
     <>
-      <PushNotification />
-      <TimerNotifications />
-      <div className="flex w-screen">
-        <SidebarMenu />
+      {JSON.stringify(lang) === JSON.stringify(language[locale]) && (
+        <>
+          <PushNotification />
+          <TimerNotifications />
+          <div className="flex w-screen">
+            <SidebarMenu />
 
-        <div className="bg-slate-200 overflow-auto h-screen w-full relative overflow-x-hidden">
-          <Header />
+            <div className="bg-slate-200 overflow-auto h-screen w-full relative overflow-x-hidden">
+              <Header />
 
-          <div
-            className="table:pb-5 pt-[50px] overflow-x-hidden h-screen phone:pb-16 phone:overflow-y-auto tablet:h-screen"
-            style={
-              !billing?.demo && billing?.paidDays === 0
-                ? {
-                    backgroundImage: `url(${EducaionBg})`
-                  }
-                : {}
-            }
-          >
-            {!billing?.demo && billing?.paidDays === 0 ? (
-              <NoDemoAccess />
-            ) : (
-              <MainBoard />
-            )}
-            <Reminder />
+              <div
+                className="table:pb-5 pt-[50px] overflow-x-hidden h-screen phone:pb-16 phone:overflow-y-auto tablet:h-screen"
+                style={
+                  !billing?.demo && billing?.paidDays === 0
+                    ? {
+                        backgroundImage: `url(${EducaionBg})`
+                      }
+                    : {}
+                }
+              >
+                {!billing?.demo && billing?.paidDays === 0 ? (
+                  <NoDemoAccess />
+                ) : (
+                  <MainBoard />
+                )}
+                <Reminder />
+              </div>
+              <Footer />
+            </div>
           </div>
-          <Footer />
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };
