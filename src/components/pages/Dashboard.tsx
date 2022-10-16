@@ -10,15 +10,17 @@ import PushNotification from '../Schedule/PushNotification';
 import { useLogOut } from '../helpers/LogOut';
 import TimerNotifications from '../Notifications/TimerNotifications';
 import Header from '../Header/Header';
-import { getBilling } from '../../store/reducers/OptionsSlice';
+import { getBilling, setLang } from '../../store/reducers/OptionsSlice';
 import Reminder from '../MainBoard/Reminder';
 import NoDemoAccess from '../Settings/NoDemoAccess';
 import EducaionBg from '../../assets/images/educationBg.png';
+import { lang as language } from '../../assets/constants/lang';
 
 const Dashboard = () => {
-  const { user, billing } = useAppSelector((state) => ({
+  const { user, billing, locale } = useAppSelector((state) => ({
     user: state.user,
-    billing: state.options.billing
+    billing: state.options.billing,
+    locale: state.options?.data?.locale || 'en'
   }));
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -67,6 +69,13 @@ const Dashboard = () => {
     return () => clearInterval(interval);
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (locale) {
+      dispatch(setLang(language[locale]));
+    }
+    // eslint-disable-next-line
+  }, [locale]);
 
   return (
     <>
