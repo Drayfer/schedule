@@ -78,8 +78,26 @@ const UpdateProfile = () => {
     }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(`ID:${user?.id}`);
+  const handleCopy = async () => {
+    const unsecuredCopyToClipboard = (text: string) => {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Unable to copy to clipboard', err);
+      }
+      document.body.removeChild(textArea);
+    };
+
+    if (window.isSecureContext && navigator.clipboard) {
+      navigator.clipboard.writeText('1111');
+    } else {
+      unsecuredCopyToClipboard('1111');
+    }
     if (!window.navigator.userAgent.toLowerCase().includes('wv')) {
       message.success(lang.menu[21]);
     }

@@ -6,28 +6,46 @@ import LanguageSelectLanding from './LanguageSelectLanding';
 
 const HeaderLanding = () => {
   const { lang } = useAppSelector((state) => ({
-    lang: state.landing.lang
+    lang: state.options.lang
   }));
 
   const navigate = useNavigate();
 
   return (
-    <div className="w-full flex justify-end bg-[#252525] text-white p-4 pb-2 px-10">
-      <li className="flex w-[350px] justify-between">
-        <ul>
+    <div className="w-full flex justify-end bg-[rgb(37,37,37)] text-white p-4 pb-2 px-10">
+      <ul className="flex w-[350px] justify-between text-sm">
+        <li
+          className="cursor-pointer underline hover:no-underline"
+          onClick={() => navigate('/')}
+        >
+          {lang.header[3]}
+        </li>
+        <li>
           <HashLink
-            className="text-white hover:text-zinc-200 underline hover:underline"
+            className="text-white underline hover:text-white"
             to="/#price"
           >
             {lang.header[0]}
           </HashLink>
-        </ul>
-        <ul className="cursor-pointer underline">{lang.header[1]}</ul>
-        <ul className="cursor-pointer underline">{lang.header[2]}</ul>
-        <ul>
+        </li>
+        <li>
+          <HashLink
+            className="cursor-pointer text-white underline hover:text-white"
+            to="#contacts"
+          >
+            {lang.header[1]}
+          </HashLink>
+        </li>
+        <li
+          className="cursor-pointer underline hover:no-underline"
+          onClick={() => navigate('/guide')}
+        >
+          {lang.header[2]}
+        </li>
+        <li>
           <LanguageSelectLanding />
-        </ul>
-      </li>
+        </li>
+      </ul>
     </div>
   );
 };

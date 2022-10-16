@@ -14,12 +14,15 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   fetchOptionsData,
+  getBilling,
   updateDataOption
 } from '../../store/reducers/OptionsSlice';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import { useLogOut } from '../helpers/LogOut';
 import UpdateProfile from '../SidebarMenu/UpdateProfile';
 import TarifCard from './TarifCard';
+import PaidPeriodInfo from './PaidPeriodInfo';
+import Contacts from './Contacts';
 
 interface IFormSettings {
   notification: boolean;
@@ -92,13 +95,22 @@ const Settings = () => {
     }
   };
 
+  useEffect(() => {
+    if (userId) {
+      setTimeout(() => {
+        dispatch(getBilling(userId));
+      }, 1000);
+    }
+  }, [userId, dispatch]);
+
   return (
     <>
+      <PaidPeriodInfo />
       <TarifCard />
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        {({ values, touched }) => {
+        {({ values, touched, setFieldValue }) => {
           return (
-            <Form className="mt-3 w-full">
+            <Form className="mt-2 w-full">
               <div className="flex justify-center mt-10 gap-4 flex-wrap">
                 <Card
                   type="inner"
@@ -178,22 +190,25 @@ const Settings = () => {
                     key="submit"
                     className="w-[150px] rounded-sm"
                     loading={loading}
-                    disabled={!Object.keys(touched).length}
+                    // disabled={!Object.keys(touched).length}
                   >
                     {lang.settings[9]}
                   </SubmitButton>
-                  <div className="text-[#1890ff] mt-3">
-                    <UpdateProfile />
-                  </div>
-                  <Button type="link" onClick={logOut}>
-                    {lang.settings[10]}
-                  </Button>
                 </div>
               </div>
             </Form>
           );
         }}
       </Formik>
+      <div className="w-full flex justify-start flex-col items-center mb-5">
+        <div className="text-[#1890ff] mt-3">
+          <UpdateProfile />
+        </div>
+        <Button type="link" onClick={logOut}>
+          {lang.settings[10]}
+        </Button>
+      </div>
+      <Contacts />
     </>
   );
 };

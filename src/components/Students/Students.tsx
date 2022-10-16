@@ -311,7 +311,7 @@ const Students = (props: Props) => {
               onChange={(e) => handleSearchChange(e)}
               value={searchValue}
             />
-            <div className="phone:hidden block">
+            <div className="hidden bigPhone:block">
               <Button
                 onClick={() => {
                   setSearchValue('');

@@ -9,12 +9,13 @@ import GooglePlay from '../../assets/images/firstScreen/googlePlay.png';
 import HeaderLanding from '../Header/HeaderLanding';
 import FooterLanding from '../Footer/FooterLanding';
 import TarifCard from '../Settings/TarifCard';
+import GuideImg from '../../assets/images/firstScreen/guide.png';
 
 const FirstPage = () => {
   let navigate = useNavigate();
   const { user } = useAppSelector((state) => state);
   const { lang } = useAppSelector((state) => ({
-    lang: state.landing.lang
+    lang: state.options.lang
   }));
 
   useEffect(() => {
@@ -72,8 +73,20 @@ const FirstPage = () => {
           />
         </div>
       </Container>
-      <div className="bg-slate-200 p-10" id="price">
+      <div className="bg-[#E9F3FE] p-10" id="price">
         <TarifCard />
+      </div>
+      <div className="bg-[#E9F3FE] flex justify-center flex-wrap-reverse">
+        <img src={GuideImg} alt="how it works" />
+        <div className="w-[350px] flex flex-col justify-center items-center text-3xl font-bold text-slate-600">
+          <p>{lang.firstPage[4]}</p>
+          <p
+            className="cursor-pointer underline"
+            onClick={() => navigate('/guide')}
+          >
+            {lang.firstPage[5]}
+          </p>
+        </div>
       </div>
 
       <FooterLanding />

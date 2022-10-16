@@ -40,7 +40,7 @@ const Language = () => {
     />
   );
   return (
-    <div className="absolute top-[10px] right-20 z-10">
+    <div className="absolute top-[10px] right-8 z-10">
       <Dropdown overlay={menu}>
         <Space className="cursor-pointer">
           {locale.toUpperCase()}

@@ -17,6 +17,7 @@ import { useAppSelector } from './hooks/redux';
 import PrivacyPage from './components/pages/PrivacyPage';
 import RefundPage from './components/pages/RefundPage';
 import ResponsibilityPage from './components/pages/ResponsibilityPage';
+import GuidePage from './components/pages/GuidePage';
 
 function App() {
   const { locale } = useAppSelector((state) => ({
@@ -43,12 +44,15 @@ function App() {
           <Routes>
             <Route path="/" element={<FirstPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<LoginPage />} />
+            <Route path="/reset" element={<LoginPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/activate/:id" element={<Activation />} />
             <Route path="/password/:id" element={<PasswordPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/refund" element={<RefundPage />} />
             <Route path="/responsibility" element={<ResponsibilityPage />} />
+            <Route path="/guide" element={<GuidePage />} />
             <Route path="*" element={`Not Found`} />
           </Routes>
         </BrowserRouter>

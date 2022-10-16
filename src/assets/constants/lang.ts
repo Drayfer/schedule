@@ -209,24 +209,26 @@ export const lang: { [key: string]: object } = {
       'Log Out'
     ],
     lesson: ['Lesson', 'after', 'minutes'],
-    header: ['Price', 'Contacts', 'Guide'],
+    header: ['Price', 'Contacts', 'Guide', 'Home'],
     firstPage: [
       'plan lessons and time',
       'control income and intensity',
       'get notifications',
-      'Start Web'
+      'Start Web',
+      'How it works?',
+      'LOOK HERE'
     ],
     price: [
       'Demo',
       'price',
       'free',
       'first 30 days',
-      'Try without restrictions',
+      'Try with restrictions',
       'After the trial period, to continue using the service, pay for the subscription. All data will be saved.',
       'Plan a schedule',
       'Create disciplines',
       'Add students',
-      'Control finances',
+      'Access to statistics',
       'Left',
       'days',
       'Month',
@@ -239,7 +241,7 @@ export const lang: { [key: string]: object } = {
       'Notifications in the mobile application',
       'History of lessons and finance',
       'Online support',
-      'Pay',
+      'Buy',
       'Year',
       'price',
       '1 year',
@@ -249,13 +251,27 @@ export const lang: { [key: string]: object } = {
       'Notifications in the mobile application',
       'History of lessons and finance',
       'Online support',
-      'Pay'
+      'Buy',
+      'Register',
+      'Access only by paid subscription',
+      'Free access. Remaining',
+      'days.',
+      'To continue using the service, select the appropriate tariff',
+      'Update page',
+      'Access is paid for'
     ],
     footer: [
       'All Rights Reserved',
       'Privacy Policy',
       'Refund Policy',
-      'Responsibility'
+      'Responsibility',
+      'Required field',
+      'Enter the correct email',
+      'The form is successfully sent',
+      'Send',
+      'Your name',
+      'Message text',
+      'Email'
     ],
     refundPage: [
       'Home',
@@ -263,62 +279,62 @@ export const lang: { [key: string]: object } = {
       'Since the services we provide are not material and are not subject to change, we do not carry out the return of the service, after it was paid and transferred to the customer. As a customer, you are responsible for your decision to buy the proposed service in the form in which it is offered on our website, without any changes or additions. ',
       'Taking into account the above, we can return the service under the circumstances below:',
       'The service was not provided. For any reason, the service was not provided. In this case, we recommend that we contact our support service to receive assistance. ',
-      'Incorrigible sho,rtcomings of the service. Although all services are tested by the relevant departments of our company, we do not exclude the possibility of errors. You need to contact our support service within 72 hours from the date of transfer of a report on the results of the service. '
+      'Incorrigible sho,rtcomings of the service. Although all services are tested, we do not exclude the possibility of errors. You need to contact our support service within 72 hours from the date of transfer of a report on the results of the service. '
     ],
     responsibilityPage: [
       `Home`,
       `Responsibility`,
       `Rights and obligations of the parties`,
-      `The user has the right:`,
-      `- to search for information on the site
-- receive information on the site
-- Create information for the site
-- disseminate information on the site
-- comment on the content posted on the site
-- demand from the administration of hiding any information transferred by the user to the site
-- use the site information for personal non -profit purposes
-- use the site information for commercial purposes without special permission`,
-      `The administration has the right:`,
-      `- at your discretion and the need to create, change, cancel the rules
-- limit access to any information on the site
-- create, change, delete information
-- Delete accounts
-- refuse registration without explanation`,
-      `The user agrees:`,
-      `- ensure the reliability of the information provided
-- ensure the safety of personal data from the access of third parties
-- update the personal data provided during registration, in case of change
-- not to disseminate the information that is aimed at promoting war, inciting national, racial or religious hatred and enmity, as well as other information, for the spread of which criminal or administrative liability is provided for
-- Do not violate the performance of the site
-- do not perform actions aimed at the introduction of other users into misleading
-- Do not transfer your account and/or login and password for your account to third parties
-- Do not post materials of advertising, erotic, pornographic or offensive in nature, as well as other information, the placement of which is prohibited or contradicts the norms of the current legislation of the Russian Federation
-- Do not use scripts (programs) for automated information collecting and/or interactions with the site and its services`,
-      `The administration is obligated:`,
-      `- to maintain the performance of the site, except when this is impossible for reasons beyond the control of the administration.
-- carry out diverse protection of the user account
-- protect information, the distribution of which is limited or prohibited by laws by making a warning or removing the account of the user who violated the rules
-- provide all the available information about the user authorized state authorities in cases established by law`,
+      `The user has the right to:`,
+      `- search for information on the site`,
+      `- receive information on the site`,
+      `- create site information`,
+      `- distribute information on the site`,
+      `- comment the content posted on the site`,
+      `- require the administration to hide any information transmitted by the user to the site`,
+      `- use the site information for personal non-commercial purposes`,
+      `- use the site information for commercial purposes without special permission`,
+      `Administration has the right to:`,
+      `- at own discretion and the need to create, change, cancel rules`,
+      `- restrict access to any information on the site`,
+      `- create, modify, delete information`,
+      `- delete accounts`,
+      `- refuse registration without explanation`,
+      `The user undertakes:`,
+      `- ensure the accuracy of the provided information`,
+      `- ensure the safety of personal data from access by third parties`,
+      `- update the Personal Data provided during registration if it changes`,
+      `- do not disseminate information that is aimed at propaganda of war, incitement of national, racial or religious hatred and enmity, as well as other information, for the dissemination of which criminal or administrative liability is provided`,
+      `- do not disrupt site performance`,
+      `- do not take actions aimed at misleading other users`,
+      `- do not transfer your account and/or login and password of your account to third parties for use`,
+      `- do not post materials of an advertising, erotic, pornographic or offensive nature, as well as other information, the placement of which is prohibited or contrary to the norms of the current legislation`,
+      `- do not to use scripts (programs) for automated collection of information and/or interaction with the Site and its Services`,
+      `Administration undertakes:`,
+      `- to keep the site up and running except when it is impossible for reasons beyond the control of the Administration.`,
+      `- carry out versatile protection of the User's account`,
+      `- protect information whose distribution is restricted or prohibited by law by issuing a warning or deleting the account of a user who violated the rules`,
+      `- provide all available information about the User to authorized state authorities in cases established by law`,
       `Responsibility of the parties`,
-      `- the user personally is fully responsible for the information distributed to him
-- the administration does not bear any responsibility for the reliability of information copied from other sources
-- the administration is not responsible for the mismatch of the services expected by the user and the actually received services
-- the administration does not bear any responsibility for the services provided by third parties
-- in the event of a force majeure situation (hostilities, emergency, natural disaster, etc.)
-The administration does not guarantee the safety of the information posted by the user, as well as the uninterrupted operation of the information resource`,
-      `The conditions of the agreement`,
-      `This agreement comes into force with any use of this site.
-The agreement ceases to operate when its new version appears.
-The administration reserves the right to unilaterally change this agreement at its discretion.
-The administration does not notify users about the change in the agreement.`
+      `- the user is personally responsible for the information he distributes`,
+      `- the administration does not bear any responsibility for the accuracy of information copied from other sources`,
+      `- the administration is not responsible for the discrepancy between the services expected by the User and actually received services`,
+      `- the administration does not bear any responsibility for the services provided by third parties`,
+      `- in the event of a force majeure situation (war, state of emergency, natural disaster, etc.)`,
+      `- the administration does not guarantee the safety of information posted by the User, as well as the uninterrupted operation of the information resource`,
+      `Terms of the Agreement`,
+      `This Agreement shall govern any use of this site.`,
+      `The agreement ceases to be valid when a new version of it becomes available.`,
+      `The administration reserves the right to unilaterally change this agreement at its discretion.`,
+      `The administration does not notify users of changes in the Agreement.`
     ],
     privacyPage: [
       'Home',
       'Privacy Policy',
       'Privacy Policy',
-      'This comercial service app is provided by Oleh Mykhailychenko and is intended for use as is.',
-      'This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.',
-      'If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.',
+      'This comercial service app and is intended for use as is.',
+      'This page is used to inform visitors regarding policies with the collection, use, and disclosure of Personal Information if anyone decided to use this Service.',
+      'If you choose to use Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.',
       'The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at T-App unless otherwise defined in this Privacy Policy.',
       'Information Collection and Use',
       'For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.',
@@ -326,7 +342,7 @@ The administration does not notify users about the change in the agreement.`
       'Link to the privacy policy of third-party service providers used by the app',
       'Google Play Services',
       'Log Data',
-      'I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third-party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.',
+      'I want to inform you that whenever you use this Service, in a case of an error in the app I collect data and information (through third-party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.',
       'Cookies',
       "Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.",
       'This Service does not use these “cookies” explicitly. However, the app may use third-party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.',
@@ -334,7 +350,7 @@ The administration does not notify users about the change in the agreement.`
       'I may employ third-party companies and individuals due to the following reasons:',
       '- To facilitate our Service;',
       '- To provide the Service on our behalf;',
-      '- To perform Service-related services; or',
+      '- To perform Service-related services;',
       '- To assist us in analyzing how our Service is used.',
       'I want to inform users of this Service that these third parties have access to their Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.',
       'Security',
@@ -347,7 +363,70 @@ The administration does not notify users about the change in the agreement.`
       'I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.',
       'This policy is effective as of 2022-10-07',
       'Contact Us',
-      'If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at devlydexter@gmail.com.'
+      'If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at teachers.app24@gmail.com.'
+    ],
+    guide: [
+      'step',
+      'Add new students. If necessary, fill out a detailed profile for each student.',
+      'Set a positive balance of lessons or turn off the display of balance for a particular student.',
+      'Plan your schedule and mark your lessons.',
+      "Don't miss out on upcoming lessons with pop-up and sound notifications in your browser and on your smartphone.",
+      'If necessary, you can add profile disciplines and link students to them.',
+      'The volume of notifications, the reminder time, the cost of lessons - all this you can customize individually.',
+      'Control your income for a certain period, analyze the lesson intensity graph to improve your work efficiency.',
+      'prev',
+      'next',
+      'ok',
+      'Back'
+    ],
+    login: [
+      'Enter valid email',
+      'Required field',
+      'Too short password',
+      'Too short name',
+      'This email was not found',
+      'User not found',
+      'User not activated by email',
+      'Registration completed successfully!',
+      'check your email and follow the instructions to activate your account.',
+      'Ok',
+      'Log In to',
+      'Enter your email and password below',
+      'NAME',
+      'Your name',
+      'EMAIL',
+      'Email address',
+      'PASSWORD',
+      'Forgot password?',
+      'Password',
+      'Sign Up',
+      'Reset password',
+      'Log In',
+      'Resent activation link',
+      'Check your email and follow the instructions to reset your password.',
+      'Go to login',
+      'Don’t have an account?',
+      'Sign up',
+      'User already exists',
+      'User successfully activated',
+      'Activation is wrong',
+      'Go to login page',
+      'Or open App on your smartphone',
+      'Enter your new password below',
+      'Your email',
+      'Set new password',
+      'Go to login page',
+      'Password changed successfully!',
+      'You can log in using the new password.'
+    ],
+    email: [
+      'Hello,',
+      'You got a new message from T-App.',
+      'Registration completed, follow the link below to verify your account:',
+      'Password',
+      'T-App - registration completed!',
+      'To set a new password, follow the link below:',
+      'T-App - password reset!'
     ]
   },
   ru: {
@@ -558,24 +637,26 @@ The administration does not notify users about the change in the agreement.`
       'Выйти'
     ],
     lesson: ['Урок', 'через', 'минут'],
-    header: ['Цены', 'Контакты', 'Руководство'],
+    header: ['Цены', 'Контакты', 'Руководство', 'Главная'],
     firstPage: [
       'планируйте уроки и время',
       'контролируйте доходы и интенсивность',
       'получайте уведомления',
-      'Веб версия'
+      'Веб версия',
+      'Как это работает?',
+      'СМОТРЕТЬ ЗДЕСЬ'
     ],
     price: [
       'Демо',
       'цена',
       'бесплатно',
       'первые 30 дней',
-      'Попробовать без ограничений',
+      'Попробовать с ограничениями',
       'По истечению пробного периода, для продолжения пользования сервисом, оплатите подписку. Все данные будут сохранены.',
       'Планируйте расписание',
       'Создавайте дисциплины',
       'Добавляйте учеников',
-      'Контролируйте финансы',
+      'Доступ к статистике',
       'Осталось',
       'дней',
       'Месяц',
@@ -588,7 +669,7 @@ The administration does not notify users about the change in the agreement.`
       'Уведомления в мобильном приложении',
       'История уроков и финансов',
       'Онлайн поддержка',
-      'Оплатить',
+      'Купить',
       'Год',
       'цена',
       '1 год',
@@ -598,90 +679,104 @@ The administration does not notify users about the change in the agreement.`
       'Уведомления в мобильном приложении',
       'История уроков и финансов',
       'Онлайн поддержка',
-      'Оплатить'
+      'Купить',
+      'Регистрация',
+      'Доступ только по платной подписке',
+      'Бесплатный доступ. Осталось',
+      'дней.',
+      'Чтобы продолжить пользоваться услугой, выберите подходящий тариф',
+      'Обновить страницу',
+      'Доступ оплачен на'
     ],
     footer: [
       'Все права защищены',
       'Политика конфиденциальности',
       'Политика возврата',
-      'Ответственность'
+      'Ответственность',
+      'Обязательное поле',
+      'Введите корректный email',
+      'Форма успешно отправлена',
+      'Отправить',
+      'Ваше имя',
+      'Текст сообщения',
+      'Email'
     ],
     refundPage: [
       'Главная',
       'Возврат средств',
-      'Так как предоставляемые нами услуги являются не материальными и не подлежат изменению, мы не осуществляем возврат услуги, после того, как она была оплачена и передана заказчику. Как заказчик, вы несете ответственность за ваше решение купить предлагаемую услугу в том виде, в котором он предлагается на нашем сайте, без каких либо изменений или дополнений.',
+      'Так как предоставляемые нами услуги являются не материальными и не подлежат изменению, мы не осуществляем возврат услуги, после того, как она была оплачена и передана заказчику. Как клиент, вы несете ответственность за ваше решение купить предлагаемую услугу в том виде, в котором он предлагается на нашем сайте, без каких либо изменений или дополнений.',
       'Принимая во внимание вышесказанное, мы можем осуществить возврат услуги при нижеуказанных обстоятельствах:',
       'Услуга не была предоставлена. По какой-либо причине, услуга не была оказана. В этом случае мы рекомендуем связаться с нашей службой поддержки для получения помощи.',
-      'Неисправимые недостатки услуги. Хотя все услуги тестируются соответствующими отделами нашей компании, мы не исключаем возможности возникновения ошибок. Вам необходимо связаться с нашей службой поддержки в течение 72 часов с момента передачи вам отчета о результатах услуги.'
+      'Неисправимые недостатки услуги. Хотя все услуги тестируются, мы не исключаем возможности возникновения ошибок. Вам необходимо связаться с нашей службой поддержки в течение 72 часов с момента передачи вам отчета о результатах услуги.'
     ],
     responsibilityPage: [
       `Главная`,
-      `Responsibility`,
+      `Ответственность`,
       `Права и обязанности сторон`,
       `Пользователь имеет право:`,
-      `- осуществлять поиск информации на сайте
-- получать информацию на сайте
-- создавать информацию для сайта
-- распространять информацию на сайте
-- комментировать контент, выложенный на сайте
-- требовать от администрации скрытия любой информации переданной пользователем сайту
-- использовать информацию сайта в личных некоммерческих целях
-- использовать информацию сайта в коммерческих целях без специального разрешения`,
+      `- осуществлять поиск информации на сайте`,
+      `- получать информацию на сайте`,
+      `- создавать информацию сайте`,
+      `- распространять информацию на сайте`,
+      `- комментировать контент, выложенный на сайте`,
+      `- требовать от администрации скрытия любой информации переданной пользователем сайту`,
+      `- использовать информацию сайта в личных некоммерческих целях`,
+      `- использовать информацию сайта в коммерческих целях без специального разрешения`,
       `Администрация имеет право:`,
-      `- по своему усмотрению и необходимости создавать, изменять, отменять правила
-- ограничивать доступ к любой информации на сайте
-- создавать, изменять, удалять информацию
-- удалять учетные записи
-- отказывать в регистрации без объяснения причин`,
+      `- по своему усмотрению и необходимости создавать, изменять, отменять правила`,
+      `- ограничивать доступ к любой информации на сайте`,
+      `- создавать, изменять, удалять информацию`,
+      `- удалять учетные записи`,
+      `- отказывать в регистрации без объяснения причин`,
       `Пользователь обязуется:`,
-      `- обеспечить достоверность предоставляемой информации
-- обеспечивать сохранность личных данных от доступа третьих лиц
-- обновлять Персональные данные, предоставленные при регистрации, в случае их изменения
-- не распространять информацию, которая направлена на пропаганду войны, разжигание национальной, расовой или религиозной ненависти и вражды, а также иной информации, за распространение которой предусмотрена уголовная или административная ответственность
-- не нарушать работоспособность сайта
-- не совершать действия, направленные на введение других Пользователей в заблуждение
-- не передавать в пользование свою учетную запись и/или логин и пароль своей учетной записи третьим лицам
-- не размещать материалы рекламного, эротического, порнографического или оскорбительного характера, а также иную информацию, размещение которой запрещено или противоречит нормам действующего законодательства РФ
-- не использовать скрипты (программы) для автоматизированного сбора информации и/или взаимодействия с Сайтом и его Сервисами`,
+      `- обеспечить достоверность предоставляемой информации`,
+      `- обеспечивать сохранность личных данных от доступа третьих лиц`,
+      `- обновлять Персональные данные, предоставленные при регистрации, в случае их изменения`,
+      `- не распространять информацию, которая направлена на пропаганду войны, разжигание национальной, расовой или религиозной ненависти и вражды, а также иной информации, за распространение которой предусмотрена уголовная или административная ответственность`,
+      `- не нарушать работоспособность сайта`,
+      `- не совершать действия, направленные на введение других пользователей в заблуждение`,
+      `- не передавать в пользование свою учетную запись и/или логин и пароль своей учетной записи третьим лицам`,
+      `- не размещать материалы рекламного, эротического, порнографического или оскорбительного характера, а также иную информацию, размещение которой запрещено или противоречит нормам действующего законодательства`,
+      `- не использовать скрипты (программы) для автоматизированного сбора информации и/или взаимодействия с Сайтом и его Сервисами`,
       `Администрация обязуется:`,
-      `- поддерживать работоспособность сайта за исключением случаев, когда это невозможно по независящим от Администрации причинам.
-- осуществлять разностороннюю защиту учетной записи Пользователя
-- защищать информацию, распространение которой ограничено или запрещено законами путем вынесения предупреждения либо удалением учетной записи пользователя, нарушившего правила
-- предоставить всю доступную информацию о Пользователе уполномоченным на то органам государственной власти в случаях, установленных законом`,
+      `- поддерживать работоспособность сайта за исключением случаев, когда это невозможно по независящим от Администрации причинам.`,
+      `- осуществлять разностороннюю защиту учетной записи Пользователя`,
+      `- защищать информацию, распространение которой ограничено или запрещено законами путем вынесения предупреждения либо удалением учетной записи пользователя, нарушившего правила`,
+      `- предоставить всю доступную информацию о Пользователе уполномоченным на то органам государственной власти в случаях, установленных законом`,
       `Ответственность сторон`,
-      `- пользователь лично несет полную ответственность за распространяемую им информацию
-- администрация не несет никакой ответственности за достоверность информации, скопированной из других источников
-- администрация не несёт ответственность за несовпадение ожидаемых Пользователем и реально полученных услуг
-- администрация не несет никакой ответственности за услуги, предоставляемые третьими лицами
-- в случае возникновения форс-мажорной ситуации (боевые действия, чрезвычайное положение, стихийное бедствие и т. д.)
-Администрация не гарантирует сохранность информации, размещённой Пользователем, а также бесперебойную работу информационного ресурса`,
+      `- пользователь лично несет полную ответственность за распространяемую им информацию`,
+      `- администрация не несет никакой ответственности за достоверность информации, скопированной из других источников`,
+      `- администрация не несёт ответственность за несовпадение ожидаемых Пользователем и реально полученных услуг`,
+      `- администрация не несет никакой ответственности за услуги, предоставляемые третьими лицами`,
+      `- в случае возникновения форс-мажорной ситуации (боевые действия, чрезвычайное положение, стихийное бедствие и т. д.)`,
+      `- aдминистрация не гарантирует сохранность информации, размещённой Пользователем, а также бесперебойную работу информационного ресурса`,
       `Условия действия Соглашения`,
-      `Данное Соглашение вступает в силу при любом использовании данного сайта.
-Соглашение перестает действовать при появлении его новой версии.
-Администрация оставляет за собой право в одностороннем порядке изменять данное соглашение по своему усмотрению.
-Администрация не оповещает пользователей об изменении в Соглашении.`
+      `Данное Соглашение вступает в силу при любом использовании данного сайта.`,
+      `Соглашение перестает действовать при появлении его новой версии.`,
+      `Администрация оставляет за собой право в одностороннем порядке изменять данное соглашение по своему усмотрению.`,
+      `Администрация не оповещает пользователей об изменении в Соглашении.`
     ],
     privacyPage: [
       'Главная',
       'Политика конфиденциальности',
       'Политика конфиденциальности',
-      'Это коммерческое сервисное приложение предоставлено Олегом Михайличенко и предназначено для использования как есть.',
-      'Эта страница используется для информирования посетителей о моих правилах сбора, использования и раскрытия Личной информации, если кто-то решил воспользоваться моей Услугой.',
+      'Это коммерческое приложение и предназначено для использования как есть.',
+      'Эта страница используется для информирования посетителей о правилах сбора, использования и раскрытия Личной информации, если кто-то решил воспользоваться моей Услугой.',
       'Если вы решите использовать мой Сервис, вы соглашаетесь на сбор и использование информации в связи с этой политикой. Личная информация, которую я собираю, используется для предоставления и улучшения Сервиса. Я не буду использовать или передавать вашу информацию кому-либо, кроме случаев, описанных в настоящей Политике конфиденциальности.',
       'Термины, используемые в настоящей Политике конфиденциальности, имеют те же значения, что и в наших Условиях и положениях, которые доступны в T-App, если иное не определено в настоящей Политике конфиденциальности.',
       'Сбор и использование информации',
-      'Для лучшего опыта при использовании нашего Сервиса я могу потребовать от вас предоставить нам определенную личную информацию. Информация, которую я запрашиваю, будет сохранена на вашем устройстве и никоим образом не будет собираться мной.',
+      'Для лучшего опыта при использовании нашего Сервиса я могу потребовать от вас предоставить определенную личную информацию. Информация, которую я запрашиваю, будет сохранена на вашем устройстве и никоим образом не будет собираться мной.',
       'Приложение использует сторонние сервисы, которые могут собирать информацию, используемую для вашей идентификации.',
-      'Ссылка на политику конфиденциальности сторонних поставщиков услуг, используемых приложением',
+      'Ссылка на политику конфиденциальности сторонних поставщиков услуг, используемых приложением:',
       'Сервисы Google Play',
       'Данные журнала',
       'Я хочу сообщить вам, что всякий раз, когда вы используете мой Сервис, в случае ошибки в приложении я собираю данные и информацию (через сторонние продукты) на вашем телефоне под названием "Данные журнала". Эти данные журнала могут включать в себя такую ​​информацию, как адрес интернет-протокола ("IP") вашего устройства, имя устройства, версия операционной системы, конфигурация приложения при использовании моего Сервиса, время и дата использования вами Сервиса и другие статистические данные.',
-      'Печенье',
+      'Cookies',
       'Файлы cookies — это файлы с небольшим объемом данных, которые обычно используются в качестве анонимных уникальных идентификаторов. Они отправляются в ваш браузер с веб-сайтов, которые вы посещаете, и сохраняются во внутренней памяти вашего устройства.',
-      'Эта Служба не использует эти "cookies" в явном виде. Однако приложение может использовать сторонний код и библиотеки, которые используют файлы cookie для сбора информации и улучшения своих услуг. У вас есть возможность либо принять, либо отказаться от этих файлов cookie и узнать, когда файл cookie отправляется на ваше устройство. Если вы решите отказаться от наших файлов cookie, вы не сможете использовать некоторые части этой Услуги.',
+      'Эта Служба не использует эти "cookies" в явном виде. Однако приложение может использовать сторонний код и библиотеки, которые используют файлы cookie для сбора информации и улучшения своих услуг. У вас есть возможность либо принять, либо отказаться от этих файлов cookie и узнать, когда файл cookie отправляется на ваше устройство. Если вы решите отказаться от наших файлов cookies, вы не сможете использовать некоторые части этой Услуги.',
       'Поставщики услуг',
       'Я могу нанимать сторонние компании и частных лиц по следующим причинам:',
-      '- Для облегчения нашего Сервиса;',
+      '- Для улучшения нашего Сервиса;',
       '- Предоставить Услугу от нашего имени;',
       '- Для выполнения Сервисных услуг;',
       '- Чтобы помочь нам проанализировать, как используется наш Сервис.',
@@ -691,12 +786,75 @@ The administration does not notify users about the change in the agreement.`
       'Ссылки на другие сайты',
       'Данная Служба может содержать ссылки на другие сайты. Если вы нажмете на стороннюю ссылку, вы будете перенаправлены на этот сайт. Обратите внимание, что эти внешние сайты не управляются мной. Поэтому я настоятельно рекомендую вам ознакомиться с Политикой конфиденциальности этих веб-сайтов. Я не контролирую и не несу ответственности за содержание, политику конфиденциальности или действия любых сторонних сайтов или служб.',
       'Конфиденциальность детей',
-      'Эти услуги не предназначены для лиц моложе 13 лет. Я сознательно не собираю личную информацию от детей младше 13 лет. Если я узнаю, что ребенок младше 13 лет предоставил мне личную информацию, я немедленно удаляю ее с наших серверов. Если вы являетесь родителем или опекуном и знаете, что ваш ребенок предоставил нам личную информацию, свяжитесь со мной, чтобы я мог предпринять необходимые действия.',
+      'Эти услуги не предназначены для лиц младше 13 лет. Я сознательно не собираю личную информацию от детей младше 13 лет. Если я узнаю, что ребенок младше 13 лет предоставил мне личную информацию, я немедленно удаляю ее с наших серверов. Если вы являетесь родителем или опекуном и знаете, что ваш ребенок предоставил нам личную информацию, свяжитесь со мной, чтобы я мог предпринять необходимые действия.',
       'Изменения в настоящей Политике конфиденциальности',
       'Я могу время от времени обновлять нашу Политику конфиденциальности. Таким образом, вам рекомендуется периодически просматривать эту страницу на предмет любых изменений. Я сообщу вам о любых изменениях, опубликовав новую Политику конфиденциальности на этой странице.',
-      'Эта политика действует с 07.10.2022',
-      'Свяжитесь с нами',
-      'Если у вас есть какие-либо вопросы или предложения по поводу моей Политики конфиденциальности, не стесняйтесь обращаться ко мне по адресу devlydexter@gmail.com'
+      'Эта политика действует с 07.10.2022.',
+      'Свяжитесь со мной',
+      'Если у вас есть какие-либо вопросы или предложения по поводу моей Политики конфиденциальности, не стесняйтесь обращаться ко мне по адресу teachers.app24@gmail.com.'
+    ],
+    guide: [
+      'шаг',
+      'Добавьте новых учеников. При необходимости заполните подробный профиль каждого ученика.',
+      'Установите положительный баланс уроков или отключите отображение баланса для конкретного ученика.',
+      'Планируйте расписание и отмечайте проведенные уроки.',
+      'Вы не пропустите предстоящие уроки, благодаря всплывающим и звуковым уведомлениям в браузере и на вашем смартфоне.',
+      'При необходимости вы сможете добавить профильные дисциплины и привязать к ним учеников.',
+      'Громкость уведомлений, время напоминания, стоимость уроков - все это вы сможете настроить индивидуально.',
+      'Контролируйте ваши доходы за определенный период, анализируйте график интенсивности проведенных уроков, чтобы улучшить эффективность вашей работы.',
+      'назад',
+      'далее',
+      'понятно',
+      'Назад'
+    ],
+    login: [
+      'Введите действующий адрес электронной почты',
+      'Обязательное поле',
+      'Слишком короткий пароль',
+      'Слишком короткое имя',
+      'Этот email не найден',
+      'Пользователь не найден',
+      'Пользователь не активирован по электронной почте',
+      'Регистрация успешно завершена!',
+      'проверьте свою электронную почту и следуйте инструкциям, чтобы активировать свою учетную запись.',
+      'Ok',
+      'Войти в',
+      'Введите свой email и пароль ниже',
+      'ИМЯ',
+      'Ваше имя',
+      'ЭЛ. АДРЕС',
+      'Адрес электронной почты',
+      'ПАРОЛЬ',
+      'Забыл пароль?',
+      'Пароль',
+      'Зарегистрироваться',
+      'Сброс пароля',
+      'Авторизоваться',
+      'Повторно отправить ссылку для активации',
+      'Проверьте свою электронную почту и следуйте инструкциям по сбросу пароля.',
+      'Перейти к входу',
+      'У вас нет аккаунта?',
+      'Зарегистрироваться',
+      'Пользователь уже существует',
+      'Пользователь успешно активирован',
+      'Активация неверна',
+      'Перейти на страницу входа',
+      'Или откройте приложение на своем смартфоне',
+      'Введите новый пароль ниже',
+      'Ваш Email',
+      'Установить новый пароль',
+      'Перейти на страницу входа',
+      'Пароль успешно изменен!',
+      'Вы можете войти в систему, используя новый пароль.'
+    ],
+    email: [
+      'Привет,',
+      'Вы получили новое сообщение от T-App.',
+      'Регистрация завершена, перейдите по ссылке ниже, чтобы подтвердить свою учетную запись:',
+      'Пароль',
+      'T-App — регистрация завершена!',
+      'Чтобы установить новый пароль, перейдите по ссылке ниже:',
+      'T-App - сброс пароля пароля!'
     ]
   },
   ua: {
@@ -907,24 +1065,26 @@ The administration does not notify users about the change in the agreement.`
       'Вийти'
     ],
     lesson: ['Урок', 'за', 'хвилин'],
-    header: ['Ціни', 'Контакти', 'Посібник'],
+    header: ['Ціни', 'Контакти', 'Посібник', 'Головна'],
     firstPage: [
       'планувати уроки та час',
       'контролюйте дохід та інтенсивність',
       'отримуйте сповіщення',
-      'Веб версія'
+      'Веб версія',
+      'Як це працює?',
+      'ДИВИТИСЬ ТУТ'
     ],
     price: [
       'Демо',
       'ціна',
       'безкоштовно',
       'Перші 30 днів',
-      'Спробуйте без обмежень',
+      'Спробуйте з обмеженнями',
       'Після пробного періоду, щоб продовжувати користуватися послугою, оплатіть підписку. Усі дані будуть збережені. ',
       'Плануйте графік',
       'Створіть дисципліни',
       'Додавайте учнів',
-      'Контролюйте фінанси',
+      'Доступ до статистики',
       'Залишилось',
       'днів',
       'Місяць',
@@ -937,7 +1097,7 @@ The administration does not notify users about the change in the agreement.`
       'Повідомлення в мобільному додатку',
       'Історія уроків та фінансів',
       'Онлайн підтримка',
-      'Оплатити',
+      'Купити',
       'Рік',
       'ціна',
       '1 рік',
@@ -947,23 +1107,182 @@ The administration does not notify users about the change in the agreement.`
       'Повідомлення в мобільному додатку',
       'Історія уроків та фінансів',
       'Онлайн підтримка',
-      'Оплатити'
+      'Купити',
+      'Реєстрація',
+      'Доступ тільки за платною підпискою',
+      'Безкоштовний доступ. Залишилось',
+      'днів.',
+      'Щоб продовжити користуватися послугою, виберіть відповідний тариф',
+      'Оновити сторінку',
+      'Доступ оплачений на'
     ],
     footer: [
       'Всі права захищені',
       'Політика конфіденційності',
       'Політика повернення',
-      'Відповідальність'
+      'Відповідальність',
+      "Обов'язкове поле",
+      'Введіть правильну електронну пошту',
+      'Форма успішно надсилається',
+      'Надіслати',
+      "Ваше ім'я",
+      'Текст повідомлення',
+      'Електронна пошта'
     ],
     refundPage: [
       'Головна',
       'Повернення коштів',
-      'Оскільки послуги, які ми надаємо, не є істотними і не можуть змінюватися, ми не здійснюємо повернення послуги, після того, як вона була сплачена та передана замовнику. Як клієнт, ви несете відповідальність за своє рішення придбати запропоновану послугу у формі, в якій вона пропонується на нашому веб -сайті, без будь -яких змін чи доповнень. ',
-      'Враховуючи вище, ми можемо повернути послугу за обставин нижче:',
-      'Служба не була надана. З будь -якої причини послугу не надавали. У цьому випадку ми рекомендуємо звернутися до нашої служби підтримки, щоб отримати допомогу. ',
-      'Незмінні недоліки послуги. Хоча всі послуги перевіряються відповідними відділами нашої компанії, ми не виключаємо можливості помилок. Вам потрібно зв’язатися з нашою службою підтримки протягом 72 годин з дати передачі звіту про результати Служби. '
+      'Оскільки послуги, які ми надаємо, не є істотними і не можуть змінюватися, ми не здійснюємо повернення послуги, після того, як вона була сплачена та передана замовнику. Як клієнт, ви несете відповідальність за своє рішення придбати запропоновану послугу у формі, в якій вона пропонується на нашому веб-сайті, без будь-яких змін чи доповнень. ',
+      'Враховуючи вище сказане, ми можемо повернути послугу за обставин нижче:',
+      'Сервіс не був наданий. З будь-якої причини послугу не надавали. У цьому випадку ми рекомендуємо звернутися до нашої служби підтримки, щоб отримати допомогу. ',
+      'Незмінні недоліки послуги. Хоча всі послуги тестуються, ми не виключаємо можливості помилок. Вам потрібно зв’язатися з нашою службою підтримки протягом 72 годин з дати передачі звіту про результати Послуги.'
     ],
-    responsibilityPage: [],
-    privacyPage: []
+    responsibilityPage: [
+      `Головна`,
+      `Відповідальність`,
+      'Права і обов`язки сторон',
+      `Користувач має право:`,
+      `- здійснення пошуку інформації на сайті`,
+      `- отримувати інформацію на сайті`,
+      `- створювати інформацію на сайти`,
+      `- поширювати інформацію на сайті`,
+      `- коментувати контент, розміщений на сайті`,
+      `- вимагати від адміністрації приховання будь-яку інформацію, передану користувачем сайту`,
+      `- використовувати інформацію сайту в особистих некомерційних цілях`,
+      `- використовувати інформацію сайту в комерційних цілях без спеціального дозволу`,
+      `Адміністрація має право:`,
+      `- на свій розгляду і необхідность створювати, змінювати, відміняти правила`,
+      `- обмежувати доступ до будь-якої інформації на сайті`,
+      `- створювати, змінювати, видаляти інформацію`,
+      `- видалити учетні записи`,
+      `- відмовити у реєстрації без пояснения причин`,
+      `Користувач забов'язується:`,
+      `- забезпечувати достовірність наданої інформації`,
+      `- забезпечувати захист особистих даних від доступу третіх осіб`,
+      `- оновити Персональні дані, надані при реєстрації, у разі їх зміни`,
+      `- не поширювати інформацію, яка спрямована на пропаганду війни, розжигання національної, расової або релігійної ненависти та ворожнечі, а також іншу інформацію, для поширення якої передбачена уголовна або адміністративна відповідальність`,
+      `- не порушувати працездатність сайту`,
+      `- не вчиняти дії, спрямовані на введення інших користувачів в оману`,
+      `- не передавати в користування свій обліковий запис і/або логін і пароль свого облікового запису третім особам`,
+      `- не розміщувати матеріали рекламного, еротичного, порнографічного характеру, а також інформацію, розміщення якої заборонено або суперечить нормам чинного законодавства`,
+      `- не використовувати скрипти (програми) для автоматизованого збору інформації та/або взаємодії з Сайтом і його Сервісами`,
+      `Адміністрація забов'язується:`,
+      `- підтримувати працездатність сайту за рахунок випадків, коли це неможливо за незалежними від Адміністрації причинами`,
+      `- здійснювати різносторонній захист облікового запису Користувача`,
+      `- захищати інформацію, поширення якої обмежено або заборонено законами шляхом винесення попередження або видаленням учетного обліку користувача, який порушив правила`,
+      `- надати всю доступну інформацію про Користувачів, уповноважених органам державної влади у випадках, встановлених законом`,
+      `Відповідальність сторін`,
+      `- користувач особисто несе повну відповідальність за розповсюджувану їм інформацію`,
+      `- адміністрація не несе ніякої відповідальності за достовірність інформації, скопійованої з інших джерел`,
+      `- адміністрація не несе відповідальності за невиконання очікуваних Користувачем і реально отриманих послуг`,
+      `- адміністрація не несе жодної відповідальності за послуги, що надаються третіми особами`,
+      `- у разі виникнення форс-мажорної ситуації (боєві дії, надзвичайне становище, стихійне лихо і т. д.)`,
+      `- адміністрація не гарантує збереження інформації, розміщеної Користувачем, а також безперебійну роботу інформаційного ресурсу`,
+      `Умови угоди`,
+      `Ця Угода вступає в силу при будь-якому використанні цього сайту.`,
+      `Угода перестає діяти при появі її нової версії.`,
+      `Адміністрація залишає за собою право в односторонньому порядку змінити дану угоду за своїм розглядом.`,
+      `Адміністрація не повідомляє користувачів про зміни в Угоді.`
+    ],
+    privacyPage: [
+      'Головна',
+      'Політика конфіденційності',
+      'Політика конфіденційності',
+      'Цей додаток для комерційного обслуговування і призначений для використання, як є.',
+      'Ця сторінка використовується для інформування відвідувачів щодо політики з збиранням, використанням та розкриттям особистої інформації, якщо хтось вирішив скористатися цією послугою.',
+      'Якщо ви вирішите користуватися послугою, то ви погоджуєтесь на збір та використання інформації стосовно цієї політики. Особиста інформація, яку я збираю, використовується для надання та вдосконалення послуги. Я не буду використовувати або ділитися вашою інформацією з ким-небудь, окрім того, як описано в цій Політиці конфіденційності.',
+      'Умови, що використовуються в цій політиці конфіденційності, мають такі ж значення, як і в наших умовах, які доступні в T-APP, якщо інше не визначено в цій Політиці конфіденційності.',
+      'Збір та використання інформації',
+      'Для кращого досвіду, використовуючи нашу послугу, я можу вимагати, щоб ви надали нам певну особисту інформацію. Інформація, яку я запитую, буде зберігатися на вашому пристрої і не збирається мною жодним чином.',
+      'Додаток використовує сторонні послуги, які можуть збирати інформацію, яка використовується для ідентифікації.',
+      'Посилання на політику конфіденційності сторонніх постачальників послуг, які використовуються додатком:',
+      'Google Play Services',
+      'Дані журналу',
+      'Я хочу повідомити вам, що кожного разу, коли ви користуєтесь цією послугою, у випадку помилки в додатку я збираю дані та інформацію (через сторонні продукти) на вашому телефоні під назвою дані журналу. Ці дані журналу можуть включати інформацію, наприклад, адресу протоколу Інтернету ("IP"), назва пристрою, версія операційної системи, конфігурація програми при використанні моєї послуги, час та дату використання послуги та інша статистика.',
+      'Cookies',
+      "Файли cookies - це файли з невеликою кількістю даних, які зазвичай використовуються як анонімні унікальні ідентифікатори. Вони надсилаються у ваш браузер з веб-сайтів, які ви відвідуєте, і зберігаються на внутрішній пам'яті вашого пристрою.",
+      'Ця послуга явно не використовує ці "cookies". Однак додаток може використовувати сторонній код та бібліотеки, які використовують "файли cookies" для збору інформації та вдосконалення своїх послуг. У вас є можливість прийняти або відмовитись від цих файлів cookie і знати, коли файл cookie надсилається на ваш пристрій. Якщо ви вирішите відмовити на наших файлах cookie, ви, можливо, не зможете використовувати деякі порції цієї послуги.',
+      'Постачальники послуг',
+      'Я можу наймати сторонні компанії та приватних осіб з наступних причин:',
+      '- покращити нашу послугу;',
+      '- надати послугу від нашого імені;',
+      '- виконувати послуги, пов’язані з послугами;',
+      '- допомогти нам проаналізувати, як використовується наша послуга.',
+      'Я хочу повідомити користувачів про цю послугу, що ці треті сторони мають доступ до вашої особистої інформації. Причина полягає в тому, щоб виконувати завдання, призначені їм від нашого імені. Однак вони зобов’язані не розголошувати і не використовувати інформацію для будь-якої іншої мети.',
+      'Безпека',
+      'Я ціную вашу довіру до надання нам вашої особистої інформації, тому ми прагнемо використовувати комерційно прийнятні засоби захисту. Але пам’ятайте, що жоден метод передачі через Інтернет чи метод електронного зберігання не є на 100% безпечним і надійним, і я не можу гарантувати його абсолютну безпеку.',
+      'Посилання на інші сайти',
+      'Ця послуга може містити посилання на інші сайти. Якщо ви натиснете на стороннє посилання, ви будете направлені на цей сайт. Зауважте, що ці зовнішні сайти не керуються мною. Тому я настійно раджу переглянути політику конфіденційності цих веб-сайтів. Я не маю над ними контролю і не несу відповідальності за вміст, політику конфіденційності чи практику будь-яких сторонніх сайтів чи послуг.',
+      'Дитяча конфіденційність',
+      "Ці послуги не надаються нікому віком до 13 років. Я свідомо не збираю особистою інформацію від дітей до 13 років. У випадку, якщо я виявляю, що дитина до 13 років надала мені особисту інформацію, я негайно видаляю це з наших серверів. Якщо ви батько чи опікун, і ви знаєте, що ваша дитина надала нам особисту інформацію, будь ласка, зв'яжіться зі мною, щоб я зміг зробити необхідні дії.",
+      'Зміни в цій політиці конфіденційності',
+      'Я можу час від часу оновлювати нашу Політику конфіденційності. Таким чином, вам рекомендується періодично переглядати цю сторінку на будь-які зміни. Я повідомлю вам про будь-які зміни, опублікувавши на цій сторінці, нову Політику конфіденційності.',
+      'Ця політика є дійсною з 07.10.2022.',
+      "Зв'яжіться зі мною",
+      'Якщо у вас є якісь питання чи пропозиції щодо моєї політики конфіденційності, не соромтеся зв’язатися зі мною за адресою reactiers.app24@gmail.com.'
+    ],
+    guide: [
+      'крок',
+      'Додайте нових учнів. За потреби заповніть детальний профіль кожного учня.',
+      'Встановіть позитивний баланс уроків або вимкніть баланс для конкретного учня.',
+      'Плануйте розклад та відзначайте проведені уроки.',
+      'Ви не пропустите заплановані уроки, завдяки спливаючим та звуковим повідомленням у браузері та на вашому смартфоні.',
+      "За потреби ви зможете додати профільні дисципліни та прив'язати до них учнів.",
+      'Гучність повідомлень, час нагадування, вартість уроків - все це ви зможете налаштувати індивідуально.',
+      'Контролюйте ваші доходи за певний період, аналізуйте графік інтенсивності проведених уроків, щоб покращити ефективність вашої праці.',
+      'назад',
+      'далі',
+      'зрозуміло',
+      'Повернутися'
+    ],
+    login: [
+      'Введіть дійсний email',
+      "Обов'язкове поле",
+      'Занадто короткий пароль',
+      "Занадто коротке ім'я",
+      'Цю електронну пошту не знайдено',
+      'Користувача не знайдено',
+      'Користувач не активований за електронною поштою',
+      'Реєстрацію успішно завершено!',
+      'перевірте свою електронну пошту та дотримуйтесь інструкцій, щоб активувати обліковий запис.',
+      'Ок',
+      'Увійти в',
+      'Введіть свій email та пароль нижче',
+      "ІМ'Я",
+      "Ваше ім'я",
+      'EMAIL',
+      'Адреса електронної пошти',
+      'ПАРОЛЬ',
+      'Забули пароль?',
+      'Пароль',
+      'Зареєструватися',
+      'Скинути пароль',
+      'Увійти',
+      'Повторно надіслати посилання для активації',
+      'Перевірте свою електронну пошту та дотримуйтесь інструкцій, щоб скинути пароль.',
+      'Перейти до входу',
+      'Не маєте облікового запису?',
+      'Зареєструватися',
+      'Користувач вже існує',
+      'Користувача успішно активовано',
+      'Активація невірна',
+      'Перейти на сторінку входу',
+      'Або відкрийте додаток на смартфоні',
+      'Введіть свій новий пароль нижче',
+      'Ваш Email',
+      'Установити новий пароль',
+      'Перейти на сторінку входу',
+      'Пароль успішно змінено!',
+      'Ви можете увійти, використовуючи новий пароль.'
+    ],
+    email: [
+      'Привіт,',
+      'Ви отримали нове повідомлення від T-App.',
+      'Реєстрацію завершено, перейдіть за посиланням нижче, щоб підтвердити свій обліковий запис:',
+      'Пароль',
+      'T-App - реєстрацію завершено!',
+      'Щоб встановити новий пароль, перейдіть за посиланням нижче:',
+      'T-App - скидання пароля!'
+    ]
   }
 };

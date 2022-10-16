@@ -1,13 +1,10 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, MenuProps, Space } from 'antd';
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { localeArray } from '../../assets/constants/lang';
-import { lang } from '../../assets/constants/lang';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import {
-  setLandingLang,
-  setLandingLocale
-} from '../../store/reducers/LandingSlice';
+import { setLandingLocale } from '../../store/reducers/LandingSlice';
+import { useSetLandingLang } from '../helpers/useSetLandingLang';
 
 const LanguageSelectLanding = () => {
   const { locale } = useAppSelector((state) => ({
@@ -15,14 +12,7 @@ const LanguageSelectLanding = () => {
   }));
   const dispatch = useAppDispatch();
 
-  useLayoutEffect(() => {
-    if (!locale) {
-      dispatch(setLandingLocale(navigator.language.split('-')[0]));
-    } else {
-      dispatch(setLandingLang(lang[locale]));
-    }
-    // eslint-disable-next-line
-  }, [locale]);
+  useSetLandingLang();
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
     dispatch(setLandingLocale(key));

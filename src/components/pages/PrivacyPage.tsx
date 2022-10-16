@@ -8,13 +8,14 @@ const PrivacyPage = () => {
   let navigate = useNavigate();
   const { user } = useAppSelector((state) => state);
   const { lang } = useAppSelector((state) => ({
-    lang: state.landing.lang
+    lang: state.options.lang
   }));
 
   useEffect(() => {
     if (user.data) {
       navigate('/dashboard');
     }
+    window.scrollTo(0, 0);
     // eslint-disable-next-line
   }, []);
   return (

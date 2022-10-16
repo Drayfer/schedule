@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import HeaderLanding from '../Header/HeaderLanding';
 import FooterLanding from '../Footer/FooterLanding';
+import Guide from '../Header/Guide';
 
-const RefundPage = () => {
+const GuidePage = () => {
   let navigate = useNavigate();
   const { user } = useAppSelector((state) => state);
   const { lang } = useAppSelector((state) => ({
-    lang: state.options.lang
+    lang: state.options.lang.guide
   }));
 
   useEffect(() => {
@@ -21,23 +22,14 @@ const RefundPage = () => {
   return (
     <>
       <HeaderLanding />
-      <div className="min-h-screen bg-slate-100 p-6 pt-12 px-10">
-        <div className="text-left text-lg pb-8">
-          <p>
-            <span
-              className="underline cursor-pointer font-bold"
-              onClick={() => navigate('/')}
-            >
-              {lang.refundPage[0]}
-            </span>{' '}
-            / {lang.refundPage[1]}
-          </p>
-        </div>
-        <p>{lang.refundPage[2]}</p>
-
-        <p>{lang.refundPage[3]}</p>
-        <p>{lang.refundPage[4]}</p>
-        <p>{lang.refundPage[5]}</p>
+      <div className="min-h-screen bg-[#252525] p-3 pt-12 text-center">
+        <Guide landing={true} />
+        <p
+          className="text-white underline mt-3 cursor-pointer"
+          onClick={() => navigate('/')}
+        >
+          {lang[11]}
+        </p>
       </div>
 
       <FooterLanding />
@@ -45,4 +37,4 @@ const RefundPage = () => {
   );
 };
 
-export default RefundPage;
+export default GuidePage;
