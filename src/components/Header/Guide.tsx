@@ -37,15 +37,19 @@ const Guide = ({ landing }: { landing?: boolean }) => {
   };
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
     if (userId && !guide && locale) {
       let localeLang = navigator.language.split('-')[0];
       if (!localeArray.includes(localeLang)) {
         localeLang = 'en';
       }
       dispatch(setLocale({ userId, locale: localeLang }));
-      setIsModal(true);
-      dispatch(updateGuide(userId));
+      timeout = setTimeout(() => {
+        setIsModal(true);
+        dispatch(updateGuide(userId));
+      }, 5000);
     }
+    return () => clearTimeout(timeout);
   }, [guide, userId, locale, dispatch]);
 
   const GuideContent = (bg?: string, color?: string, stepColor?: string) => {
