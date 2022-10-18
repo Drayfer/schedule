@@ -185,6 +185,7 @@ ${emailLang[3]}: ${password}
 
     //login
     try {
+      setErrorFormMessage('');
       await isErrorDispatch(
         dispatch(
           fetchUsers({
@@ -201,7 +202,7 @@ ${emailLang[3]}: ${password}
   };
 
   useEffect(() => {
-    if (user.error) {
+    if (user.error && !user.isLoading) {
       setErrorFormMessage(user.error);
       return;
     }
@@ -209,6 +210,7 @@ ${emailLang[3]}: ${password}
       setErrorFormMessage(lang[6]);
     }
     if (user.error === '' && user.data && user.data.activate) {
+      setErrorFormMessage('');
       navigate('/dashboard');
     }
     // eslint-disable-next-line

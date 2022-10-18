@@ -207,8 +207,7 @@ export const setLocale = createAsyncThunk(
   async ({ userId, locale }: { userId: number; locale: string }, thunkAPI) => {
     try {
       const { data } = await axios.get<string>(
-        `${process.env.REACT_APP_API_URL}/option/locale/${userId}/${locale}`,
-        getTokenHeader()
+        `${process.env.REACT_APP_API_URL}/option/locale/${userId}/${locale}`
       );
       return data;
     } catch (err: any) {

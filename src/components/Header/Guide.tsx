@@ -2,8 +2,9 @@ import { QuestionOutlined } from '@ant-design/icons';
 import { Button, Carousel } from 'antd';
 import { CarouselRef } from 'antd/lib/carousel';
 import Modal from 'antd/lib/modal/Modal';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { localeArray } from '../../assets/constants/lang';
 import Slide1 from '../../assets/images/guide/1.png';
 import Slide2 from '../../assets/images/guide/2.png';
 import Slide3 from '../../assets/images/guide/3.png';
@@ -11,22 +12,41 @@ import Slide4 from '../../assets/images/guide/4.png';
 import Slide5 from '../../assets/images/guide/5.png';
 import Slide6 from '../../assets/images/guide/6.png';
 import Slide7 from '../../assets/images/guide/7.png';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setLocale } from '../../store/reducers/OptionsSlice';
+import { updateGuide } from '../../store/reducers/UserActions';
 
 const Guide = ({ landing }: { landing?: boolean }) => {
-  const { lang } = useAppSelector((state) => ({
-    lang: state.options.lang.guide
+  const { lang, guide, userId, locale } = useAppSelector((state) => ({
+    lang: state.options.lang.guide,
+    guide: state.user.data?.guide,
+    userId: state.user.data?.id,
+    locale: state.options.data.locale
   }));
 
   const carouselRef = useRef<CarouselRef>(null);
   const [count, setCount] = useState(0);
   const [isModal, setIsModal] = useState(false);
 
+  const dispatch = useAppDispatch();
+
   const handleClose = () => {
     setIsModal(false);
     setCount(0);
     carouselRef?.current?.goTo(0);
   };
+
+  useEffect(() => {
+    if (userId && !guide && locale) {
+      let localeLang = navigator.language.split('-')[0];
+      if (!localeArray.includes(localeLang)) {
+        localeLang = 'en';
+      }
+      dispatch(setLocale({ userId, locale: localeLang }));
+      setIsModal(true);
+      dispatch(updateGuide(userId));
+    }
+  }, [guide, userId, locale, dispatch]);
 
   const GuideContent = (bg?: string, color?: string, stepColor?: string) => {
     const Slide = ({

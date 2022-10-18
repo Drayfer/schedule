@@ -22,7 +22,7 @@ import { useLogOut } from '../helpers/LogOut';
 import UpdateProfile from '../SidebarMenu/UpdateProfile';
 import TarifCard from './TarifCard';
 import PaidPeriodInfo from './PaidPeriodInfo';
-import Contacts from './Contacts';
+import FooterLanding from '../Footer/FooterLanding';
 
 interface IFormSettings {
   notification: boolean;
@@ -208,7 +208,7 @@ const Settings = () => {
           {lang.settings[10]}
         </Button>
       </div>
-      <Contacts />
+      <FooterLanding />
     </>
   );
 };
