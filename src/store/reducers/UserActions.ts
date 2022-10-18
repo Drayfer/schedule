@@ -59,3 +59,21 @@ export const updateProfile = createAsyncThunk(
     }
   }
 );
+
+export const updateGuide = createAsyncThunk(
+  'user/guide/:userId',
+  async (payload: number, thunkAPI) => {
+    try {
+      await axios.get<Partial<IUser>>(
+        `${process.env.REACT_APP_API_URL}/user/guide/${payload}`
+      );
+      return;
+    } catch (err: any) {
+      if (axios.isAxiosError(err) && err.response) {
+        return thunkAPI.rejectWithValue(
+          (err.response?.data as AxiosErr).message
+        );
+      }
+    }
+  }
+);

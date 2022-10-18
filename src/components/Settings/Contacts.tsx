@@ -15,8 +15,9 @@ export interface IContactForm {
 }
 
 const Contacts = () => {
-  const { lang } = useAppSelector((state) => ({
-    lang: state.options.lang.footer
+  const { lang, user } = useAppSelector((state) => ({
+    lang: state.options.lang.footer,
+    user: state.user.data
   }));
 
   const ValidationSchema = Yup.object().shape({
@@ -48,9 +49,9 @@ const Contacts = () => {
   };
 
   const initialState: IContactForm = {
-    name: '',
+    name: user ? `${user.name}, id: ${user.id}` : '',
     body: '',
-    email: ''
+    email: user ? user.email : ''
   };
 
   return (
@@ -58,21 +59,33 @@ const Contacts = () => {
       <div className="max-w-[550px] min-w-[350px] mx-auto my-4 text-base px-3">
         <div>
           <span>Telegram:</span>{' '}
-          <a className="text-sm" href="https://t.me/t_app_chat">
+          <a
+            className="text-sm"
+            href="https://t.me/t_app_chat"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             https://t.me/t_app_chat
           </a>
         </div>
         <div>
           <span className="mt-4">Email:</span>{' '}
-          <a className="text-sm" href="mailto:teachers.app24@gmail.com">
+          <a
+            className="text-sm"
+            href="mailto:teachers.app24@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             teachers.app24@gmail.com
           </a>
         </div>
-        <img
-          src={TeachAppLogo}
-          alt="logo"
-          className="h-24 w-auto mt-6 hidden tablet:block"
-        />
+        {!user && (
+          <img
+            src={TeachAppLogo}
+            alt="logo"
+            className="h-24 w-auto mt-6 hidden tablet:block"
+          />
+        )}
       </div>
       <div className="max-w-[550px] min-w-[350px] mx-auto pb-10 px-3">
         <Formik
@@ -81,16 +94,17 @@ const Contacts = () => {
           validationSchema={ValidationSchema}
           innerRef={formRef}
           validateOnChange
+          enableReinitialize
         >
           {(props: FormikProps<IContactForm>) => (
             <Form>
-              <FormItem name="name" hasFeedback={false}>
+              <FormItem name="name" hasFeedback={false} hidden={!!user}>
                 <Input name="name" type="text" placeholder={lang[8]} />
               </FormItem>
               <FormItem name="body" hasFeedback={false}>
                 <Input.TextArea name="body" rows={3} placeholder={lang[9]} />
               </FormItem>
-              <FormItem name="email" hasFeedback={false}>
+              <FormItem name="email" hasFeedback={false} hidden={!!user}>
                 <Input name="email" type="text" placeholder={lang[10]} />
               </FormItem>
 

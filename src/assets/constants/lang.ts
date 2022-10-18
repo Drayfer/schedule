@@ -279,7 +279,8 @@ export const lang: { [key: string]: object } = {
       'Since the services we provide are not material and are not subject to change, we do not carry out the return of the service, after it was paid and transferred to the customer. As a customer, you are responsible for your decision to buy the proposed service in the form in which it is offered on our website, without any changes or additions. ',
       'Taking into account the above, we can return the service under the circumstances below:',
       'The service was not provided. For any reason, the service was not provided. In this case, we recommend that we contact our support service to receive assistance. ',
-      'Incorrigible sho,rtcomings of the service. Although all services are tested, we do not exclude the possibility of errors. You need to contact our support service within 72 hours from the date of transfer of a report on the results of the service. '
+      'Incorrigible sho,rtcomings of the service. Although all services are tested, we do not exclude the possibility of errors. You need to contact our support service within 72 hours from the date of transfer of a report on the results of the service. ',
+      'Back'
     ],
     responsibilityPage: [
       `Home`,
@@ -326,7 +327,8 @@ export const lang: { [key: string]: object } = {
       `This Agreement shall govern any use of this site.`,
       `The agreement ceases to be valid when a new version of it becomes available.`,
       `The administration reserves the right to unilaterally change this agreement at its discretion.`,
-      `The administration does not notify users of changes in the Agreement.`
+      `The administration does not notify users of changes in the Agreement.`,
+      'Back'
     ],
     privacyPage: [
       'Home',
@@ -363,7 +365,8 @@ export const lang: { [key: string]: object } = {
       'I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.',
       'This policy is effective as of 2022-10-07',
       'Contact Us',
-      'If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at teachers.app24@gmail.com.'
+      'If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at teachers.app24@gmail.com.',
+      'Back'
     ],
     guide: [
       'step',
@@ -707,7 +710,8 @@ export const lang: { [key: string]: object } = {
       'Так как предоставляемые нами услуги являются не материальными и не подлежат изменению, мы не осуществляем возврат услуги, после того, как она была оплачена и передана заказчику. Как клиент, вы несете ответственность за ваше решение купить предлагаемую услугу в том виде, в котором он предлагается на нашем сайте, без каких либо изменений или дополнений.',
       'Принимая во внимание вышесказанное, мы можем осуществить возврат услуги при нижеуказанных обстоятельствах:',
       'Услуга не была предоставлена. По какой-либо причине, услуга не была оказана. В этом случае мы рекомендуем связаться с нашей службой поддержки для получения помощи.',
-      'Неисправимые недостатки услуги. Хотя все услуги тестируются, мы не исключаем возможности возникновения ошибок. Вам необходимо связаться с нашей службой поддержки в течение 72 часов с момента передачи вам отчета о результатах услуги.'
+      'Неисправимые недостатки услуги. Хотя все услуги тестируются, мы не исключаем возможности возникновения ошибок. Вам необходимо связаться с нашей службой поддержки в течение 72 часов с момента передачи вам отчета о результатах услуги.',
+      'Назад'
     ],
     responsibilityPage: [
       `Главная`,
@@ -754,7 +758,8 @@ export const lang: { [key: string]: object } = {
       `Данное Соглашение вступает в силу при любом использовании данного сайта.`,
       `Соглашение перестает действовать при появлении его новой версии.`,
       `Администрация оставляет за собой право в одностороннем порядке изменять данное соглашение по своему усмотрению.`,
-      `Администрация не оповещает пользователей об изменении в Соглашении.`
+      `Администрация не оповещает пользователей об изменении в Соглашении.`,
+      'Назад'
     ],
     privacyPage: [
       'Главная',
@@ -791,7 +796,8 @@ export const lang: { [key: string]: object } = {
       'Я могу время от времени обновлять нашу Политику конфиденциальности. Таким образом, вам рекомендуется периодически просматривать эту страницу на предмет любых изменений. Я сообщу вам о любых изменениях, опубликовав новую Политику конфиденциальности на этой странице.',
       'Эта политика действует с 07.10.2022.',
       'Свяжитесь со мной',
-      'Если у вас есть какие-либо вопросы или предложения по поводу моей Политики конфиденциальности, не стесняйтесь обращаться ко мне по адресу teachers.app24@gmail.com.'
+      'Если у вас есть какие-либо вопросы или предложения по поводу моей Политики конфиденциальности, не стесняйтесь обращаться ко мне по адресу teachers.app24@gmail.com.',
+      'Назад'
     ],
     guide: [
       'шаг',
@@ -1123,7 +1129,7 @@ export const lang: { [key: string]: object } = {
       'Відповідальність',
       "Обов'язкове поле",
       'Введіть правильну електронну пошту',
-      'Форма успішно надсилається',
+      'Форма успішно відправлена',
       'Надіслати',
       "Ваше ім'я",
       'Текст повідомлення',
@@ -1135,7 +1141,8 @@ export const lang: { [key: string]: object } = {
       'Оскільки послуги, які ми надаємо, не є істотними і не можуть змінюватися, ми не здійснюємо повернення послуги, після того, як вона була сплачена та передана замовнику. Як клієнт, ви несете відповідальність за своє рішення придбати запропоновану послугу у формі, в якій вона пропонується на нашому веб-сайті, без будь-яких змін чи доповнень. ',
       'Враховуючи вище сказане, ми можемо повернути послугу за обставин нижче:',
       'Сервіс не був наданий. З будь-якої причини послугу не надавали. У цьому випадку ми рекомендуємо звернутися до нашої служби підтримки, щоб отримати допомогу. ',
-      'Незмінні недоліки послуги. Хоча всі послуги тестуються, ми не виключаємо можливості помилок. Вам потрібно зв’язатися з нашою службою підтримки протягом 72 годин з дати передачі звіту про результати Послуги.'
+      'Незмінні недоліки послуги. Хоча всі послуги тестуються, ми не виключаємо можливості помилок. Вам потрібно зв’язатися з нашою службою підтримки протягом 72 годин з дати передачі звіту про результати Послуги.',
+      'Назад'
     ],
     responsibilityPage: [
       `Головна`,
@@ -1182,7 +1189,8 @@ export const lang: { [key: string]: object } = {
       `Ця Угода вступає в силу при будь-якому використанні цього сайту.`,
       `Угода перестає діяти при появі її нової версії.`,
       `Адміністрація залишає за собою право в односторонньому порядку змінити дану угоду за своїм розглядом.`,
-      `Адміністрація не повідомляє користувачів про зміни в Угоді.`
+      `Адміністрація не повідомляє користувачів про зміни в Угоді.`,
+      'Назад'
     ],
     privacyPage: [
       'Головна',
@@ -1219,7 +1227,8 @@ export const lang: { [key: string]: object } = {
       'Я можу час від часу оновлювати нашу Політику конфіденційності. Таким чином, вам рекомендується періодично переглядати цю сторінку на будь-які зміни. Я повідомлю вам про будь-які зміни, опублікувавши на цій сторінці, нову Політику конфіденційності.',
       'Ця політика є дійсною з 07.10.2022.',
       "Зв'яжіться зі мною",
-      'Якщо у вас є якісь питання чи пропозиції щодо моєї політики конфіденційності, не соромтеся зв’язатися зі мною за адресою reactiers.app24@gmail.com.'
+      'Якщо у вас є якісь питання чи пропозиції щодо моєї політики конфіденційності, не соромтеся зв’язатися зі мною за адресою reactiers.app24@gmail.com.',
+      'Назад'
     ],
     guide: [
       'крок',

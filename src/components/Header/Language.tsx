@@ -8,12 +8,14 @@ import { setLang, setLocale } from '../../store/reducers/OptionsSlice';
 const Language = () => {
   const { userId, locale } = useAppSelector((state) => ({
     userId: state.user.data?.id || 0,
-    locale: state.options?.data?.locale || 'en'
+    locale: state.options?.data?.locale
   }));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setLang(lang[locale]));
+    if (locale) {
+      dispatch(setLang(lang[locale]));
+    }
   }, [locale, dispatch]);
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
@@ -43,7 +45,7 @@ const Language = () => {
     <div className="absolute top-[10px] right-8 z-10">
       <Dropdown overlay={menu}>
         <Space className="cursor-pointer">
-          {locale.toUpperCase()}
+          {locale?.toUpperCase()}
           <DownOutlined className="absolute text-[10px] top-[7px]" />
         </Space>
       </Dropdown>

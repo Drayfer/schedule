@@ -1,6 +1,6 @@
 import { IUser } from '../../models/IUser';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchUsers, updateProfile } from './UserActions';
+import { fetchUsers, updateGuide, updateProfile } from './UserActions';
 
 interface UserState {
   data: IUser | null;
@@ -42,6 +42,11 @@ export const userSlice = createSlice({
       if (state.data?.name && state.data?.email) {
         state.data.name = payload.name as string;
         state.data.email = payload.email as string;
+      }
+    },
+    [updateGuide.fulfilled.type]: (state) => {
+      if (state.data?.guide === false) {
+        state.data.guide = true;
       }
     }
   }

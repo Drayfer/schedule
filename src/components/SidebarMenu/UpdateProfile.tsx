@@ -94,9 +94,9 @@ const UpdateProfile = () => {
     };
 
     if (window.isSecureContext && navigator.clipboard) {
-      navigator.clipboard.writeText('1111');
+      navigator.clipboard.writeText(String(user?.id));
     } else {
-      unsecuredCopyToClipboard('1111');
+      unsecuredCopyToClipboard(String(user?.id));
     }
     if (!window.navigator.userAgent.toLowerCase().includes('wv')) {
       message.success(lang.menu[21]);

@@ -10,18 +10,23 @@ import PushNotification from '../Schedule/PushNotification';
 import { useLogOut } from '../helpers/LogOut';
 import TimerNotifications from '../Notifications/TimerNotifications';
 import Header from '../Header/Header';
-import { getBilling, setLang } from '../../store/reducers/OptionsSlice';
+import {
+  getBilling,
+  setLang,
+  setLocale
+} from '../../store/reducers/OptionsSlice';
 import Reminder from '../MainBoard/Reminder';
 import NoDemoAccess from '../Settings/NoDemoAccess';
 import EducaionBg from '../../assets/images/educationBg.png';
-import { lang as language } from '../../assets/constants/lang';
+import { lang as language, localeArray } from '../../assets/constants/lang';
 
 const Dashboard = () => {
-  const { user, billing, locale, lang } = useAppSelector((state) => ({
+  const { user, billing, locale, lang, guide } = useAppSelector((state) => ({
     user: state.user,
     billing: state.options.billing,
     locale: state.options?.data?.locale || 'en',
-    lang: state.options.lang
+    lang: state.options.lang,
+    guide: state.user.data?.guide
   }));
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -35,14 +40,18 @@ const Dashboard = () => {
   }, [user.data]);
 
   useEffect(() => {
-    if (user.data?.expToken) {
-      const { exp } = jwtDecode<any>(user.data?.token || '');
-      setTimeout(() => {
-        logout();
-      }, moment(exp).diff(moment().unix()) * 1000);
+    let interval: NodeJS.Timer;
+    if (user.data?.token) {
+      const { exp } = jwtDecode<any>(user.data.token);
+      interval = setInterval(() => {
+        if (moment(exp).isBefore(moment().unix())) {
+          logout();
+        }
+      }, 1000);
     }
+    return () => clearInterval(interval);
     // eslint-disable-next-line
-  }, [user.data?.expToken, dispatch]);
+  }, [user.data?.token, dispatch]);
 
   useEffect(() => {
     if (
@@ -78,40 +87,40 @@ const Dashboard = () => {
     // eslint-disable-next-line
   }, [locale]);
 
+  if (JSON.stringify(lang) !== JSON.stringify(language[locale])) {
+    return null;
+  }
+
   return (
     <>
-      {JSON.stringify(lang) === JSON.stringify(language[locale]) && (
-        <>
-          <PushNotification />
-          <TimerNotifications />
-          <div className="flex w-screen">
-            <SidebarMenu />
+      <PushNotification />
+      <TimerNotifications />
+      <div className="flex w-screen">
+        <SidebarMenu />
 
-            <div className="bg-slate-200 overflow-auto h-screen w-full relative overflow-x-hidden">
-              <Header />
+        <div className="bg-slate-200 overflow-auto h-screen w-full relative overflow-x-hidden">
+          <Header />
 
-              <div
-                className="table:pb-5 pt-[50px] overflow-x-hidden h-screen phone:pb-16 phone:overflow-y-auto tablet:h-screen"
-                style={
-                  !billing?.demo && billing?.paidDays === 0
-                    ? {
-                        backgroundImage: `url(${EducaionBg})`
-                      }
-                    : {}
-                }
-              >
-                {!billing?.demo && billing?.paidDays === 0 ? (
-                  <NoDemoAccess />
-                ) : (
-                  <MainBoard />
-                )}
-                <Reminder />
-              </div>
-              <Footer />
-            </div>
+          <div
+            className="table:pb-5 pt-[50px] overflow-x-hidden h-screen phone:pb-16 phone:overflow-y-auto tablet:h-screen"
+            style={
+              !billing?.demo && billing?.paidDays === 0
+                ? {
+                    backgroundImage: `url(${EducaionBg})`
+                  }
+                : {}
+            }
+          >
+            {!billing?.demo && billing?.paidDays === 0 ? (
+              <NoDemoAccess />
+            ) : (
+              <MainBoard />
+            )}
+            <Reminder />
           </div>
-        </>
-      )}
+          <Footer />
+        </div>
+      </div>
     </>
   );
 };
