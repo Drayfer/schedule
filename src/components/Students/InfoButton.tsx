@@ -1,7 +1,7 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Avatar, Button, Col, Drawer, Row, Space, Tooltip } from 'antd';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAppSelector } from '../../hooks/redux';
 import { IDiscipline } from '../../models/IDiscipline';
@@ -83,6 +83,10 @@ const InfoButton = (props: InfoButtonProps) => {
               {student.name} {student.surname}
             </span>
             <Row className="my-3">
+              <NameCol>{lang.students[3]}:</NameCol>
+              <ValueCol>
+                {moment.utc(student.createdDate).local().format('DD.MM.YYYY')}
+              </ValueCol>
               <NameCol>{lang.students[36]}:</NameCol>
               <ValueCol>{student.balance}</ValueCol>
               <NameCol>{lang.students[37]}:</NameCol>
