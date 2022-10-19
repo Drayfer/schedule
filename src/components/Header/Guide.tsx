@@ -17,11 +17,10 @@ import { setLocale } from '../../store/reducers/OptionsSlice';
 import { updateGuide } from '../../store/reducers/UserActions';
 
 const Guide = ({ landing }: { landing?: boolean }) => {
-  const { lang, guide, userId, locale } = useAppSelector((state) => ({
+  const { lang, guide, userId } = useAppSelector((state) => ({
     lang: state.options.lang.guide,
     guide: state.user.data?.guide,
-    userId: state.user.data?.id,
-    locale: state.options.data.locale
+    userId: state.user.data?.id
   }));
 
   const carouselRef = useRef<CarouselRef>(null);
@@ -37,20 +36,20 @@ const Guide = ({ landing }: { landing?: boolean }) => {
   };
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    if (userId && !guide && locale) {
+    if (userId && guide === false) {
       let localeLang = navigator.language.split('-')[0];
       if (!localeArray.includes(localeLang)) {
         localeLang = 'en';
       }
-      dispatch(setLocale({ userId, locale: localeLang }));
-      timeout = setTimeout(() => {
+      dispatch(setLocale({ userId, locale: localeLang }))
+        .unwrap()
+        .then(() => dispatch(updateGuide(userId)));
+
+      setTimeout(() => {
         setIsModal(true);
-        dispatch(updateGuide(userId));
-      }, 5000);
+      }, 2000);
     }
-    return () => clearTimeout(timeout);
-  }, [guide, userId, locale, dispatch]);
+  }, [guide, userId, dispatch]);
 
   const GuideContent = (bg?: string, color?: string, stepColor?: string) => {
     const Slide = ({
