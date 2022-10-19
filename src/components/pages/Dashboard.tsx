@@ -10,24 +10,23 @@ import PushNotification from '../Schedule/PushNotification';
 import { useLogOut } from '../helpers/LogOut';
 import TimerNotifications from '../Notifications/TimerNotifications';
 import Header from '../Header/Header';
-import {
-  getBilling,
-  setLang,
-  setLocale
-} from '../../store/reducers/OptionsSlice';
+import { getBilling, setLang } from '../../store/reducers/OptionsSlice';
 import Reminder from '../MainBoard/Reminder';
 import NoDemoAccess from '../Settings/NoDemoAccess';
 import EducaionBg from '../../assets/images/educationBg.png';
-import { lang as language, localeArray } from '../../assets/constants/lang';
+import { lang as language } from '../../assets/constants/lang';
+import styled from 'styled-components';
 
 const Dashboard = () => {
-  const { user, billing, locale, lang, guide } = useAppSelector((state) => ({
-    user: state.user,
-    billing: state.options.billing,
-    locale: state.options?.data?.locale || 'en',
-    lang: state.options.lang,
-    guide: state.user.data?.guide
-  }));
+  const { user, billing, locale, lang, isFullMenu } = useAppSelector(
+    (state) => ({
+      user: state.user,
+      billing: state.options.billing,
+      locale: state.options?.data?.locale || 'en',
+      lang: state.options.lang,
+      isFullMenu: state.options.fullMenu
+    })
+  );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const logout = useLogOut();
@@ -95,14 +94,13 @@ const Dashboard = () => {
     <>
       <PushNotification />
       <TimerNotifications />
-      <div className="flex w-screen">
+      <div className="flex w-screen min-h-screen ">
         <SidebarMenu />
 
-        <div className="bg-slate-200 overflow-auto h-screen w-full relative overflow-x-hidden">
+        <div className="bg-slate-200 overflow-auto h-screen relative overflow-x-hidden w-full">
           <Header />
-
           <div
-            className="table:pb-5 pt-[50px] overflow-x-hidden h-screen phone:pb-16 phone:overflow-y-auto tablet:h-screen"
+            className="tablet:pb-0 pt-[50px] pb-16 overflow-x-hidden min-h-screen  phone:overflow-y-auto relative"
             style={
               !billing?.demo && billing?.paidDays === 0
                 ? {
@@ -117,8 +115,8 @@ const Dashboard = () => {
               <MainBoard />
             )}
             <Reminder />
+            <Footer />
           </div>
-          <Footer />
         </div>
       </div>
     </>
@@ -126,3 +124,9 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+// const Desk = styled.div<{ isFull: boolean }>`
+//   /* width: ${(props) =>
+//     props.isFull ? 'calc(100% - 250px)' : 'calc(100% - 80px)'}; */
+//   width: 100%;
+// `;

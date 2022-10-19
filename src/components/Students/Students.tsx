@@ -9,7 +9,9 @@ import { IStudent } from '../../models/IStudent';
 import {
   Button,
   Col,
+  Dropdown,
   Input,
+  Menu,
   message,
   Popconfirm,
   Row,
@@ -23,6 +25,7 @@ import {
   DeleteOutlined,
   MinusCircleOutlined,
   MinusOutlined,
+  MoreOutlined,
   PlusCircleOutlined,
   PlusOutlined,
   SwapLeftOutlined
@@ -36,6 +39,7 @@ import {
   setActiveBoard,
   setSearchedStudent
 } from '../../store/reducers/OptionsSlice';
+import { ColumnsType } from 'antd/lib/table';
 
 type Props = {};
 
@@ -96,15 +100,111 @@ const Students = (props: Props) => {
     }
   };
 
-  const columns = [
+  const actionButtons = (record: IStudent) => {
+    return (
+      <>
+        <Popconfirm
+          title={lang.students[5]}
+          icon={<CloseCircleFilled style={{ color: 'red' }} />}
+          onConfirm={async () => {
+            try {
+              await isErrorDispatch(dispatch(deleteStudent({ id: record.id })));
+              await isErrorDispatch(
+                dispatch(
+                  deleteSomeLesson({
+                    studentId: record.id
+                  })
+                )
+              );
+              message.success(lang.students[6]);
+            } catch (err) {
+              PopupError(err);
+            }
+          }}
+          okText={lang.students[7]}
+          cancelText={lang.students[8]}
+        >
+          <Tooltip title={lang.students[9]}>
+            <DeleteOutlined
+              style={{
+                fontSize: '20px',
+                color: 'red',
+                marginRight: '.3rem'
+              }}
+            />
+          </Tooltip>
+        </Popconfirm>
+
+        <Popconfirm
+          title={isActive ? lang.students[10] : lang.students[66]}
+          onConfirm={async () => {
+            try {
+              await isErrorDispatch(
+                dispatch(
+                  updateStudent({
+                    studentId: record.id,
+                    break: !record.break
+                  })
+                )
+              );
+              if (isActive) {
+                await isErrorDispatch(
+                  dispatch(
+                    deleteSomeLesson({
+                      studentId: record.id
+                    })
+                  )
+                );
+              }
+              message.info(
+                `${lang.students[11]} ${
+                  isActive ? lang.students[12] : lang.students[13]
+                }. ${lang.students[14]}`
+              );
+            } catch (err) {
+              PopupError(err);
+            }
+          }}
+          okText={lang.students[7]}
+          cancelText={lang.students[8]}
+        >
+          <Tooltip title={isActive ? lang.students[15] : lang.students[65]}>
+            {isActive ? (
+              <MinusCircleOutlined
+                style={{
+                  fontSize: '20px',
+                  color: '#eda600',
+                  marginRight: '.3rem'
+                }}
+              />
+            ) : (
+              <PlusCircleOutlined
+                style={{
+                  fontSize: '20px',
+                  color: '#2ae400',
+                  marginRight: '.3rem'
+                }}
+              />
+            )}
+          </Tooltip>
+        </Popconfirm>
+
+        <InfoButton student={record} allDisciplines={allDisciplines} />
+      </>
+    );
+  };
+
+  const columns: ColumnsType<IStudent> = [
     {
       title: '',
+      align: 'center',
       dataIndex: 'color',
       width: 30,
       render: (color: string) => <Round color={color} />
     },
     {
       title: lang.students[0],
+      align: 'center',
       dataIndex: 'name',
       render: (name: string, record: IStudent) => (
         <div className="flex flex-col justify-center min-h-7">
@@ -126,13 +226,15 @@ const Students = (props: Props) => {
     {
       title: lang.students[1],
       dataIndex: 'balance',
+      align: 'center',
+      // width: 100,
       sorter: (a: IStudent, b: IStudent) => a.balance - b.balance,
       render: (count: number, record: IStudent) => {
         return (
-          <Row className="flex items-center justify-around">
-            <Col span={!isMobile ? 12 : 24}>
+          <>
+            <Col span={24}>
               {record.showBalance && (
-                <Row>
+                <Row className="flex justify-between items-center flex-nowrap w-[90px] mx-auto">
                   <CountButton
                     shape="circle"
                     size="small"
@@ -148,11 +250,11 @@ const Students = (props: Props) => {
                   ></CountButton>
 
                   {count > 0 ? (
-                    <div className="text-lime-600 font-semibold text-lg">
+                    <div className="text-lime-600 font-semibold text-md mx-1">
                       {count}
                     </div>
                   ) : (
-                    <div className="text-red-600 font-semibold text-lg">
+                    <div className="text-red-600 font-semibold text-md mx-1">
                       {count}
                     </div>
                   )}
@@ -172,10 +274,12 @@ const Students = (props: Props) => {
                 </Row>
               )}
             </Col>
-            <Col span={!isMobile ? 12 : 22}>
+            <Col span={24}>
               <Tooltip title={lang.students[2]}>
                 <Switch
                   size="small"
+                  checkedChildren={lang.students[7].toLowerCase()}
+                  unCheckedChildren={lang.students[8].toLowerCase()}
                   checked={record.showBalance}
                   onChange={async () =>
                     dispatch(
@@ -188,114 +292,25 @@ const Students = (props: Props) => {
                 />
               </Tooltip>
             </Col>
-          </Row>
+          </>
         );
       }
     },
     {
       title: lang.students[3],
       dataIndex: 'createdDate',
-      render: (date: Date) => moment.utc(date).local().format('DD.MM.YYYY'),
+      align: 'center',
+      render: (date: Date) => moment.utc(date).local().format('DD.MM.YY'),
       sorter: (a: IStudent, b: IStudent) =>
         moment(b.createdDate).unix() - moment(a.createdDate).unix()
     },
     {
       title: lang.students[4],
-      render: (record: IStudent) => {
-        return (
-          <>
-            <Popconfirm
-              title={lang.students[5]}
-              icon={<CloseCircleFilled style={{ color: 'red' }} />}
-              onConfirm={async () => {
-                try {
-                  await isErrorDispatch(
-                    dispatch(deleteStudent({ id: record.id }))
-                  );
-                  await isErrorDispatch(
-                    dispatch(
-                      deleteSomeLesson({
-                        studentId: record.id
-                      })
-                    )
-                  );
-                  message.success(lang.students[6]);
-                } catch (err) {
-                  PopupError(err);
-                }
-              }}
-              okText={lang.students[7]}
-              cancelText={lang.students[8]}
-            >
-              <Tooltip title={lang.students[9]}>
-                <DeleteOutlined
-                  style={{
-                    fontSize: '20px',
-                    color: 'red',
-                    marginRight: '.3rem'
-                  }}
-                />
-              </Tooltip>
-            </Popconfirm>
-
-            <Popconfirm
-              title={isActive ? lang.students[10] : lang.students[66]}
-              onConfirm={async () => {
-                try {
-                  await isErrorDispatch(
-                    dispatch(
-                      updateStudent({
-                        studentId: record.id,
-                        break: !record.break
-                      })
-                    )
-                  );
-                  if (isActive) {
-                    await isErrorDispatch(
-                      dispatch(
-                        deleteSomeLesson({
-                          studentId: record.id
-                        })
-                      )
-                    );
-                  }
-                  message.info(
-                    `${lang.students[11]} ${
-                      isActive ? lang.students[12] : lang.students[13]
-                    }. ${lang.students[14]}`
-                  );
-                } catch (err) {
-                  PopupError(err);
-                }
-              }}
-              okText={lang.students[7]}
-              cancelText={lang.students[8]}
-            >
-              <Tooltip title={isActive ? lang.students[15] : lang.students[65]}>
-                {isActive ? (
-                  <MinusCircleOutlined
-                    style={{
-                      fontSize: '20px',
-                      color: '#eda600',
-                      marginRight: '.3rem'
-                    }}
-                  />
-                ) : (
-                  <PlusCircleOutlined
-                    style={{
-                      fontSize: '20px',
-                      color: '#2ae400',
-                      marginRight: '.3rem'
-                    }}
-                  />
-                )}
-              </Tooltip>
-            </Popconfirm>
-
-            <InfoButton student={record} allDisciplines={allDisciplines} />
-          </>
-        );
-      }
+      align: 'center',
+      width: 100,
+      render: (record: IStudent) => (
+        <div className="flex justify-between">{actionButtons(record)}</div>
+      )
     }
   ];
 
@@ -344,17 +359,26 @@ const Students = (props: Props) => {
           </Tooltip>
         </div>
       )}
-
-      <Table
-        className="ml-4 mr-4"
-        columns={
-          !isMobile ? columns : columns.filter((item) => item.title !== 'Added')
-        }
-        dataSource={filteredStudents}
-        loading={loadingStudents}
-        size={'small'}
-        pagination={!searchedStudentId && { position: ['bottomCenter'] }}
-      />
+      <StyledTable>
+        <Table
+          className="bigPhone:mx-4 ttt"
+          columns={
+            !isMobile
+              ? columns
+              : columns.filter((item) => item.title !== lang.students[3])
+          }
+          dataSource={filteredStudents}
+          loading={loadingStudents}
+          size={'middle'}
+          bordered
+          pagination={
+            !searchedStudentId && {
+              position: ['bottomCenter'],
+              defaultPageSize: 15
+            }
+          }
+        />
+      </StyledTable>
       {searchedStudentId && (
         <Button
           icon={<SwapLeftOutlined />}
@@ -382,7 +406,7 @@ export const Round = styled.div<{ color: string }>`
 `;
 
 const CountButton = styled(Button)`
-  margin: 0 5px;
+  /* margin: 0 5px; */
 `;
 
 const DotColor = styled(Round)`
@@ -390,4 +414,13 @@ const DotColor = styled(Round)`
   width: 7px;
   height: 7px;
   margin-right: 3px;
+`;
+
+const StyledTable = styled.div`
+  .ttt tr:nth-child(2n) td {
+    background-color: #f7fdff;
+  }
+  .ttt thead {
+    background-color: #f1f1f1;
+  }
 `;

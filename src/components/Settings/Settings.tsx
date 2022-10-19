@@ -42,7 +42,8 @@ const Settings = () => {
     rateWithBalance,
     rateWithoutBalance,
     currency,
-    lang
+    lang,
+    billing
   } = useAppSelector((state) => ({
     userId: state.user.data?.id,
     currency: state.options.data?.currency || '',
@@ -51,7 +52,8 @@ const Settings = () => {
     notifyVolume: state.options.data?.notifyVolume || 100,
     rateWithBalance: state.options.data?.rateWithBalance || 0,
     rateWithoutBalance: state.options.data?.rateWithoutBalance || 0,
-    lang: state.options.lang
+    lang: state.options.lang,
+    billing: state.options.billing
   }));
 
   const initialValues = {
@@ -209,6 +211,7 @@ const Settings = () => {
         </Button>
       </div>
       <FooterLanding />
+      <div className="h-[20px] bg-[#111111] -mb-[20px] tablet:mb-0"></div>
     </>
   );
 };
