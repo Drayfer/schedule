@@ -15,18 +15,14 @@ import Reminder from '../MainBoard/Reminder';
 import NoDemoAccess from '../Settings/NoDemoAccess';
 import EducaionBg from '../../assets/images/educationBg.png';
 import { lang as language } from '../../assets/constants/lang';
-import styled from 'styled-components';
 
 const Dashboard = () => {
-  const { user, billing, locale, lang, isFullMenu } = useAppSelector(
-    (state) => ({
-      user: state.user,
-      billing: state.options.billing,
-      locale: state.options?.data?.locale || 'en',
-      lang: state.options.lang,
-      isFullMenu: state.options.fullMenu
-    })
-  );
+  const { user, billing, locale, lang } = useAppSelector((state) => ({
+    user: state.user,
+    billing: state.options.billing,
+    locale: state.options?.data?.locale || 'en',
+    lang: state.options.lang
+  }));
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const logout = useLogOut();

@@ -42,8 +42,7 @@ const Settings = () => {
     rateWithBalance,
     rateWithoutBalance,
     currency,
-    lang,
-    billing
+    lang
   } = useAppSelector((state) => ({
     userId: state.user.data?.id,
     currency: state.options.data?.currency || '',
@@ -52,8 +51,7 @@ const Settings = () => {
     notifyVolume: state.options.data?.notifyVolume || 100,
     rateWithBalance: state.options.data?.rateWithBalance || 0,
     rateWithoutBalance: state.options.data?.rateWithoutBalance || 0,
-    lang: state.options.lang,
-    billing: state.options.billing
+    lang: state.options.lang
   }));
 
   const initialValues = {
