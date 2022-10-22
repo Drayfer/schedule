@@ -1,7 +1,7 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Avatar, Button, Col, Drawer, Row, Space, Tooltip } from 'antd';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAppSelector } from '../../hooks/redux';
 import { IDiscipline } from '../../models/IDiscipline';

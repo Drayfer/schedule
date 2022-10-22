@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/pages/Dashboard';
 import LoginPage from './components/pages/LoginPage';
@@ -8,6 +8,7 @@ import Activation from './components/pages/Activation';
 import PasswordPage from './components/pages/PasswordPage';
 import { Notifications } from 'react-push-notification';
 import 'moment/locale/ru';
+import 'moment/locale/uk';
 import moment from 'moment';
 import ru from 'antd/lib/locale/ru_RU';
 import en from 'antd/lib/locale/en_US';
@@ -24,7 +25,15 @@ function App() {
     locale: state.options?.data?.locale || 'en'
   }));
 
-  moment.locale(locale);
+  useEffect(() => {
+    if (locale === 'en') {
+      moment.locale('en');
+    } else if (locale === 'ru') {
+      moment.locale('ru');
+    } else if (locale === 'ua') {
+      moment.locale('uk');
+    }
+  }, [locale]);
 
   return (
     <>

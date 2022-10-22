@@ -9,9 +9,7 @@ import { IStudent } from '../../models/IStudent';
 import {
   Button,
   Col,
-  Dropdown,
   Input,
-  Menu,
   message,
   Popconfirm,
   Row,
@@ -25,7 +23,6 @@ import {
   DeleteOutlined,
   MinusCircleOutlined,
   MinusOutlined,
-  MoreOutlined,
   PlusCircleOutlined,
   PlusOutlined,
   SwapLeftOutlined
