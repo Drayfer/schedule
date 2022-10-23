@@ -20,6 +20,7 @@ interface UserState {
   data: IOption;
   lang: any;
   billing: IBillingInfo | null;
+  currentDate: string | null;
 }
 
 const initialState: UserState = {
@@ -44,7 +45,8 @@ const initialState: UserState = {
     notificationsArr: [],
     locale: 'en'
   },
-  billing: null
+  billing: null,
+  currentDate: null
 };
 
 interface GetTodayLessons {
@@ -250,6 +252,9 @@ export const optionsSlice = createSlice({
     },
     setAppLocale: (state, action: PayloadAction<string>) => {
       state.data.locale = action.payload;
+    },
+    updateCurrentDate: (state, action: PayloadAction<string>) => {
+      state.currentDate = action.payload;
     }
   },
   extraReducers: {
@@ -326,7 +331,8 @@ export const {
   resetOpions,
   setSearchedStudent,
   setLang,
-  setAppLocale
+  setAppLocale,
+  updateCurrentDate
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

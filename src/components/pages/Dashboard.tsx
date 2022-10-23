@@ -93,10 +93,10 @@ const Dashboard = () => {
       <div className="flex w-screen min-h-screen ">
         <SidebarMenu />
 
-        <div className="bg-slate-200 overflow-auto h-screen relative overflow-x-hidden w-full">
+        <div className="relative w-full">
           <Header />
           <div
-            className="tablet:pb-0 pt-[50px] pb-16 overflow-x-hidden min-h-screen  phone:overflow-y-auto relative"
+            className="bg-slate-200 h-screen  tablet:pb-0 pt-[50px] pb-16 overflow-x-hidden min-h-screen  phone:overflow-y-auto relative"
             style={
               !billing?.demo && billing?.paidDays === 0
                 ? {
