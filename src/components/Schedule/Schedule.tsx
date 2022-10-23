@@ -36,7 +36,8 @@ import {
   fetchOptionsData,
   getBilling,
   setActiveBoard,
-  setSearchedStudent
+  setSearchedStudent,
+  updateCurrentDate
 } from '../../store/reducers/OptionsSlice';
 import {
   fetchStudents,
@@ -45,7 +46,6 @@ import {
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import AddLesson, { LittleRound } from './AddLesson';
 import CopyDay from './CopyDay';
-import CornerButtons from './CornerButtons';
 
 const Schedule = () => {
   const dispatch = useAppDispatch();
@@ -108,8 +108,9 @@ const Schedule = () => {
     if (currentDate) {
       setWeekStart(currentDate.clone().startOf('isoWeek'));
       setWeekEnd(currentDate.clone().endOf('isoWeek'));
+      dispatch(updateCurrentDate(currentDate.toString()));
     }
-  }, [currentDate]);
+  }, [currentDate, dispatch]);
 
   useEffect(() => {
     const week = [];
@@ -175,9 +176,6 @@ const Schedule = () => {
 
   return (
     <>
-      {weekStart && weekStart < moment().startOf('isoWeek') ? null : (
-        <CornerButtons currentDate={currentDate} />
-      )}
       <div className="flex justify-center relative">
         {/* Prev */}
         <div
