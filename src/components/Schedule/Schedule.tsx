@@ -213,7 +213,7 @@ const Schedule = () => {
               active={
                 moment().format('DD.MM.YYYY') === day.format('DD.MM.YYYY')
               }
-              size="small"
+              size="default"
               title={
                 moment(day)
                   .locale(locale)
