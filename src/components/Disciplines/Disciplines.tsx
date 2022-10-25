@@ -1,6 +1,8 @@
 import { CloseCircleFilled, DeleteOutlined } from '@ant-design/icons';
 import { message, Popconfirm, Table, Tooltip } from 'antd';
+import { ColumnsType } from 'antd/lib/table';
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { IDiscipline } from '../../models/IDiscipline';
 import { IStudent } from '../../models/IStudent';
@@ -11,7 +13,7 @@ import {
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import { LittleRound } from '../Schedule/AddLesson';
 import PaidAccess from '../Settings/PaidAccess';
-import { Round } from '../Students/Students';
+import { Round, StyledTable } from '../Students/Students';
 import AddDisciplineForm from './AddDisciplineForm';
 import InfoDiscipline from './InfoDiscipline';
 
@@ -32,20 +34,24 @@ const Disciplines = () => {
     dispatch(fetchDisciplines(userId));
   }, [userId, dispatch]);
 
-  const columns = [
+  const columns: ColumnsType<IDiscipline> = [
     {
       title: '',
       dataIndex: 'color',
+      align: 'center',
       width: 30,
       render: (color: string) => <Round color={color} />
     },
     {
       title: lang.disciplines[0],
+      align: 'center',
       dataIndex: 'title'
     },
     {
       title: lang.disciplines[1],
+      align: 'center',
       dataIndex: 'students',
+      width: 100,
       render: (students: IStudent[], record: IDiscipline) => {
         if (record.title === 'General') {
           return `${allStudents.filter((item) => !item.break).length} (${
@@ -58,9 +64,10 @@ const Disciplines = () => {
     },
     {
       title: lang.disciplines[2],
+      align: 'center',
       dataIndex: 'students',
       render: (record: IStudent[]) => (
-        <div className="flex flex-wrap">
+        <div className="flex flex-col bigPhone:flex-row bigPhone:flex-wrap justify-center items-center">
           {record.map((student) => (
             <div className="flex items-center mx-1 px-1">
               <LittleRound color={student.color} />
@@ -73,6 +80,8 @@ const Disciplines = () => {
 
     {
       title: lang.disciplines[3],
+      align: 'center',
+      width: 80,
       render: (record: IDiscipline) => {
         return (
           <>
@@ -129,25 +138,34 @@ const Disciplines = () => {
             <AddDisciplineForm />
           </div>
         </div>
-
-        <Table
-          className="ml-4 mr-4"
-          columns={
-            !isMobile
-              ? columns
-              : columns.filter((item) => item.title !== 'Count')
-          }
-          dataSource={[
-            general,
-            ...disciplines.filter((item) => !item?.deletedAt)
-          ]}
-          loading={loadingDisciplines}
-          size={'small'}
-          pagination={{ position: ['bottomCenter'] }}
-        />
+        <DisciplineTable>
+          <Table
+            className="bigPhone:mx-4 ttt"
+            columns={
+              !isMobile
+                ? columns
+                : columns.filter((item) => item.title !== lang.disciplines[1])
+            }
+            dataSource={[
+              general,
+              ...disciplines.filter((item) => !item?.deletedAt)
+            ]}
+            loading={loadingDisciplines}
+            size={'middle'}
+            bordered
+            pagination={{ position: ['bottomCenter'] }}
+          />
+        </DisciplineTable>
       </div>
     </>
   );
 };
 
 export default Disciplines;
+
+const DisciplineTable = styled(StyledTable)`
+  /* table {
+    width: auto;
+    min-width: unset !important;
+  } */
+`;

@@ -413,7 +413,7 @@ const DotColor = styled(Round)`
   margin-right: 3px;
 `;
 
-const StyledTable = styled.div`
+export const StyledTable = styled.div`
   .ttt tr:nth-child(2n) td {
     background-color: #f7fdff;
   }
