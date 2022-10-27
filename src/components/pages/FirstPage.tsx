@@ -52,7 +52,7 @@ const FirstPage = () => {
               </StyledButton>
             </div>
             <div className="flex mt-8 gap-3 absolute">
-              <img
+              {/* <img
                 className="w-[45%] bigPhone:w-full opacity-40 cursor-not-allowed"
                 src={AppStore}
                 alt="appStore"
@@ -61,7 +61,7 @@ const FirstPage = () => {
                 className="w-[45%] bigPhone:w-full cursor-pointer"
                 src={GooglePlay}
                 alt="googlePlay"
-              />
+              /> */}
             </div>
           </div>
         </div>
