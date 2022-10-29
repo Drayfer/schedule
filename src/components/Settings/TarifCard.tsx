@@ -3,28 +3,72 @@ import { CheckCircleFilled } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
+import sha1 from 'sha1';
+import axios from 'axios';
 
 interface ITarifCard {
   hideDemo?: boolean;
 }
 
+interface IFondyMerchant {
+  amount: string;
+  currency: string;
+  merchant_data: string;
+  merchant_id: string;
+  order_desc: string;
+  order_id: string;
+  response_url: string;
+  signature?: string;
+}
+
 const TarifCard = (props: ITarifCard) => {
   const { hideDemo } = props;
   const mainPage = window.location.pathname !== '/dashboard';
-  const { lang, billing } = useAppSelector((state) => ({
+  const { lang, billing, userId } = useAppSelector((state) => ({
     lang: state.options.lang,
-    billing: state.options.billing
+    billing: state.options.billing,
+    userId: state.user.data?.id
   }));
 
   const navigate = useNavigate();
 
-  const handleClick = (count: number) => {
+  const handleClick = async (count: number) => {
     if (mainPage) {
       navigate('/signup');
       return;
     }
-    count === 2 && console.log(count);
-    count === 3 && console.log(count);
+    const merchantBody: IFondyMerchant = {
+      amount: `${count}00`,
+      currency: 'USD',
+      merchant_data: 'string',
+      merchant_id: '1396424',
+      order_desc: 'Subscription T-App',
+      order_id: `${userId}_${Date.now()}`,
+      response_url: 'https://t-app.icu'
+    };
+    merchantBody.signature = sha1(
+      'test' + Object.values(merchantBody).join('|')
+    );
+    const { data } = await axios.post(
+      'https://pay.fondy.eu/api/checkout/url/',
+      {
+        request: merchantBody
+      }
+      // {
+      //   headers: {
+      //     'Access-Control-Allow-Origin': '*',
+      //     'Access-Control-Allow-Credentials': 'true',
+      //     'Access-Control-Max-Age': '1800',
+      //     'Access-Control-Allow-Headers': 'content-type',
+      //     'Access-Control-Allow-Methods':
+      //       'PUT, POST, GET, DELETE, PATCH, OPTIONS'
+      //   }
+      // }
+    );
+
+    console.log(data);
+    // count === 2 && console.log(count);
+    // count === 3 && console.log(count);
   };
 
   return (
@@ -67,7 +111,7 @@ const TarifCard = (props: ITarifCard) => {
                     ? 'bg-sky-400 cursor-pointer font-bold'
                     : 'border-2 border-red-400 text-slate-800'
                 }`}
-                onClick={() => handleClick(1)}
+                onClick={() => handleClick(0)}
               >
                 {mainPage ? (
                   lang.price[33]
@@ -160,7 +204,7 @@ const TarifCard = (props: ITarifCard) => {
           <div className="p-3 flex justify-center items-center">
             <div
               className="rounded-md bg-sky-400 text-white inline p-2 font-bold cursor-pointer"
-              onClick={() => handleClick(3)}
+              onClick={() => handleClick(14)}
             >
               {mainPage ? lang.price[33] : lang.price[32]}
             </div>
