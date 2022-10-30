@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import sha1 from 'sha1';
 import axios from 'axios';
+import { getTokenHeader } from '../helpers/getTokenHeader';
 
 interface ITarifCard {
   hideDemo?: boolean;
@@ -31,7 +32,8 @@ const TarifCard = (props: ITarifCard) => {
       `${process.env.REACT_APP_API_URL}/option/createmerchant/${userId}`,
       {
         amount
-      }
+      },
+      getTokenHeader()
     );
     if (data.response.checkout_url)
       window.location.href = data.response.checkout_url;
