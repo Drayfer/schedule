@@ -10,7 +10,11 @@ import PushNotification from '../Schedule/PushNotification';
 import { useLogOut } from '../helpers/LogOut';
 import TimerNotifications from '../Notifications/TimerNotifications';
 import Header from '../Header/Header';
-import { getBilling, setLang } from '../../store/reducers/OptionsSlice';
+import {
+  getBilling,
+  setActiveBoard,
+  setLang
+} from '../../store/reducers/OptionsSlice';
 import Reminder from '../MainBoard/Reminder';
 import NoDemoAccess from '../Settings/NoDemoAccess';
 import EducaionBg from '../../assets/images/educationBg.png';
@@ -86,6 +90,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (window.location.search.includes('success') && user.data?.id) {
       dispatch(getBilling(user.data.id));
+      dispatch(setActiveBoard('settings'));
       navigate('/dashboard');
     }
   }, [user.data?.id, dispatch, navigate]);
