@@ -53,6 +53,7 @@ const FooterMenu = () => {
     <>
       <StyledMenu
         defaultSelectedKeys={[`${activeBoard}`]}
+        selectedKeys={[`${activeBoard}`]}
         onClick={({ key }) => {
           dispatch(setActiveBoard(key));
           dispatch(setSearchedStudent(null));
