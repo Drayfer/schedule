@@ -3,6 +3,8 @@ import { CheckCircleFilled } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
+import sha1 from 'sha1';
+import axios from 'axios';
 
 interface ITarifCard {
   hideDemo?: boolean;
@@ -11,20 +13,28 @@ interface ITarifCard {
 const TarifCard = (props: ITarifCard) => {
   const { hideDemo } = props;
   const mainPage = window.location.pathname !== '/dashboard';
-  const { lang, billing } = useAppSelector((state) => ({
+  const { lang, billing, userId } = useAppSelector((state) => ({
     lang: state.options.lang,
-    billing: state.options.billing
+    billing: state.options.billing,
+    userId: state.user.data?.id
   }));
 
   const navigate = useNavigate();
 
-  const handleClick = (count: number) => {
+  const handleClick = async (amount: number) => {
     if (mainPage) {
       navigate('/signup');
       return;
     }
-    count === 2 && console.log(count);
-    count === 3 && console.log(count);
+
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API_URL}/option/createmerchant/${userId}`,
+      {
+        amount
+      }
+    );
+    if (data.response.checkout_url)
+      window.location.href = data.response.checkout_url;
   };
 
   return (
@@ -67,7 +77,7 @@ const TarifCard = (props: ITarifCard) => {
                     ? 'bg-sky-400 cursor-pointer font-bold'
                     : 'border-2 border-red-400 text-slate-800'
                 }`}
-                onClick={() => handleClick(1)}
+                onClick={() => handleClick(0)}
               >
                 {mainPage ? (
                   lang.price[33]
@@ -117,7 +127,7 @@ const TarifCard = (props: ITarifCard) => {
           <div className="p-3 flex justify-center items-center">
             <div
               className="rounded-md bg-sky-400 text-white inline p-2 font-bold cursor-pointer"
-              onClick={() => handleClick(2)}
+              onClick={() => handleClick(200)}
             >
               {mainPage ? lang.price[33] : lang.price[22]}
             </div>
@@ -160,7 +170,7 @@ const TarifCard = (props: ITarifCard) => {
           <div className="p-3 flex justify-center items-center">
             <div
               className="rounded-md bg-sky-400 text-white inline p-2 font-bold cursor-pointer"
-              onClick={() => handleClick(3)}
+              onClick={() => handleClick(1400)}
             >
               {mainPage ? lang.price[33] : lang.price[32]}
             </div>
