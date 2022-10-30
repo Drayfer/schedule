@@ -15,8 +15,8 @@ const NoDemoAccess = () => {
 
   return (
     <>
-      <div className="min-h-screen">
-        <div className="py-10 px-3 text-center">
+      <div className="min-h-screen relative">
+        <div className="py-10 px-3 text-center pb-128 laptop:pb-72">
           <p className="text-xl text-[#4d4d4d] font-bold">{lang[37]}</p>
           <TarifCard />
           <Button
@@ -26,7 +26,7 @@ const NoDemoAccess = () => {
             {lang[38]}
           </Button>
         </div>
-        <div className="w-full sticky bottom-0">
+        <div className="w-full absolute bottom-0 bg-[#111111] pb-8 -mb-8">
           <FooterLanding />
         </div>
       </div>
