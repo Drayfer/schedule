@@ -10,17 +10,6 @@ interface ITarifCard {
   hideDemo?: boolean;
 }
 
-interface IFondyMerchant {
-  amount: string;
-  currency: string;
-  merchant_data: string;
-  merchant_id: string;
-  order_desc: string;
-  order_id: string;
-  response_url: string;
-  signature?: string;
-}
-
 const TarifCard = (props: ITarifCard) => {
   const { hideDemo } = props;
   const mainPage = window.location.pathname !== '/dashboard';
@@ -32,43 +21,20 @@ const TarifCard = (props: ITarifCard) => {
 
   const navigate = useNavigate();
 
-  const handleClick = async (count: number) => {
+  const handleClick = async (amount: number) => {
     if (mainPage) {
       navigate('/signup');
       return;
     }
-    const merchantBody: IFondyMerchant = {
-      amount: `${count}00`,
-      currency: 'USD',
-      merchant_data: 'string',
-      merchant_id: '1396424',
-      order_desc: 'Subscription T-App',
-      order_id: `${userId}_${Date.now()}`,
-      response_url: 'https://t-app.icu'
-    };
-    merchantBody.signature = sha1(
-      'test' + Object.values(merchantBody).join('|')
-    );
-    const { data } = await axios.post(
-      'https://pay.fondy.eu/api/checkout/url/',
-      {
-        request: merchantBody
-      }
-      // {
-      //   headers: {
-      //     'Access-Control-Allow-Origin': '*',
-      //     'Access-Control-Allow-Credentials': 'true',
-      //     'Access-Control-Max-Age': '1800',
-      //     'Access-Control-Allow-Headers': 'content-type',
-      //     'Access-Control-Allow-Methods':
-      //       'PUT, POST, GET, DELETE, PATCH, OPTIONS'
-      //   }
-      // }
-    );
 
-    console.log(data);
-    // count === 2 && console.log(count);
-    // count === 3 && console.log(count);
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API_URL}/option/createmerchant/${userId}`,
+      {
+        amount
+      }
+    );
+    if (data.response.checkout_url)
+      window.location.href = data.response.checkout_url;
   };
 
   return (
@@ -161,7 +127,7 @@ const TarifCard = (props: ITarifCard) => {
           <div className="p-3 flex justify-center items-center">
             <div
               className="rounded-md bg-sky-400 text-white inline p-2 font-bold cursor-pointer"
-              onClick={() => handleClick(2)}
+              onClick={() => handleClick(200)}
             >
               {mainPage ? lang.price[33] : lang.price[22]}
             </div>
@@ -204,7 +170,7 @@ const TarifCard = (props: ITarifCard) => {
           <div className="p-3 flex justify-center items-center">
             <div
               className="rounded-md bg-sky-400 text-white inline p-2 font-bold cursor-pointer"
-              onClick={() => handleClick(14)}
+              onClick={() => handleClick(1400)}
             >
               {mainPage ? lang.price[33] : lang.price[32]}
             </div>
