@@ -15,6 +15,7 @@ import Reminder from '../MainBoard/Reminder';
 import NoDemoAccess from '../Settings/NoDemoAccess';
 import EducaionBg from '../../assets/images/educationBg.png';
 import { lang as language } from '../../assets/constants/lang';
+import { Button } from 'antd';
 
 const Dashboard = () => {
   const { user, billing, locale, lang } = useAppSelector((state) => ({
@@ -81,6 +82,13 @@ const Dashboard = () => {
     }
     // eslint-disable-next-line
   }, [locale]);
+
+  useEffect(() => {
+    if (window.location.search.includes('success') && user.data?.id) {
+      dispatch(getBilling(user.data.id));
+      navigate('/dashboard');
+    }
+  }, [user.data?.id, dispatch, navigate]);
 
   if (JSON.stringify(lang) !== JSON.stringify(language[locale])) {
     return null;
