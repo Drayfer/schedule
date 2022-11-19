@@ -196,7 +196,13 @@ ${emailLang[3]}: ${password}
       );
     } catch (err) {
       // PopupError(err);
-      setErrorFormMessage(lang[5]);
+      if (
+        (err as Error).stack?.toString().includes('Invalid email or password')
+      ) {
+        setErrorFormMessage(lang[5]);
+      }
+      setLoading(false);
+    } finally {
       setLoading(false);
     }
   };
@@ -334,7 +340,7 @@ ${emailLang[3]}: ${password}
               <Submit
                 key="submit"
                 className="w-full rounded-sm"
-                disabled={!!errorFormMessage}
+                // disabled={!!errorFormMessage}
                 loading={loading}
               >
                 {isRegistration
