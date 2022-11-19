@@ -430,7 +430,8 @@ export const lang: { [key: string]: object } = {
       'T-App - registration completed!',
       'To set a new password, follow the link below:',
       'T-App - password reset!'
-    ]
+    ],
+    errorPage: ['Something went wrong...', 'Reload']
   },
   ru: {
     notification: [
@@ -861,7 +862,8 @@ export const lang: { [key: string]: object } = {
       'T-App — регистрация завершена!',
       'Чтобы установить новый пароль, перейдите по ссылке ниже:',
       'T-App - сброс пароля пароля!'
-    ]
+    ],
+    errorPage: ['Что-то пошло не так...', 'Перезагрузить']
   },
   ua: {
     notification: [
@@ -1292,6 +1294,7 @@ export const lang: { [key: string]: object } = {
       'T-App - реєстрацію завершено!',
       'Щоб встановити новий пароль, перейдіть за посиланням нижче:',
       'T-App - скидання пароля!'
-    ]
+    ],
+    errorPage: ['Щось пішло не так...', 'Перезавантажити']
   }
 };

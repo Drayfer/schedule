@@ -19,7 +19,8 @@ import Reminder from '../MainBoard/Reminder';
 import NoDemoAccess from '../Settings/NoDemoAccess';
 import EducaionBg from '../../assets/images/educationBg.png';
 import { lang as language } from '../../assets/constants/lang';
-import { Button } from 'antd';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '../ErrorBoundary/ErrorFallback';
 
 const Dashboard = () => {
   const { user, billing, locale, lang } = useAppSelector((state) => ({
@@ -101,41 +102,40 @@ const Dashboard = () => {
 
   return (
     <>
-      <PushNotification />
-      <TimerNotifications />
-      <div className="flex w-screen min-h-screen ">
-        <SidebarMenu />
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => navigate('/login')}
+      >
+        <PushNotification />
+        <TimerNotifications />
+        <div className="flex w-screen min-h-screen ">
+          <SidebarMenu />
 
-        <div className="relative w-full">
-          <Header />
-          <div
-            className="bg-slate-200 h-screen  tablet:pb-0 pt-[50px] pb-16 overflow-x-hidden min-h-screen  phone:overflow-y-auto relative"
-            style={
-              !billing?.demo && billing?.paidDays === 0
-                ? {
-                    backgroundImage: `url(${EducaionBg})`
-                  }
-                : {}
-            }
-          >
-            {!billing?.demo && billing?.paidDays === 0 ? (
-              <NoDemoAccess />
-            ) : (
-              <MainBoard />
-            )}
-            <Reminder />
-            <Footer />
+          <div className="relative w-full">
+            <Header />
+            <div
+              className="bg-slate-200 h-screen  tablet:pb-0 pt-[50px] pb-16 overflow-x-hidden min-h-screen  phone:overflow-y-auto relative"
+              style={
+                !billing?.demo && billing?.paidDays === 0
+                  ? {
+                      backgroundImage: `url(${EducaionBg})`
+                    }
+                  : {}
+              }
+            >
+              {!billing?.demo && billing?.paidDays === 0 ? (
+                <NoDemoAccess />
+              ) : (
+                <MainBoard />
+              )}
+              <Reminder />
+              <Footer />
+            </div>
           </div>
         </div>
-      </div>
+      </ErrorBoundary>
     </>
   );
 };
 
 export default Dashboard;
-
-// const Desk = styled.div<{ isFull: boolean }>`
-//   /* width: ${(props) =>
-//     props.isFull ? 'calc(100% - 250px)' : 'calc(100% - 80px)'}; */
-//   width: 100%;
-// `;
