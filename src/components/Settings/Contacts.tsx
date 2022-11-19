@@ -7,6 +7,8 @@ import { FormItem, Input, SubmitButton, Form } from 'formik-antd';
 import emailjs from '@emailjs/browser';
 import { message } from 'antd';
 import TeachAppLogo from '../../assets/images/TeachAppLogo.png';
+import AppStore from '../../assets/images/firstScreen/not-appstore.png';
+import GooglePlay from '../../assets/images/firstScreen/googlePlay.png';
 
 export interface IContactForm {
   name: string;
@@ -86,6 +88,28 @@ const Contacts = () => {
             className="h-24 w-auto mt-6 hidden tablet:block"
           />
         )}
+        <div className="flex mt-5 gap-3">
+          <div>
+            <img
+              className="h-auto w-[150px] opacity-70 cursor-not-allowed"
+              src={AppStore}
+              alt="appStore"
+            />
+          </div>
+          <div>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.tapphelper"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src={GooglePlay}
+                alt="googlePlay"
+                className="cursor-pointer h-auto w-[150px]"
+              />
+            </a>
+          </div>
+        </div>
       </div>
       <div className="max-w-[550px] min-w-[350px] mx-auto pb-10 px-3">
         <Formik

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import firstPage from '../../assets/images/firstScreen/firstPage.png';
-import AppStore from '../../assets/images/firstScreen/appStore.png';
+import AppStore from '../../assets/images/firstScreen/not-appstore.png';
 import GooglePlay from '../../assets/images/firstScreen/googlePlay.png';
 import HeaderLanding from '../Header/HeaderLanding';
 import FooterLanding from '../Footer/FooterLanding';
@@ -51,17 +51,27 @@ const FirstPage = () => {
                 {lang.firstPage[3]}
               </StyledButton>
             </div>
-            <div className="flex mt-8 gap-3 absolute">
-              {/* <img
-                className="w-[45%] bigPhone:w-full opacity-40 cursor-not-allowed"
-                src={AppStore}
-                alt="appStore"
-              />
-              <img
-                className="w-[45%] bigPhone:w-full cursor-pointer"
-                src={GooglePlay}
-                alt="googlePlay"
-              /> */}
+            <div className="flex mt-3 gap-3 absolute">
+              <div className="relative">
+                <img
+                  className="h-auto w-[150px] opacity-70 cursor-not-allowed"
+                  src={AppStore}
+                  alt="appStore"
+                />
+              </div>
+              <div>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.tapphelper"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src={GooglePlay}
+                    alt="googlePlay"
+                    className="cursor-pointer h-auto w-[150px]"
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>
