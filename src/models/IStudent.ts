@@ -1,4 +1,5 @@
 import { IDiscipline } from './IDiscipline';
+
 export interface IStudent {
   id: number;
   name: string;

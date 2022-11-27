@@ -62,7 +62,8 @@ const UpdateStudentForm = (props: UpdateStudentFormProps) => {
             balance:
               values.balance === student.balance
                 ? 0
-                : values.balance - student.balance
+                : values.balance - student.balance,
+            updateBalanceHistory: values.balance !== student.balance
           })
         )
       );

@@ -12,7 +12,6 @@ import {
   Input,
   message,
   Popconfirm,
-  Row,
   Switch,
   Table,
   Tooltip
@@ -22,9 +21,7 @@ import {
   CloseCircleFilled,
   DeleteOutlined,
   MinusCircleOutlined,
-  MinusOutlined,
   PlusCircleOutlined,
-  PlusOutlined,
   SwapLeftOutlined
 } from '@ant-design/icons';
 import moment from 'moment';
@@ -37,6 +34,7 @@ import {
   setSearchedStudent
 } from '../../store/reducers/OptionsSlice';
 import { ColumnsType } from 'antd/lib/table';
+import BalanceHistory from './BalanceHistory';
 
 type Props = {};
 
@@ -230,46 +228,7 @@ const Students = (props: Props) => {
         return (
           <>
             <Col span={24}>
-              {record.showBalance && (
-                <Row className="flex justify-between items-center flex-nowrap w-[90px] mx-auto">
-                  <CountButton
-                    shape="circle"
-                    size="small"
-                    icon={<MinusOutlined />}
-                    onClick={async () =>
-                      dispatch(
-                        updateStudent({
-                          studentId: record.id,
-                          balance: -1
-                        })
-                      )
-                    }
-                  ></CountButton>
-
-                  {count > 0 ? (
-                    <div className="text-lime-600 font-semibold text-md mx-1">
-                      {count}
-                    </div>
-                  ) : (
-                    <div className="text-red-600 font-semibold text-md mx-1">
-                      {count}
-                    </div>
-                  )}
-                  <CountButton
-                    shape="circle"
-                    size="small"
-                    icon={<PlusOutlined />}
-                    onClick={async () =>
-                      dispatch(
-                        updateStudent({
-                          studentId: record.id,
-                          balance: 1
-                        })
-                      )
-                    }
-                  ></CountButton>
-                </Row>
-              )}
+              {record.showBalance && <BalanceHistory student={record} />}
             </Col>
             <Col span={24}>
               <Tooltip title={lang.students[2]}>
@@ -400,10 +359,6 @@ export const Round = styled.div<{ color: string }>`
   height: 20px;
   background-color: ${(props) => props.color};
   border-radius: 50%;
-`;
-
-const CountButton = styled(Button)`
-  /* margin: 0 5px; */
 `;
 
 const DotColor = styled(Round)`
