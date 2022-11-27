@@ -118,7 +118,7 @@ const BalanceHistory = (props: IBalanceHistory) => {
       >
         <div
           className={`text-${
-            student.balance > 0 ? 'lime' : 'red'
+            student.balance > 0 ? 'green' : 'red'
           }-600 font-semibold text-md`}
         >
           {student.balance}
@@ -148,7 +148,7 @@ const BalanceHistory = (props: IBalanceHistory) => {
 
             <div
               className={`text-${
-                newBalance > 0 ? 'lime' : 'red'
+                newBalance > 0 ? 'green' : 'red'
               }-600 font-semibold text-md mx-3`}
             >
               {newBalance}
@@ -174,7 +174,7 @@ const BalanceHistory = (props: IBalanceHistory) => {
           <div className="w-auto">{lang[69]}:</div>
           <div
             className={`w-fit text-${
-              student.balance > 0 ? 'lime' : 'red'
+              student.balance > 0 ? 'green' : 'red'
             }-600 font-semibold text-md`}
           >
             {student.balance}
