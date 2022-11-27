@@ -141,7 +141,19 @@ export const lang: { [key: string]: object } = {
       'Update',
       'Back',
       'take out of rest',
-      'Are you sure you want to take the student out of rest? You will be able to assign a schedule for this student.'
+      'Are you sure you want to take the student out of rest? You will be able to assign a schedule for this student.',
+      'Credit/charge',
+      'OK',
+      'Current balance',
+      'Total lessons taught',
+      'Balance history',
+      'Date',
+      'Action',
+      'Lessons',
+      'Close',
+      'Credit',
+      'Charge',
+      'Lesson'
     ],
     disciplines: [
       'Title',
@@ -573,7 +585,19 @@ export const lang: { [key: string]: object } = {
       'Обновить',
       'Назад',
       'вывести из отпуска',
-      'Вы уверены, что хотите вывести ученика из отпуска? Вы сможете назначать расписание для этого ученика.'
+      'Вы уверены, что хотите вывести ученика из отпуска? Вы сможете назначать расписание для этого ученика.',
+      'Зачислить/списать',
+      'OK',
+      'Текущий баланс',
+      'Всего проведено уроков',
+      'История баланса',
+      'Дата',
+      'Действие',
+      'Уроки',
+      'Закрыть',
+      'Зачислено',
+      'Списано',
+      'Урок'
     ],
     disciplines: [
       'Название',
@@ -1005,7 +1029,19 @@ export const lang: { [key: string]: object } = {
       'Оновити',
       'Назад',
       'вивести з відпустки',
-      'Ви впевнені, що хочете вивести учня з відпустки? Ви зможете призначати розклад для цього учня.'
+      'Ви впевнені, що хочете вивести учня з відпустки? Ви зможете призначати розклад для цього учня.',
+      'Зачислити/списати',
+      'OK',
+      'Поточний баланс',
+      'Всього проведено уроків',
+      'Історія балансу',
+      'Дата',
+      'Дія',
+      'Уроки',
+      'Закрити',
+      'Зачислено',
+      'Списано',
+      'Урок'
     ],
     disciplines: [
       'Назва',

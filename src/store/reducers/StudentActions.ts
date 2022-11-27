@@ -12,6 +12,7 @@ interface CreateStudent extends IAddStudentForm {
 interface UpdateStudent extends Partial<IStudent> {
   studentId: number;
   updateDisciplines?: number[];
+  updateBalanceHistory?: boolean;
 }
 
 export const fetchStudents = createAsyncThunk(
