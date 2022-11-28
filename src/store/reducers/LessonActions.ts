@@ -17,7 +17,9 @@ interface CreateLesson {
   disciplineId: number | null;
 }
 
-interface UpdateLesson extends Partial<ILesson> {}
+interface UpdateLesson extends Partial<ILesson> {
+  balanceCount?: number;
+}
 
 export const getLessons = createAsyncThunk(
   'lesson/all',
@@ -178,6 +180,22 @@ export const copyCurrentDay = createAsyncThunk(
         getTokenHeader()
       );
       return response.data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const setLessonState = createAsyncThunk(
+  'lesson/setState/:id',
+  async (payload: UpdateLesson, thunkAPI) => {
+    try {
+      const { data } = await axios.patch(
+        `${process.env.REACT_APP_API_URL}/lesson/setState/${payload.id}`,
+        payload,
+        getTokenHeader()
+      );
+      return data;
     } catch (err: any) {
       return thunkAPI.rejectWithValue(err.response.data);
     }

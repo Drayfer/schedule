@@ -7,11 +7,13 @@ import {
   deleteLessonsWeek,
   deleteSomeLesson,
   getLessons,
+  setLessonState,
   updateLesson
 } from './LessonActions';
 import { ILesson } from '../../models/ILesson';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
+import { IStudent } from '../../models/IStudent';
 
 interface LessonState {
   data: ILesson[];
@@ -71,6 +73,19 @@ export const lessonSlice = createSlice({
           item.id === action.payload.id ? (item = action.payload) : item
         )
         .sort((a, b) => moment(a.date).unix() - moment(b.date).unix());
+    },
+
+    [setLessonState.fulfilled.type]: (
+      state,
+      action: PayloadAction<{
+        updatedLesson: ILesson;
+        updatedStudent: IStudent;
+      }>
+    ) => {
+      const updatedLesson = action.payload.updatedLesson;
+      state.data = state.data.map((item) =>
+        item.id === updatedLesson.id ? updatedLesson : item
+      );
     },
 
     [deleteSomeLesson.fulfilled.type]: (

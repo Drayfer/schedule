@@ -30,6 +30,7 @@ import {
   deleteLesson,
   deleteLessonsDay,
   getLessons,
+  setLessonState,
   updateLesson
 } from '../../store/reducers/LessonActions';
 import {
@@ -39,10 +40,7 @@ import {
   setSearchedStudent,
   updateCurrentDate
 } from '../../store/reducers/OptionsSlice';
-import {
-  fetchStudents,
-  updateStudent
-} from '../../store/reducers/StudentActions';
+import { fetchStudents } from '../../store/reducers/StudentActions';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import AddLesson, { LittleRound } from './AddLesson';
 import CopyDay from './CopyDay';
@@ -374,17 +372,10 @@ const Schedule = () => {
                                 setIsDisableCheck(true);
                                 await isErrorDispatch(
                                   dispatch(
-                                    updateLesson({
-                                      id: item.id,
-                                      complete: !item.complete
-                                    })
-                                  )
-                                );
-                                await isErrorDispatch(
-                                  dispatch(
-                                    updateStudent({
-                                      studentId: item.studentId,
-                                      balance: item.complete ? 1 : -1
+                                    setLessonState({
+                                      complete: !item.complete,
+                                      balanceCount: item.complete ? 1 : -1,
+                                      id: item.id
                                     })
                                   )
                                 );
