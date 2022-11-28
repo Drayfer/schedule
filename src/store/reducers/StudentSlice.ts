@@ -7,6 +7,8 @@ import {
 } from './StudentActions';
 import { IStudent } from './../../models/IStudent';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { setLessonState } from './LessonActions';
+import { ILesson } from '../../models/ILesson';
 
 interface StudentState {
   data: IStudent[];
@@ -83,6 +85,19 @@ export const studentSlice = createSlice({
     ) => {
       state.data = state.data.map((student) =>
         student.id === action.payload.id ? (student = action.payload) : student
+      );
+    },
+
+    [setLessonState.fulfilled.type]: (
+      state,
+      action: PayloadAction<{
+        updatedLesson: ILesson;
+        updatedStudent: IStudent;
+      }>
+    ) => {
+      const updatedStudent = action.payload.updatedStudent;
+      state.data = state.data.map((item) =>
+        item.id === updatedStudent.id ? updatedStudent : item
       );
     }
   }
