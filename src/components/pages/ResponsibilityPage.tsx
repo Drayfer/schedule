@@ -7,9 +7,10 @@ import { Button } from 'antd';
 
 const ResponsibilityPage = () => {
   let navigate = useNavigate();
-  const { lang, userId } = useAppSelector((state) => ({
+  const { lang, userId, activate } = useAppSelector((state) => ({
     lang: state.options.lang,
-    userId: state.user.data?.id
+    userId: state.user.data?.id,
+    activate: state.user.data?.activate
   }));
 
   useEffect(() => {
@@ -119,7 +120,7 @@ const ResponsibilityPage = () => {
           <br />
           {lang.responsibilityPage[44]}
         </div>
-        {userId && (
+        {userId && activate && (
           <div className="flex justify-center my-10">
             <Button
               type="primary"
@@ -131,7 +132,6 @@ const ResponsibilityPage = () => {
           </div>
         )}
       </div>
-
       <FooterLanding />
     </>
   );

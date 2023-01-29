@@ -7,9 +7,10 @@ import { Button } from 'antd';
 
 const PrivacyPage = () => {
   let navigate = useNavigate();
-  const { lang, userId } = useAppSelector((state) => ({
+  const { lang, userId, activate } = useAppSelector((state) => ({
     lang: state.options.lang,
-    userId: state.user.data?.id
+    userId: state.user.data?.id,
+    activate: state.user.data?.activate
   }));
 
   useEffect(() => {
@@ -93,7 +94,7 @@ const PrivacyPage = () => {
           <strong>{lang.privacyPage[33]}</strong>
         </p>{' '}
         <p>{lang.privacyPage[34]}</p>{' '}
-        {userId && (
+        {userId && activate && (
           <div className="flex justify-center my-10">
             <Button
               type="primary"

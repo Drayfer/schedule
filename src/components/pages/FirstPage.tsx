@@ -19,7 +19,7 @@ const FirstPage = () => {
   }));
 
   useEffect(() => {
-    if (user.data) {
+    if (user.data?.id && user.data?.activate) {
       navigate('/dashboard');
     }
     // eslint-disable-next-line

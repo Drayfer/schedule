@@ -3,7 +3,6 @@ import { CheckCircleFilled } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
-import sha1 from 'sha1';
 import axios from 'axios';
 import { getTokenHeader } from '../helpers/getTokenHeader';
 

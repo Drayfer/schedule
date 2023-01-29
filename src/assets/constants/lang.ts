@@ -432,7 +432,8 @@ export const lang: { [key: string]: object } = {
       'Set new password',
       'Go to login page',
       'Password changed successfully!',
-      'You can log in using the new password.'
+      'You can log in using the new password.',
+      'was typed during registration'
     ],
     email: [
       'Hello,',
@@ -876,7 +877,8 @@ export const lang: { [key: string]: object } = {
       'Установить новый пароль',
       'Перейти на страницу входа',
       'Пароль успешно изменен!',
-      'Вы можете войти в систему, используя новый пароль.'
+      'Вы можете войти в систему, используя новый пароль.',
+      'был указан при регистрации'
     ],
     email: [
       'Привет,',
@@ -1320,7 +1322,8 @@ export const lang: { [key: string]: object } = {
       'Установити новий пароль',
       'Перейти на сторінку входу',
       'Пароль успішно змінено!',
-      'Ви можете увійти, використовуючи новий пароль.'
+      'Ви можете увійти, використовуючи новий пароль.',
+      'був вказаний під час реєстрації'
     ],
     email: [
       'Привіт,',

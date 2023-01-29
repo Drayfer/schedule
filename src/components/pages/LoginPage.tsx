@@ -67,12 +67,15 @@ const LoginPage = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (user.data?.id) {
+    dispatch(resetUser());
+    setErrorFormMessage('');
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (user.data?.id && user.data?.activate) {
       navigate('/dashboard');
-    } else {
-      dispatch(resetUser());
     }
-  }, [user.data?.id, dispatch, navigate]);
+  }, [user.data, dispatch, navigate]);
 
   const sendForgotPassword = async (
     token: string,
@@ -121,6 +124,7 @@ ${emailLang[3]}: ${password}
       .then(
         () => {
           setIsSuccessRegistration(true);
+          setErrorFormMessage('');
         },
         (error) => {
           throw new Error(error.text);
@@ -208,12 +212,12 @@ ${emailLang[3]}: ${password}
   };
 
   useEffect(() => {
-    if (user.error && !user.isLoading) {
+    if (user.error.length && !user.isLoading) {
       setErrorFormMessage(user.error);
       return;
     }
     if (user.data && !user.data?.activate) {
-      setErrorFormMessage(lang[6]);
+      setErrorFormMessage('User not activated by email');
     }
     if (user.error === '' && user.data && user.data.activate) {
       setErrorFormMessage('');
@@ -353,7 +357,11 @@ ${emailLang[3]}: ${password}
           )}
         </Formik>
         {errorFormMessage && (
-          <p className="text-red-600 text-sm mt-2">{errorFormMessage}</p>
+          <p className="text-red-600 text-sm mt-2">
+            {errorFormMessage === 'User not activated by email'
+              ? lang[6]
+              : errorFormMessage}
+          </p>
         )}
         {errorFormMessage === 'User not activated by email' && (
           <Button
@@ -363,9 +371,8 @@ ${emailLang[3]}: ${password}
                 user.data?.token || '',
                 user.data?.email || '',
                 user.data?.name || '',
-                formRef.current?.values.password || ''
+                lang[38]
               );
-              setErrorFormMessage('');
             }}
           >
             {lang[22]}
