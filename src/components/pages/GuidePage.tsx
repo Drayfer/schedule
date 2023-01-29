@@ -13,7 +13,7 @@ const GuidePage = () => {
   }));
 
   useEffect(() => {
-    if (user.data) {
+    if (user.data?.id && user.data?.activate) {
       navigate('/dashboard');
     }
     window.scrollTo(0, 0);

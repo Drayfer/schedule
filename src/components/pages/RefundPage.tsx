@@ -7,9 +7,10 @@ import { Button } from 'antd';
 
 const RefundPage = () => {
   let navigate = useNavigate();
-  const { lang, userId } = useAppSelector((state) => ({
+  const { lang, userId, activate } = useAppSelector((state) => ({
     lang: state.options.lang,
-    userId: state.user.data?.id
+    userId: state.user.data?.id,
+    activate: state.user.data?.activate
   }));
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const RefundPage = () => {
         <p>{lang.refundPage[3]}</p>
         <p>{lang.refundPage[4]}</p>
         <p>{lang.refundPage[5]}</p>
-        {userId && (
+        {userId && activate && (
           <div className="flex justify-center my-10">
             <Button
               type="primary"
