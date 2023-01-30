@@ -67,7 +67,6 @@ const LoginPage = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    dispatch(resetUser());
     setErrorFormMessage('');
   }, [dispatch]);
 
