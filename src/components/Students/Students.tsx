@@ -25,7 +25,6 @@ import {
   SwapLeftOutlined
 } from '@ant-design/icons';
 import moment from 'moment';
-import AddStudentForm from './AddStudentForm';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 import InfoButton from './InfoButton';
 import { deleteSomeLesson } from '../../store/reducers/LessonActions';
@@ -35,6 +34,7 @@ import {
 } from '../../store/reducers/OptionsSlice';
 import { ColumnsType } from 'antd/lib/table';
 import BalanceHistory from './BalanceHistory';
+import { setIsAddStudentModal } from '../../store/reducers/ModalsSlice';
 
 type Props = {};
 
@@ -275,7 +275,14 @@ const Students = (props: Props) => {
       {!searchedStudentId && (
         <div className="flex justify-between m-4">
           <div className="flex">
-            <AddStudentForm />
+            <Button
+              type="primary"
+              icon={<PlusCircleOutlined />}
+              onClick={() => dispatch(setIsAddStudentModal(true))}
+              className="mr-2"
+            >
+              {lang.students[24]}
+            </Button>
             <Input
               width={150}
               placeholder={lang.students[16]}

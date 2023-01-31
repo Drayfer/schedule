@@ -14,6 +14,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { createLesson } from '../../store/reducers/LessonActions';
+import { setIsAddStudentModal } from '../../store/reducers/ModalsSlice';
 import { PopupError } from '../helpers/PopupError';
 import { Round } from '../Students/Students';
 
@@ -95,6 +96,11 @@ const AddLesson = (props: AddLessonProps) => {
     setActiveDiscipline(e.target.value);
   };
 
+  const showStudentModal = () => {
+    dispatch(setIsAddStudentModal(true));
+    setIsModalVisible(false);
+  };
+
   return (
     <>
       <EditOutlined key="edit" onClick={() => setIsModalVisible(true)} />
@@ -104,96 +110,119 @@ const AddLesson = (props: AddLessonProps) => {
         onCancel={() => setIsModalVisible(false)}
         okButtonProps={{ style: { display: 'none' } }}
       >
-        <div className="flex justify-center">
-          <TimePicker
-            format={'HH:mm'}
-            minuteStep={15}
-            value={time}
-            onSelect={(t) => setTime(t)}
-          />
-
-          <Select
-            showSearch
-            placeholder={lang.schedule[10]}
-            optionFilterProp="children"
-            onChange={(id) => {
-              setActiveStudent(id);
-              setActiveDiscipline(null);
-            }}
-            filterOption={(inputValue, option) => {
-              if (
-                option?.props?.children?.props?.children[1]?.props?.children
-              ) {
-                return option.props.children.props.children[1].props.children
-                  .join('')
-                  .toLowerCase()
-                  .includes(inputValue.toLowerCase());
-              } else {
-                return true;
-              }
-            }}
-            value={activeStudent}
-            style={{ width: 200 }}
-          >
-            {students &&
-              students
-                .filter((student) => !student.break)
-                .map((student) => {
-                  return (
-                    <Option key={student.id} value={student.id}>
-                      {
-                        <div className="flex items-center">
-                          <LittleRound color={student.color} />
-                          <div>
-                            {student.name} {student.surname}
-                          </div>
-                        </div>
-                      }
-                    </Option>
-                  );
-                })}
-          </Select>
-          <Button type="primary" onClick={handleAdd} loading={lessonssLoading}>
-            {lang.schedule[11]}
-          </Button>
-        </div>
-
-        <div className="flex justify-center mt-3">
-          <Space direction="vertical">
-            <div
-              className={`text-gray-500/70 font-bold text-sm mr-3 mb-[3px] ${
-                !activeDiscipline ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              {lang.schedule[12]} <SwapRightOutlined className="ml-2" />
+        {!students.length ? (
+          <div className="text-center">
+            <div className="mb-2">{lang.schedule[26]}</div>
+            <Button type="primary" className="w-50" onClick={showStudentModal}>
+              {lang.schedule[27]}
+            </Button>
+          </div>
+        ) : (
+          <>
+            <div className="text-center text-gray-500/70 font-bold mb-2">
+              {lang.schedule[28]}
             </div>
-            {students
-              ?.find((student) => student.id === activeStudent)
-              ?.disciplines.map((item) => (
+            <div className="flex justify-center">
+              <TimePicker
+                format={'HH:mm'}
+                minuteStep={15}
+                value={time}
+                onSelect={(t) => setTime(t)}
+              />
+
+              <Select
+                showSearch
+                placeholder={lang.schedule[10]}
+                optionFilterProp="children"
+                onChange={(id) => {
+                  setActiveStudent(id);
+                  setActiveDiscipline(null);
+                }}
+                filterOption={(inputValue, option) => {
+                  if (
+                    option?.props?.children?.props?.children[1]?.props?.children
+                  ) {
+                    return option.props.children.props.children[1].props.children
+                      .join('')
+                      .toLowerCase()
+                      .includes(inputValue.toLowerCase());
+                  } else {
+                    return true;
+                  }
+                }}
+                value={activeStudent}
+                style={{ width: 200 }}
+              >
+                {students &&
+                  students
+                    .filter((student) => !student.break)
+                    .map((student) => {
+                      return (
+                        <Option key={student.id} value={student.id}>
+                          {
+                            <div className="flex items-center">
+                              <LittleRound color={student.color} />
+                              <div>
+                                {student.name} {student.surname}
+                              </div>
+                            </div>
+                          }
+                        </Option>
+                      );
+                    })}
+              </Select>
+              <Button
+                type="primary"
+                onClick={handleAdd}
+                loading={lessonssLoading}
+              >
+                {lang.schedule[11]}
+              </Button>
+            </div>
+
+            <div className="flex justify-center mt-3">
+              <Space direction="vertical">
                 <div
                   className={`text-gray-500/70 font-bold text-sm mr-3 mb-[3px] ${
-                    item.id === activeDiscipline ? 'opacity-100' : 'opacity-0'
+                    !activeDiscipline ? 'opacity-100' : 'opacity-0'
                   }`}
                 >
                   {lang.schedule[12]} <SwapRightOutlined className="ml-2" />
                 </div>
-              ))}
-          </Space>
-          <Radio.Group onChange={onChangeDiscipline} value={activeDiscipline}>
-            <Space direction="vertical" className="text-sm">
-              <Radio value={null} defaultChecked>
-                {lang.schedule[1]}
-              </Radio>
-              {students
-                ?.find((student) => student.id === activeStudent)
-                ?.disciplines.map((item) => (
-                  <Radio key={item.id} value={item.id}>
-                    {item.title}
+                {students
+                  ?.find((student) => student.id === activeStudent)
+                  ?.disciplines.map((item) => (
+                    <div
+                      className={`text-gray-500/70 font-bold text-sm mr-3 mb-[3px] ${
+                        item.id === activeDiscipline
+                          ? 'opacity-100'
+                          : 'opacity-0'
+                      }`}
+                    >
+                      {lang.schedule[12]} <SwapRightOutlined className="ml-2" />
+                    </div>
+                  ))}
+              </Space>
+              <Radio.Group
+                onChange={onChangeDiscipline}
+                value={activeDiscipline}
+              >
+                <Space direction="vertical" className="text-sm">
+                  <Radio value={null} defaultChecked>
+                    {lang.schedule[1]}
                   </Radio>
-                ))}
-            </Space>
-          </Radio.Group>
-        </div>
+                  {students
+                    ?.find((student) => student.id === activeStudent)
+                    ?.disciplines.map((item) => (
+                      <Radio key={item.id} value={item.id}>
+                        {item.title}
+                      </Radio>
+                    ))}
+                </Space>
+              </Radio.Group>
+            </div>
+          </>
+        )}
       </Modal>
     </>
   );

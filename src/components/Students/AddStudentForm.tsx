@@ -1,10 +1,10 @@
-import { PlusCircleOutlined } from '@ant-design/icons';
 import { Button, Drawer, Space, Switch } from 'antd';
 import { Formik, FormikProps } from 'formik';
 import { Form, FormItem, Input, InputNumber, SubmitButton } from 'formik-antd';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setIsAddStudentModal } from '../../store/reducers/ModalsSlice';
 import { createStudent } from '../../store/reducers/StudentActions';
 import { PopupError } from '../helpers/PopupError';
 
@@ -23,17 +23,19 @@ const initialState = {
 };
 
 const AddStudentForm = () => {
-  const { loading, userId, lang } = useAppSelector((state) => ({
-    loading: state.student.isLoading,
-    userId: state.user.data?.id || 0,
-    lang: state.options.lang
-  }));
+  const { loading, userId, lang, isAddStudentModal } = useAppSelector(
+    (state) => ({
+      loading: state.student.isLoading,
+      userId: state.user.data?.id || 0,
+      lang: state.options.lang,
+      isAddStudentModal: state.modals.isAddStudentModal
+    })
+  );
 
   const ValidationSchema = Yup.object().shape({
     name: Yup.string().required(lang.students[23])
   });
 
-  const [isAddStudent, setIsAddStudent] = useState(false);
   const formRef = useRef<FormikProps<IAddStudentForm>>(null);
   const dispatch = useAppDispatch();
 
@@ -43,7 +45,7 @@ const AddStudentForm = () => {
       if (response.hasOwnProperty('error'))
         throw new Error(JSON.stringify(response.payload));
       formRef.current?.resetForm();
-      setIsAddStudent(false);
+      dispatch(setIsAddStudentModal(false));
     } catch (err) {
       PopupError(err);
     }
@@ -51,23 +53,15 @@ const AddStudentForm = () => {
 
   return (
     <>
-      <Button
-        type="primary"
-        icon={<PlusCircleOutlined />}
-        onClick={() => setIsAddStudent(true)}
-        className="mr-2"
-      >
-        {lang.students[24]}
-      </Button>
       <Drawer
         title={lang.students[25]}
         width={390}
-        onClose={() => setIsAddStudent(false)}
-        visible={isAddStudent}
+        onClose={() => dispatch(setIsAddStudentModal(false))}
+        visible={isAddStudentModal}
         bodyStyle={{ paddingBottom: 80 }}
         extra={
           <Space>
-            <Button onClick={() => setIsAddStudent(false)}>
+            <Button onClick={() => dispatch(setIsAddStudentModal(false))}>
               {lang.students[26]}
             </Button>
           </Space>
