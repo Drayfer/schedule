@@ -7,11 +7,12 @@ import OptionsSlice from './reducers/OptionsSlice';
 import StudentSlice from './reducers/StudentSlice';
 import disciplineSlice from './reducers/DisciplineSlice';
 import LandingSlice from './reducers/LandingSlice';
+import modalsSlice from './reducers/ModalsSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['landing']
+  blacklist: ['landing', 'modals']
 };
 
 const rootReducer = combineReducers({
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   student: StudentSlice,
   lessons: lessonsSlice,
   discipline: disciplineSlice,
-  landing: LandingSlice
+  landing: LandingSlice,
+  modals: modalsSlice
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

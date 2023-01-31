@@ -48,7 +48,10 @@ export const lang: { [key: string]: object } = {
       'сopy previous week',
       'The lessons are successfully copied.',
       'Copy to',
-      'Copy'
+      'Copy',
+      'You have no students yet!',
+      'Add students',
+      'Add a lesson'
     ],
     menu: [
       'Schedule',
@@ -493,7 +496,10 @@ export const lang: { [key: string]: object } = {
       'скопировать предыдущую неделю',
       'Уроки успешно скопированы.',
       'Скопировать на',
-      'Скопировать'
+      'Скопировать',
+      'У вас еще нет учеников!',
+      'Добавить учеников',
+      'Добавить урок'
     ],
     menu: [
       'Расписание',
@@ -938,7 +944,10 @@ export const lang: { [key: string]: object } = {
       'Скопіювати попередній тиждень',
       'Уроки успішно скопійовано.',
       'Скопіювати на',
-      'Скопіювати'
+      'Скопіювати',
+      'У вас ще немає учнів!',
+      'Додати учнів',
+      'Додати урок'
     ],
     menu: [
       'Розклад',

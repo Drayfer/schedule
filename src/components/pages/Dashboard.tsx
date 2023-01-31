@@ -21,6 +21,7 @@ import EducaionBg from '../../assets/images/educationBg.png';
 import { lang as language } from '../../assets/constants/lang';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../ErrorBoundary/ErrorFallback';
+import AddStudentForm from '../Students/AddStudentForm';
 
 const Dashboard = () => {
   const { user, billing, locale, lang } = useAppSelector((state) => ({
@@ -108,6 +109,7 @@ const Dashboard = () => {
       >
         <PushNotification />
         <TimerNotifications />
+        <AddStudentForm />
         <div className="flex w-screen min-h-screen ">
           <SidebarMenu />
 
