@@ -3,7 +3,7 @@ import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 import addNotification from 'react-push-notification';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getTodayLessons } from '../../store/reducers/OptionsSlice';
+import { getBilling, getTodayLessons } from '../../store/reducers/OptionsSlice';
 import { isErrorDispatch, PopupError } from '../helpers/PopupError';
 const sound = require('../../assets/audio/sounds/notification.mp3');
 
@@ -44,6 +44,7 @@ const PushNotification = () => {
       await isErrorDispatch(
         dispatch(getTodayLessons({ userId, date: moment().toDate() }))
       );
+      dispatch(getBilling(userId));
     } catch (err) {
       PopupError(err);
     }
