@@ -274,7 +274,8 @@ export const lang: { [key: string]: object } = {
       'To continue using the service, select the appropriate tariff',
       'Update page',
       'Access is paid for',
-      'Select a Payment Method'
+      'Select a Payment Method',
+      'After making the payment, click the "Update page" button'
     ],
     footer: [
       'All Rights Reserved',
@@ -723,7 +724,8 @@ export const lang: { [key: string]: object } = {
       'Чтобы продолжить пользоваться услугой, выберите подходящий тариф',
       'Обновить страницу',
       'Доступ оплачен на',
-      'Выберите способ оплаты'
+      'Выберите способ оплаты',
+      'После совершения оплаты, нажмите кнопку "Обновить страницу"'
     ],
     footer: [
       'Все права защищены',
@@ -1172,7 +1174,8 @@ export const lang: { [key: string]: object } = {
       'Щоб продовжити користуватися послугою, виберіть відповідний тариф',
       'Оновити сторінку',
       'Доступ оплачений на',
-      'Оберіть спосіб оплати'
+      'Оберіть спосіб оплати',
+      'Після здійснення оплати, натисніть кнопку "Оновити сторінку"'
     ],
     footer: [
       'Всі права захищені',
