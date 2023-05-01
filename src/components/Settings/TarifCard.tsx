@@ -174,7 +174,7 @@ const TarifCard = (props: ITarifCard) => {
 
       {userId && (
         <div className="flex justify-center items-center flex-col mt-4">
-          <div className="font-semibold mb-2">{lang.price[41]}</div>
+          <div className="font-semibold mb-2 text-center">{lang.price[41]}</div>
           <Button onClick={() => userId && dispatch(getBilling(userId))}>
             {lang.price[38]}
           </Button>
