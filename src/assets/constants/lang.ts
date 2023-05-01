@@ -273,7 +273,8 @@ export const lang: { [key: string]: object } = {
       'days.',
       'To continue using the service, select the appropriate tariff',
       'Update page',
-      'Access is paid for'
+      'Access is paid for',
+      'Select a Payment Method'
     ],
     footer: [
       'All Rights Reserved',
@@ -721,7 +722,8 @@ export const lang: { [key: string]: object } = {
       'дней.',
       'Чтобы продолжить пользоваться услугой, выберите подходящий тариф',
       'Обновить страницу',
-      'Доступ оплачен на'
+      'Доступ оплачен на',
+      'Выберите способ оплаты'
     ],
     footer: [
       'Все права защищены',
@@ -1169,7 +1171,8 @@ export const lang: { [key: string]: object } = {
       'днів.',
       'Щоб продовжити користуватися послугою, виберіть відповідний тариф',
       'Оновити сторінку',
-      'Доступ оплачений на'
+      'Доступ оплачений на',
+      'Оберіть спосіб оплати'
     ],
     footer: [
       'Всі права захищені',
