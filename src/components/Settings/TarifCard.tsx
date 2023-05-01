@@ -2,9 +2,12 @@ import React from 'react';
 import { CheckCircleFilled } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import axios from 'axios';
 import { getTokenHeader } from '../helpers/getTokenHeader';
+import PayMethod from './PayMethod';
+import { Button } from 'antd';
+import { getBilling } from '../../store/reducers/OptionsSlice';
 
 interface ITarifCard {
   hideDemo?: boolean;
@@ -20,7 +23,7 @@ const TarifCard = (props: ITarifCard) => {
   }));
 
   const navigate = useNavigate();
-
+  const dispatch = useAppDispatch();
   const handleClick = async (amount: number) => {
     if (mainPage) {
       navigate('/signup');
@@ -125,14 +128,9 @@ const TarifCard = (props: ITarifCard) => {
               <Check /> {lang.price[21]}
             </Point>
           </div>
-          <div className="p-3 flex justify-center items-center">
-            <div
-              className="rounded-md bg-sky-400 text-white inline p-2 font-bold cursor-pointer"
-              onClick={() => handleClick(200)}
-            >
-              {mainPage ? lang.price[33] : lang.price[22]}
-            </div>
-          </div>
+          <PayMethod amount={200}>
+            {mainPage ? lang.price[33] : lang.price[22]}
+          </PayMethod>
         </div>
 
         <div className="min-w-[320px] w-[320px] bg-white rounded-md">
@@ -168,16 +166,22 @@ const TarifCard = (props: ITarifCard) => {
               <Check /> {lang.price[31]}
             </Point>
           </div>
-          <div className="p-3 flex justify-center items-center">
-            <div
-              className="rounded-md bg-sky-400 text-white inline p-2 font-bold cursor-pointer"
-              onClick={() => handleClick(1400)}
-            >
-              {mainPage ? lang.price[33] : lang.price[32]}
-            </div>
-          </div>
+          <PayMethod amount={1400}>
+            {mainPage ? lang.price[33] : lang.price[32]}
+          </PayMethod>
         </div>
       </div>
+      {userId && (
+        <div className="flex justify-center">
+          <Button
+            className="mt-4"
+            onClick={() => userId && dispatch(getBilling(userId))}
+          >
+            {lang.price[38]}
+          </Button>
+        </div>
+      )}
+
       {/* <div className="px-8 pt-4 flex justify-center mt-10">
         <div className="w-4/6 bg-white p-4 min-w-[320px]">
           <p>Нужна помощь?</p>
