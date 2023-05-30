@@ -1,7 +1,9 @@
 import React, { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
-import { Button, Drawer, Space } from 'antd';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { Button, Divider, Drawer, Space } from 'antd';
+import PaymentImg from '../../assets/images/payment/payment.webp';
+import { getBilling } from '../../store/reducers/OptionsSlice';
 
 interface IPayMethod {
   amount: number;
@@ -11,13 +13,16 @@ interface IPayMethod {
 const PayMethod = (props: IPayMethod) => {
   const { amount, children } = props;
   const mainPage = window.location.pathname !== '/dashboard';
-  const { lang } = useAppSelector((state) => ({
-    lang: state.options.lang
+  const { lang, email, userId } = useAppSelector((state) => ({
+    lang: state.options.lang,
+    email: state.user.data?.email,
+    userId: state.user.data?.id
   }));
 
   const [isPayMethod, setIsPayMethod] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleClick = async () => {
     if (mainPage) {
@@ -25,6 +30,13 @@ const PayMethod = (props: IPayMethod) => {
       return;
     }
     setIsPayMethod(true);
+  };
+
+  const handleUpdate = () => {
+    if (userId) {
+      dispatch(getBilling(userId));
+      setIsPayMethod(false);
+    }
   };
 
   return (
@@ -67,6 +79,16 @@ const PayMethod = (props: IPayMethod) => {
           >
             Donatello
           </Button>
+
+          <Divider />
+
+          <div className="font-bold text-lg mb-4">{lang.price[42]}:</div>
+          <div className="self-start">
+            1. {lang.price[43]}: <span className="font-bold">{email}</span>
+          </div>
+          <img src={PaymentImg} alt="payment" />
+          <div className="self-start mb-4">2. {lang.price[41]}:</div>
+          <Button onClick={handleUpdate}>{lang.price[38]}</Button>
         </div>
       </Drawer>
     </>

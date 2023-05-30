@@ -275,7 +275,9 @@ export const lang: { [key: string]: object } = {
       'Update page',
       'Access is paid for',
       'Select a Payment Method',
-      'After making the payment, click the "Update page" button'
+      'After making the payment, click the "Update page" button',
+      'Instruction',
+      'When paying in the "Name" field, be sure to enter your Email'
     ],
     footer: [
       'All Rights Reserved',
@@ -725,7 +727,9 @@ export const lang: { [key: string]: object } = {
       'Обновить страницу',
       'Доступ оплачен на',
       'Выберите способ оплаты',
-      'После совершения оплаты, нажмите кнопку "Обновить страницу"'
+      'После совершения оплаты, нажмите кнопку "Обновить страницу"',
+      'Инструкция',
+      'При оплате в поле "Name" обязательно введите ваш Email'
     ],
     footer: [
       'Все права защищены',
@@ -1175,7 +1179,9 @@ export const lang: { [key: string]: object } = {
       'Оновити сторінку',
       'Доступ оплачений на',
       'Оберіть спосіб оплати',
-      'Після здійснення оплати, натисніть кнопку "Оновити сторінку"'
+      'Після здійснення оплати, натисніть кнопку "Оновити сторінку"',
+      'Інструкція',
+      `При оплаті у полі "Name" обов'язково введіть ваш Email`
     ],
     footer: [
       'Всі права захищені',
