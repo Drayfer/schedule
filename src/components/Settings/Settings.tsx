@@ -96,11 +96,13 @@ const Settings = () => {
   };
 
   useEffect(() => {
+    let interval: NodeJS.Timer;
     if (userId) {
-      setTimeout(() => {
+      interval = setInterval(() => {
         dispatch(getBilling(userId));
-      }, 1000);
+      }, 10000);
     }
+    return () => clearInterval(interval);
   }, [userId, dispatch]);
 
   return (
