@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Button, Divider, Drawer, Space } from 'antd';
+import moment from 'moment';
 import PaymentImg from '../../assets/images/payment/payment.webp';
 import { getBilling } from '../../store/reducers/OptionsSlice';
 
@@ -73,11 +74,15 @@ const PayMethod = (props: IPayMethod) => {
             target="_blank"
             href={`${
               amount === 200
-                ? 'https://donatello.to/t-app'
-                : 'https://donatello.to/t-app-year'
+                ? `https://t-app.diaka.ua/donate?amount=1&name=${email}&message=T-app%20Application%20${moment().format(
+                    'DD.MM.YYYY HH:mm'
+                  )}`
+                : `https://t-app.diaka.ua/donate?amount=515&name=${email}&message=T-app%20Application%20${moment().format(
+                    'DD.MM.YYYY HH:mm'
+                  )}`
             }`}
           >
-            Donatello
+            Diaka
           </Button>
 
           <Divider />

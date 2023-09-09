@@ -19,12 +19,12 @@ const NoDemoAccess = () => {
         <div className="py-10 px-3 text-center pb-128 laptop:pb-72">
           <p className="text-xl text-[#4d4d4d] font-bold">{lang[37]}</p>
           <TarifCard />
-          <Button
+          {/* <Button
             className="mt-4"
             onClick={() => userId && dispatch(getBilling(userId))}
           >
             {lang[38]}
-          </Button>
+          </Button> */}
         </div>
         <div className="w-full absolute bottom-0 bg-[#111111] pb-8 -mb-8">
           <FooterLanding />

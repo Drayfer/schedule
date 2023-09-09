@@ -84,7 +84,7 @@ const Guide = ({ landing }: { landing?: boolean }) => {
     };
 
     const contentStyle: React.CSSProperties = {
-      height: '450px',
+      height: '480px',
       color: color || '#111111',
       background: bg || 'white'
     };
