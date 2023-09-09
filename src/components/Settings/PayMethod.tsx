@@ -74,7 +74,7 @@ const PayMethod = (props: IPayMethod) => {
             target="_blank"
             href={`${
               amount === 200
-                ? `https://t-app.diaka.ua/donate?amount=1&name=${email}&message=T-app%20Application%20${moment().format(
+                ? `https://t-app.diaka.ua/donate?amount=75&name=${email}&message=T-app%20Application%20${moment().format(
                     'DD.MM.YYYY HH:mm'
                   )}`
                 : `https://t-app.diaka.ua/donate?amount=515&name=${email}&message=T-app%20Application%20${moment().format(
