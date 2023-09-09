@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import { Button, Drawer, Space } from 'antd';
+import moment from 'moment';
 
 interface IPayMethod {
   amount: number;
@@ -11,8 +12,9 @@ interface IPayMethod {
 const PayMethod = (props: IPayMethod) => {
   const { amount, children } = props;
   const mainPage = window.location.pathname !== '/dashboard';
-  const { lang } = useAppSelector((state) => ({
-    lang: state.options.lang
+  const { lang, email } = useAppSelector((state) => ({
+    lang: state.options.lang,
+    email: state.user.data?.email
   }));
 
   const [isPayMethod, setIsPayMethod] = useState(false);
@@ -61,12 +63,17 @@ const PayMethod = (props: IPayMethod) => {
             target="_blank"
             href={`${
               amount === 200
-                ? 'https://donatello.to/t-app'
-                : 'https://donatello.to/t-app-year'
+                ? `https://t-app.diaka.ua/donate?amount=1&name=${email}&message=T-app%20Application%20${moment().format(
+                    'DD.MM.YYYY HH:mm'
+                  )}`
+                : `https://t-app.diaka.ua/donate?amount=515&name=${email}&message=T-app%20Application%20${moment().format(
+                    'DD.MM.YYYY HH:mm'
+                  )}`
             }`}
           >
-            Donatello
+            Diaka
           </Button>
+          <div className="mt-4 text-center">{lang.price[41]}</div>
         </div>
       </Drawer>
     </>
