@@ -74,8 +74,8 @@ const PayMethod = (props: IPayMethod) => {
             target="_blank"
             href={`${
               amount === 200
-                ? `https://oleh-mykhailychenko.diaka.ua/donate?amount=75&name=${email}&message=donate`
-                : `https://oleh-mykhailychenko.diaka.ua/donate?amount=515&name=${email}&message=donate`
+                ? `https://oleh-mykhailychenko.diaka.ua/donate?amount=74&name=${email}&message=donate`
+                : `https://oleh-mykhailychenko.diaka.ua/donate?amount=518&name=${email}&message=donate`
             }`}
           >
             Diaka
