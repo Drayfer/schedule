@@ -5,6 +5,8 @@ import { Button, Divider, Drawer, Space } from 'antd';
 import moment from 'moment';
 import PaymentImg from '../../assets/images/payment/payment.webp';
 import { getBilling } from '../../store/reducers/OptionsSlice';
+import axios from 'axios';
+import { getTokenHeader } from '../helpers/getTokenHeader';
 
 interface IPayMethod {
   amount: number;
@@ -40,6 +42,21 @@ const PayMethod = (props: IPayMethod) => {
     }
   };
 
+  const hanldeYoomoney = async () => {
+    const link =
+      amount === 200
+        ? process.env.REACT_APP_API_PLAN1
+        : process.env.REACT_APP_API_PLAN2;
+
+    try {
+      await axios(
+        `${process.env.REACT_APP_API_URL}/option/yoomoneyMessage`,
+        getTokenHeader()
+      );
+      window.open(link, '_blank');
+    } catch (err) {}
+  };
+
   return (
     <>
       <div className="p-3 flex justify-center items-center">
@@ -72,6 +89,7 @@ const PayMethod = (props: IPayMethod) => {
             type="primary"
             size="large"
             target="_blank"
+            className="w-2/3"
             href={`${
               amount === 200
                 ? `https://oleh-mykhailychenko.diaka.ua/donate?amount=74&name=${email}&message=donate`
@@ -79,6 +97,15 @@ const PayMethod = (props: IPayMethod) => {
             }`}
           >
             Diaka
+          </Button>
+          <Button
+            type="primary"
+            size="large"
+            target="_blank"
+            className="mt-3 w-2/3"
+            onClick={hanldeYoomoney}
+          >
+            Yoomoney
           </Button>
 
           <Divider />
