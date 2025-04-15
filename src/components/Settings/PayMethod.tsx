@@ -92,8 +92,8 @@ const PayMethod = (props: IPayMethod) => {
             className="w-2/3"
             href={`${
               amount === 200
-                ? `https://tapp.gumroad.com/l/t-app-month?email=${email}&ref=${email}`
-                : `https://tapp.gumroad.com/l/t-app-year?email=${email}&ref=${email}`
+                ? `https://tapp.gumroad.com/l/t-app-month?email=${email}&ref=${email}&return_url=${window.location.href}`
+                : `https://tapp.gumroad.com/l/t-app-year?email=${email}&ref=${email}&return_url=${window.location.href}`
             }`}
           >
             Gumroad
