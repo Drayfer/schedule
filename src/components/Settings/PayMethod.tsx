@@ -92,11 +92,11 @@ const PayMethod = (props: IPayMethod) => {
             className="w-2/3"
             href={`${
               amount === 200
-                ? `https://oleh-mykhailychenko.diaka.ua/donate?amount=74&name=${email}&message=donate`
-                : `https://oleh-mykhailychenko.diaka.ua/donate?amount=518&name=${email}&message=donate`
+                ? `https://tapp.gumroad.com/l/t-app-month?email=${email}&ref=${email}`
+                : `https://tapp.gumroad.com/l/t-app-year?email=${email}&ref=${email}`
             }`}
           >
-            Diaka
+            Gumroad
           </Button>
           <Button
             type="primary"
