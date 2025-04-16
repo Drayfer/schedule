@@ -87,19 +87,24 @@ const PayMethod = (props: IPayMethod) => {
           <div className="text-xl mb-3 font-bold">
             {amount === 200 ? lang.price[14] : lang.price[25]}
           </div>
-          <Button
-            type="primary"
-            size="large"
-            target="_blank"
-            className="w-2/3"
-            href={`${
-              amount === 200
-                ? `https://tapp.gumroad.com/l/t-app-month?email=${email}&ref=${email}&return_url=${returnUrl}&wanted=true`
-                : `https://tapp.gumroad.com/l/t-app-year?email=${email}&ref=${email}&return_url=${returnUrl}&wanted=true`
-            }`}
-          >
-            Gumroad
-          </Button>
+          <div className="w-2/3 relative">
+            <Button
+              type="primary"
+              size="large"
+              target="_blank"
+              className="w-full"
+              href={`${
+                amount === 200
+                  ? `https://tapp.gumroad.com/l/t-app-month?email=${email}&ref=${email}&return_url=${returnUrl}&wanted=true`
+                  : `https://tapp.gumroad.com/l/t-app-year?email=${email}&ref=${email}&return_url=${returnUrl}&wanted=true`
+              }`}
+            >
+              Gumroad
+            </Button>
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-2 py-[2px] rounded-full shadow-md">
+              {lang.price[44]}
+            </span>
+          </div>
           <Button
             type="primary"
             size="large"

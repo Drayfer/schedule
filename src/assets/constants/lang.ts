@@ -277,7 +277,8 @@ export const lang: { [key: string]: object } = {
       'Select a Payment Method',
       'After making the payment, click the "I\'ve paid" button',
       'Instruction',
-      'When paying in the "Name" field, be sure to enter your Email'
+      'When paying in the "Name" field, be sure to enter your Email',
+      `New`
     ],
     footer: [
       'All Rights Reserved',
@@ -729,7 +730,8 @@ export const lang: { [key: string]: object } = {
       'Выберите способ оплаты',
       'После совершения оплаты, нажмите кнопку "Я оплатил(а)"',
       'Инструкция',
-      'При оплате в поле "Name" обязательно введите ваш Email'
+      'При оплате в поле "Name" обязательно введите ваш Email',
+      `Новое`
     ],
     footer: [
       'Все права защищены',
@@ -1181,7 +1183,8 @@ export const lang: { [key: string]: object } = {
       'Оберіть спосіб оплати',
       'Після здійснення оплати, натисніть кнопку "Я сплатив(ла)"',
       'Інструкція',
-      `При оплаті у полі "Name" обов'язково введіть ваш Email`
+      `При оплаті у полі "Name" обов'язково введіть ваш Email`,
+      `Нове`
     ],
     footer: [
       'Всі права захищені',
