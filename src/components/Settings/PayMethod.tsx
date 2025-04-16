@@ -57,6 +57,8 @@ const PayMethod = (props: IPayMethod) => {
     } catch (err) {}
   };
 
+  const returnUrl = encodeURIComponent(window.location.href);
+
   return (
     <>
       <div className="p-3 flex justify-center items-center">
@@ -92,8 +94,8 @@ const PayMethod = (props: IPayMethod) => {
             className="w-2/3"
             href={`${
               amount === 200
-                ? `https://tapp.gumroad.com/l/t-app-month?email=${email}&ref=${email}&return_url=${window.location.href}`
-                : `https://tapp.gumroad.com/l/t-app-year?email=${email}&ref=${email}&return_url=${window.location.href}`
+                ? `https://tapp.gumroad.com/l/t-app-month?email=${email}&ref=${email}&return_url=${returnUrl}&wanted=true`
+                : `https://tapp.gumroad.com/l/t-app-year?email=${email}&ref=${email}&return_url=${returnUrl}&wanted=true`
             }`}
           >
             Gumroad
