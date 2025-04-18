@@ -278,7 +278,8 @@ export const lang: { [key: string]: object } = {
       'After making the payment, click the "I\'ve paid" button',
       'Instruction',
       'When paying in the "Name" field, be sure to enter your Email',
-      `New`
+      `New`,
+      'The paid period will end in'
     ],
     footer: [
       'All Rights Reserved',
@@ -731,7 +732,8 @@ export const lang: { [key: string]: object } = {
       'После совершения оплаты, нажмите кнопку "Я оплатил(а)"',
       'Инструкция',
       'При оплате в поле "Name" обязательно введите ваш Email',
-      `Новое`
+      `Новое`,
+      'Оплаченный период закончится через'
     ],
     footer: [
       'Все права защищены',
@@ -1184,7 +1186,8 @@ export const lang: { [key: string]: object } = {
       'Після здійснення оплати, натисніть кнопку "Я сплатив(ла)"',
       'Інструкція',
       `При оплаті у полі "Name" обов'язково введіть ваш Email`,
-      `Нове`
+      `Нове`,
+      'Сплачений період закінчиться через'
     ],
     footer: [
       'Всі права захищені',
