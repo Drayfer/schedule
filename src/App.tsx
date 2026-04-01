@@ -19,6 +19,7 @@ import PrivacyPage from './components/pages/PrivacyPage';
 import RefundPage from './components/pages/RefundPage';
 import ResponsibilityPage from './components/pages/ResponsibilityPage';
 import GuidePage from './components/pages/GuidePage';
+import SuccessPayment from './components/pages/SuccessPayment';
 
 function App() {
   const { locale } = useAppSelector((state) => ({
@@ -62,6 +63,7 @@ function App() {
             <Route path="/refund" element={<RefundPage />} />
             <Route path="/responsibility" element={<ResponsibilityPage />} />
             <Route path="/guide" element={<GuidePage />} />
+            <Route path="/success-payment" element={<SuccessPayment />} />
             <Route path="*" element={`Not Found`} />
           </Routes>
         </BrowserRouter>
