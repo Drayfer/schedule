@@ -95,15 +95,15 @@ const Settings = () => {
     }
   };
 
-  useEffect(() => {
-    let interval: NodeJS.Timer;
-    if (userId) {
-      interval = setInterval(() => {
-        dispatch(getBilling(userId));
-      }, 10000);
-    }
-    return () => clearInterval(interval);
-  }, [userId, dispatch]);
+  // useEffect(() => {
+  //   let interval: NodeJS.Timer;
+  //   if (userId) {
+  //     interval = setInterval(() => {
+  //       dispatch(getBilling(userId));
+  //     }, 10000);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [userId, dispatch]);
 
   return (
     <>

@@ -6,8 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import axios from 'axios';
 import { getTokenHeader } from '../helpers/getTokenHeader';
 import PayMethod from './PayMethod';
-import { Button } from 'antd';
-import { getBilling } from '../../store/reducers/OptionsSlice';
 
 interface ITarifCard {
   hideDemo?: boolean;
@@ -128,7 +126,7 @@ const TarifCard = (props: ITarifCard) => {
               <Check /> {lang.price[21]}
             </Point>
           </div>
-          <PayMethod amount={200}>
+          <PayMethod period="month">
             {mainPage ? lang.price[33] : lang.price[22]}
           </PayMethod>
         </div>
@@ -166,20 +164,20 @@ const TarifCard = (props: ITarifCard) => {
               <Check /> {lang.price[31]}
             </Point>
           </div>
-          <PayMethod amount={1400}>
+          <PayMethod period="year">
             {mainPage ? lang.price[33] : lang.price[32]}
           </PayMethod>
         </div>
       </div>
 
-      {userId && (
+      {/* {userId && (
         <div className="flex justify-center items-center flex-col mt-4">
           <div className="font-semibold mb-2 text-center">{lang.price[41]}</div>
           <Button onClick={() => userId && dispatch(getBilling(userId))}>
             {lang.price[38]}
           </Button>
         </div>
-      )}
+      )} */}
 
       {/* <div className="px-8 pt-4 flex justify-center mt-10">
         <div className="w-4/6 bg-white p-4 min-w-[320px]">
